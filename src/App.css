@@ -1,0 +1,108 @@
+/* App.css - NSBM Theme */
+:root {
+  --nsbm-green: #006837; /* NSBM Dark Green */
+  --nsbm-light-green: #009245; 
+  --bg-color: #f0f4f2;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* ලස්සන font එකක් */
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background එකට ලස්සන gradient එකක් දෙමු */
+  background: linear-gradient(135deg, #006837 50%, #009245 50%);
+}
+
+.auth-card {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 25px;
+  color: var(--nsbm-green);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--nsbm-green);
+  box-shadow: 0 0 8px rgba(0, 104, 55, 0.2);
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* NSBM පෙනුම එන්න button එක green කරමු */
+.btn-login, .btn-signup {
+  background-color: var(--nsbm-green);
+  color: white;
+}
+
+.btn:hover {
+  background-color: var(--nsbm-light-green);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.switch-text {
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.switch-text a {
+  color: var(--nsbm-green);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
