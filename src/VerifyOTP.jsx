@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './App.css';
+
+const VerifyOtp = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    
+    // Signup පේජ් එකෙන් එවපු email එක මෙතනට ගන්නවා
+    const emailFromSignup = location.state?.email || "";
+
+    const [otp, setOtp] = useState('');
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleVerify = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage('');
+
+        try {
+            // ඔයාගේ Postman JSON එකට ගැලපෙන විදිහට data ටික මෙන්න
+            const verifyData = {
+                email: emailFromSignup,
+                otp: otp
+            };
+
+            const response = await axios.post(
+                'http://localhost:8099/api/v1/auth/verify', // Backend URL එක පරීක්ෂා කරන්න
+                verifyData
+            );
+
+            setMessage('✅ Verification Successful! Redirecting to login...');
+            setTimeout(() => navigate('/'), 2000);
+        } catch (error) {
+            console.error('❌ Verification Error:', error.response?.data);
+            setMessage(error.response?.data?.message || '❌ Invalid OTP. Try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="auth-container">
+            <div className="auth-card">
+                <h2 className="auth-title">Verify OTP</h2>
+                <p className="subtitle">We've sent a code to {emailFromSignup}</p>
+                
+                <form onSubmit={handleVerify} className="auth-form">
+                    <div className="form-group">
+                        <label className="form-label">Enter OTP Code:</label>
+                        <input
+                            type="text"
+                            placeholder="6-digit code"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                            required
+                            className="form-input"
+                            maxLength="6"
+                            style={{ textAlign: 'center', fontSize: '20px', letterSpacing: '5px' }}
+                        />
+                    </div>
+
+                    <button type="submit" className="btn-primary" disabled={loading}>
+                        {loading ? 'Verifying...' : 'Verify OTP'}
+                    </button>
+                </form>
+
+                <div className="auth-footer">
+                    <button className="resend-btn" onClick={() => alert('OTP Resent!')}>
+                        Resend OTP
+                    </button>
+                </div>
+                
+                {message && (
+                    <p className={`status-msg ${message.includes('Successful') ? 'success' : 'error'}`}>
+                        {message}
+                    </p>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default VerifyOtp;

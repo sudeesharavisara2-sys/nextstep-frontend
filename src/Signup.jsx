@@ -1,98 +1,115 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 import './App.css';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        phoneNumber: '',
-        gender: 'MALE',  // Default value
-        role: 'USER'
-    });
-    const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+    gender: 'MALE',
+    role: 'USER', // Default role එක USER
+  });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setMessage('');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-        try {
-            // Send data to backend
-            const response = await axios.post('http://localhost:8099/api/v1/auth/register', formData);
-            setMessage("Registration successful! Please check your email for the OTP.");
-            console.log("Success:", response.data);
-        } catch (error) {
-            setMessage("Registration failed: " + (error.response?.data?.message || "An error occurred while submitting data."));
-            console.error("Error:", error.response?.data);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
 
-    return (
-        <div className="auth-container">
-            <div className="auth-card">
-                <h2>Create Account</h2>
-                <p className="subtitle">Join with NextStep Portal</p>
-                <form onSubmit={handleSignup}>
-                    <div className="input-group">
-                        <label>First Name</label>
-                        <input name="firstName" placeholder="John" onChange={handleChange} required />
-                    </div>
-                    <div className="input-group">
-                        <label>Last Name</label>
-                        <input name="lastName" placeholder="Doe" onChange={handleChange} required />
-                    </div>
-                    <div className="input-group">
-                        <label>Email Address</label>
-                        <input name="email" type="email" placeholder="name@gmail.com" onChange={handleChange} required />
-                    </div>
-                    <div className="input-group">
-                        <label>Phone Number</label>
-                        <input name="phoneNumber" placeholder="+94771234567" onChange={handleChange} required />
-                    </div>
-                    <div className="input-group">
-                        <label>Gender</label>
-                        <select name="gender" onChange={handleChange} style={selectStyle}>
-                            <option value="MALE">Male</option>
-                            <option value="FEMALE">Female</option>
-                        </select>
-                    </div>
-                    <div className="input-group">
-                        <label>Password</label>
-                        <input name="password" type="password" placeholder="••••••••" onChange={handleChange} required />
-                    </div>
-                    <button type="submit" className="btn" disabled={loading}>
-                        {loading ? "Registering..." : "Sign Up"}
-                    </button>
-                    {message && (
-                        <p className="switch-text" style={{color: message.includes('successful') ? '#006837' : 'red'}}>
-                            {message}
-                        </p>
-                    )}
-                </form>
-                <p className="switch-text">
-                    Already have an account? <a href="/">Login</a>
-                </p>
-            </div>
+    try {
+      const response = await axios.post(
+        'http://localhost:8099/api/v1/auth/register',
+        formData
+      );
+
+      console.log('✅ Registration Success:', response.data);
+      setMessage('✅ Success! Redirecting to OTP verification...');
+
+      setTimeout(() => {
+        navigate('/verify-otp', { state: { email: formData.email } });
+      }, 1500);
+    } catch (error) {
+      console.error('❌ Error Response:', error.response?.data);
+      setMessage(error.response?.data?.message || '❌ Registration failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="auth-title">Create Account</h2>
+        <form onSubmit={handleSignup} className="auth-form">
+          
+          <div className="form-group">
+            <input name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required className="form-input" />
+          </div>
+
+          <div className="form-group">
+            <input name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required className="form-input" />
+          </div>
+
+          <div className="form-group">
+            <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} required className="form-input" />
+          </div>
+
+          <div className="form-group">
+            <input name="phoneNumber" placeholder="Phone (+94...)" value={formData.phoneNumber} onChange={handleChange} required className="form-input" />
+          </div>
+
+          {/* Gender Row */}
+<div className="gender-row">
+  <label className="form-label-inline">Gender:</label>
+  <div className="radio-options">
+    <label className="radio-option">
+      <input type="radio" name="gender" value="MALE" checked={formData.gender === 'MALE'} onChange={handleChange} /> Male
+    </label>
+    <label className="radio-option">
+      <input type="radio" name="gender" value="FEMALE" checked={formData.gender === 'FEMALE'} onChange={handleChange} /> Female
+    </label>
+  </div>
+</div>
+
+{/* Register As (Role) Row */}
+<div className="role-row">
+  <label className="form-label-inline">Role:</label>
+  <select name="role" value={formData.role} onChange={handleChange} className="select-input" style={{flex: 1}}>
+    <option value="USER">User</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+</div>
+
+          
+          <div className="form-group">
+            <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="form-input" />
+          </div>
+
+          <button type="submit" className="btn-primary" disabled={loading}>
+            {loading ? 'Registering...' : 'Sign Up'}
+          </button>
+
+          {message && <p className={`status-msg ${message.includes('Success') ? 'success' : 'error'}`}>{message}</p>}
+        </form>
+
+        <div className="auth-footer">
+          <p className="switch-text">Already have an account? <Link to="/" className="auth-link">Login here</Link></p>
         </div>
-    );
-};
-
-const selectStyle = {
-    width: '100%',
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #cbd5e1',
-    backgroundColor: 'white'
+      </div>
+    </div>
+  );
 };
 
 export default Signup;
