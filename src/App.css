@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif; /* ලස්සන font එකක් */
+  font-family: 'Poppins', sans-serif; /* Clean and modern font */
   background-color: var(--bg-color);
   color: var(--text-dark);
 }
@@ -19,7 +19,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background එකට ලස්සන gradient එකක් දෙමු */
+  /* Apply a decorative background gradient */
   background: linear-gradient(135deg, #006837 50%, #009245 50%);
 }
 
@@ -80,7 +80,7 @@ input:focus {
   text-transform: uppercase;
 }
 
-/* NSBM පෙනුම එන්න button එක green කරමු */
+/* Green theme button for NSBM branding */
 .btn-login, .btn-signup {
   background-color: var(--nsbm-green);
   color: white;
@@ -106,7 +106,8 @@ input:focus {
 .switch-text a:hover {
   text-decoration: underline;
 }
-/* Label */
+
+/* Label Styles */
 .form-label {
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -114,15 +115,13 @@ input:focus {
   color: #333;
 }
 
-
-
-/* Primary button */
+/* Primary Button Styles */
 .btn-primary {
-  background: linear-gradient(135deg, #006837 50%, #009245 50%); /* 🔹 Green gradient */
+  background: linear-gradient(135deg, #006837 50%, #009245 50%); /* Green brand gradient */
   color: #fff;
   padding: 0.9rem 1.2rem;
   border: none;
-  border-radius: 50px; /* pill shape */
+  border-radius: 50px; /* Pill shape */
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -131,23 +130,20 @@ input:focus {
   letter-spacing: 0.5px;
 }
 
-/* Hover effect */
+/* Hover Effect for Primary Button */
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  background: linear-gradient(135deg, #009245 50%, #006837 50%); /* 🔄 reverse gradient */
+  background: linear-gradient(135deg, #009245 50%, #006837 50%); /* Reversed gradient */
 }
 
-/* Disabled state */
+/* Disabled State Styles */
 .btn-primary:disabled {
   background: #999;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
-
-
-
 
 .forgot-password-link {
     text-align: right;
@@ -180,32 +176,17 @@ input:focus {
     margin-top: 10px;
 }
 
-
-
 .select-input {
   cursor: pointer;
   background-color: white;
-  appearance: none; /* Default arrow එක අයින් කරලා custom style එකක් ගන්න */
+  appearance: none; /* Remove default arrow to apply custom styles */
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 1em;
 }
 
-.form-label {
-  display: block;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #1e293b;
-}
-
-
-
-
-/* Container styles */
-
+/* Container Styles (Redefined for Consistency) */
 .auth-card {
   background: white;
   padding: 40px;
@@ -216,11 +197,11 @@ input:focus {
   text-align: center;
 }
 
-/* Form layout */
+/* Form Layout Styles */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Fields අතර පරතරය */
+  gap: 15px; /* Spacing between input fields */
 }
 
 .form-group {
@@ -236,21 +217,12 @@ input:focus {
   font-size: 15px;
 }
 
-/* අර අවුල් වෙලා තිබ්බ කොටස හදන හැටි (Gender & Role) */
+/* Gender & Role Selection Styles */
 .role-group {
   margin: 10px 0;
 }
 
-.form-label {
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-
-
-/* Dropdown එක ලස්සන කරන්න */
+/* Enhanced Dropdown Styling */
 .select-input {
   padding: 12px;
   border: 1px solid #ddd;
@@ -259,32 +231,12 @@ input:focus {
   cursor: pointer;
 }
 
-/* Button styles */
-.btn-primary {
-  background-color: #006837;
-  color: white;
-  padding: 14px;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #004a27;
-}
-
-
-
-
-/* Gender සහ Label එකම පේළියට ගන්න */
+/* Align Gender and Label in a Single Row */
 .gender-row {
   display: flex;
-  flex-direction: row; /* පේළියක් ලෙස */
-  align-items: center; /* සිරස් අතට මැදට (Vertical center) */
-  gap: 15px; /* Label එක සහ Options අතර පරතරය */
+  flex-direction: row; /* Horizontal alignment */
+  align-items: center; /* Vertical centering */
+  gap: 15px; /* Spacing between label and options */
   margin: 10px 0;
 }
 
@@ -292,8 +244,8 @@ input:focus {
   font-weight: bold;
   font-size: 14px;
   color: #333;
-  margin: 0; /* අනවශ්‍ය ඉඩ ඉවත් කිරීමට */
-  min-width: 60px; /* Label එකට ස්ථාවර ඉඩක් දීමට */
+  margin: 0; /* Clear unnecessary spacing */
+  min-width: 60px; /* Fixed width for the label */
 }
 
 .radio-options {
@@ -310,7 +262,7 @@ input:focus {
   cursor: pointer;
 }
 
-/* Dropdown එක තියෙන පේළියත් මෙහෙම හදමු */
+/* Align Role Dropdown in a Row */
 .role-row {
   display: flex;
   flex-direction: row;
@@ -318,8 +270,6 @@ input:focus {
   gap: 15px;
   margin: 10px 0;
 }
-
-
 
 .resend-btn {
     background: none;
@@ -329,20 +279,4 @@ input:focus {
     cursor: pointer;
     margin-top: 15px;
     text-decoration: underline;
-}
-
-.status-msg.success {
-    color: #006837;
-    background: #e6f4ea;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
-}
-
-.status-msg.error {
-    color: #d32f2f;
-    background: #fdecea;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
 }

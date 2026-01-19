@@ -1,26 +1,37 @@
+/* --- Base Layout --- */
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #4e73df 0%, #7130cb 100%);
+    color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Sidebar Styling */
+/* --- Sidebar (Floating Glassmorphism Effect) --- */
 .sidebar {
     width: 280px;
-    background-color: #1a1a2e;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
     color: white;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 30px 20px;
     position: fixed;
-    height: 100vh;
+    height: 93vh;
+    top: 3vh;
+    left: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .logo h2 {
-    color: #4e73df;
     text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: #fff;
 }
 
 .menu-list {
@@ -30,35 +41,41 @@
 }
 
 .menu-item {
-    padding: 15px 20px;
-    margin-bottom: 8px;
-    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .menu-item:hover {
-    background-color: #4e73df;
+    background: rgba(255, 255, 255, 0.2);
     transform: translateX(5px);
 }
 
 .logout-btn {
-    background-color: #e74a3b;
+    background-color: #f64f59;
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 20px;
+    transition: 0.3s;
 }
 
-/* Main Content Styling */
+.logout-btn:hover {
+    background-color: #ff33e4;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+/* --- Main Content Area --- */
 .main-content {
-    margin-left: 280px; /* Sidebar එකට ඉඩ තැබීම */
+    margin-left: 330px; /* Sidebar width + 50px spacing gap */
     flex: 1;
     padding: 40px;
+    transition: all 0.3s ease;
 }
 
 .top-nav {
@@ -66,40 +83,130 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 20px;
 }
 
+.top-nav h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* --- Dashboard Grid Cards --- */
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
 }
 
 .info-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    border-top: 5px solid #4e73df;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .info-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
 .info-card h3 {
-    margin-bottom: 10px;
-    color: #333;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.info-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
 }
 
 .view-btn {
-    margin-top: 15px;
+    background-color: #fff;
+    color: #4e73df;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.view-btn:hover {
     background-color: #4e73df;
     color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+}
+
+/* --- Responsive Media Queries --- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .sidebar { width: 240px; left: 10px; }
+    .main-content { margin-left: 270px; }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    .dashboard-layout { flex-direction: column; }
+    
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        padding: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .logo h2 { margin-bottom: 0; font-size: 1.2rem; }
+    
+    .menu-list {
+        display: none; /* Hide standard menu on mobile (Optional: use horizontal scroll instead) */
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .top-nav { flex-direction: column; text-align: center; gap: 10px; }
+}
+
+.user-profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.role-badge {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Specific theme color for Admin */
+.admin-bg {
+    background: linear-gradient(to right, #f64f59, #c471ed);
+    color: white;
+}
+
+/* Specific theme color for regular User */
+.user-bg {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
 }

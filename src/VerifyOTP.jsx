@@ -7,7 +7,7 @@ const VerifyOtp = () => {
     const location = useLocation();
     const navigate = useNavigate();
     
-    // Signup පේජ් එකෙන් එවපු email එක මෙතනට ගන්නවා
+    // Retrieve the email passed from the Signup page state
     const emailFromSignup = location.state?.email || "";
 
     const [otp, setOtp] = useState('');
@@ -20,14 +20,14 @@ const VerifyOtp = () => {
         setMessage('');
 
         try {
-            // ඔයාගේ Postman JSON එකට ගැලපෙන විදිහට data ටික මෙන්න
+            // Prepare the payload data as expected by the backend API
             const verifyData = {
                 email: emailFromSignup,
                 otp: otp
             };
 
             const response = await axios.post(
-                'http://localhost:8099/api/v1/auth/verify', // Backend URL එක පරීක්ෂා කරන්න
+                'http://localhost:8099/api/v1/auth/verify', // Ensure the backend URL is correct
                 verifyData
             );
 

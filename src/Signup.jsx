@@ -12,7 +12,7 @@ const Signup = () => {
     password: '',
     phoneNumber: '',
     gender: 'MALE',
-    role: 'USER', // Default role එක USER
+    role: 'USER', // Set USER as the default role
   });
 
   const [message, setMessage] = useState('');
@@ -70,28 +70,27 @@ const Signup = () => {
             <input name="phoneNumber" placeholder="Phone (+94...)" value={formData.phoneNumber} onChange={handleChange} required className="form-input" />
           </div>
 
-          {/* Gender Row */}
-<div className="gender-row">
-  <label className="form-label-inline">Gender:</label>
-  <div className="radio-options">
-    <label className="radio-option">
-      <input type="radio" name="gender" value="MALE" checked={formData.gender === 'MALE'} onChange={handleChange} /> Male
-    </label>
-    <label className="radio-option">
-      <input type="radio" name="gender" value="FEMALE" checked={formData.gender === 'FEMALE'} onChange={handleChange} /> Female
-    </label>
-  </div>
-</div>
+          {/* Gender Selection Section */}
+          <div className="gender-row">
+            <label className="form-label-inline">Gender:</label>
+            <div className="radio-options">
+              <label className="radio-option">
+                <input type="radio" name="gender" value="MALE" checked={formData.gender === 'MALE'} onChange={handleChange} /> Male
+              </label>
+              <label className="radio-option">
+                <input type="radio" name="gender" value="FEMALE" checked={formData.gender === 'FEMALE'} onChange={handleChange} /> Female
+              </label>
+            </div>
+          </div>
 
-{/* Register As (Role) Row */}
-<div className="role-row">
-  <label className="form-label-inline">Role:</label>
-  <select name="role" value={formData.role} onChange={handleChange} className="select-input" style={{flex: 1}}>
-    <option value="USER">User</option>
-    <option value="ADMIN">Admin</option>
-  </select>
-</div>
-
+          {/* User Role Selection Section */}
+          <div className="role-row">
+            <label className="form-label-inline">Role:</label>
+            <select name="role" value={formData.role} onChange={handleChange} className="select-input" style={{flex: 1}}>
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
           
           <div className="form-group">
             <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="form-input" />

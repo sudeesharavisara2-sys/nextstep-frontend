@@ -5,7 +5,7 @@ import './App.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(''); // OTP එක සඳහා අලුත් state එකක්
+  const [otp, setOtp] = useState(''); // New state for the OTP code
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -13,7 +13,7 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // 1. Email එකට OTP එකක් ගෙන්න ගැනීම
+  // 1. Request OTP to the provided Email address
   const handleSendOtp = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     }
   };
 
-  // 2. OTP එක සහ New Password එක යවා Reset කිරීම
+  // 2. Submit OTP and New Password to reset
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,10 +41,10 @@ const ForgotPassword = () => {
     }
 
     try {
-      // Backend එක බලාපොරොත්තු වන විදිහට payload එක හදමු
+      // Construct payload according to backend requirements
       const payload = { 
         email: email, 
-        otp: otp, // මෙතන දැන් OTP එකත් යනවා
+        otp: otp, // Including the OTP in the payload
         password: password, 
         confirmPassword: confirmPassword 
       };
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
         <h2 className="auth-title">Forgot Password</h2>
         
         {!isOtpSent ? (
-          /* පළමු පියවර: Email එක ඇතුළත් කිරීම */
+          /* Step 1: Email Entry */
           <form onSubmit={handleSendOtp} className="auth-form">
             <p className="subtitle">Enter your email to receive an OTP</p>
             <div className="form-group">
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
             </button>
           </form>
         ) : (
-          /* දෙවන පියවර: OTP සහ අලුත් Password ඇතුළත් කිරීම */
+          /* Step 2: Enter OTP and New Password */
           <form onSubmit={handleResetPassword} className="auth-form">
             <p className="subtitle" style={{color: '#006837'}}>OTP Sent to {email}</p>
             
