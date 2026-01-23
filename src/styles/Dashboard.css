@@ -2,7 +2,7 @@
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(135deg, #110284 35%, #049d1e 100%);
+    background: linear-gradient(135deg, #01185e 35%, #42cc1b 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
 }
@@ -10,7 +10,7 @@
 /* --- Sidebar (Floating Glassmorphism Effect) --- */
 .sidebar {
     width: 280px;
-    background: rgba(238, 233, 233, 0.1);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     color: white;
     display: flex;
@@ -128,7 +128,7 @@
 
 .view-btn {
     background-color: #fff;
-    color: #61c7de;
+    color: #4e73df;
     border: none;
     padding: 10px 25px;
     border-radius: 50px;
@@ -138,7 +138,7 @@
 }
 
 .view-btn:hover {
-    background-color: #0eb792;
+    background-color: #4e73df;
     color: white;
 }
 
