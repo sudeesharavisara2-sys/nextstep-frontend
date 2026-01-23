@@ -2,7 +2,7 @@
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(135deg, #4e73df 0%, #7130cb 100%);
+    background: linear-gradient(135deg, #01185e 35%, #42cc1b 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
 }
