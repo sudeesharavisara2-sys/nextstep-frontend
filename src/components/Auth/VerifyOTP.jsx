@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './App.css';
-
+import '../../styles/App.css';
 const VerifyOtp = () => {
     const location = useLocation();
     const navigate = useNavigate();

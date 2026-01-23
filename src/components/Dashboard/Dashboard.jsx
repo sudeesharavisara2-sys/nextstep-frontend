@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
+import '../../styles/Dashboard.css';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     
-    // localStorage එකෙන් දත්ත ලබා ගනිමු
     const userRole = localStorage.getItem('userRole') || 'USER'; 
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
@@ -21,7 +20,6 @@ const Dashboard = () => {
         navigate('/login');
     };
 
-    // User ට පේන සේවාවන් සහ ඒවායේ Paths
     const allServices = [
         { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
@@ -32,7 +30,6 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    // වර්තමාන user ට අදාළ services පමණක් පෙරා ගැනීම
     const filteredServices = allServices.filter(service => 
         service.roles.includes(userRole)
     );
@@ -72,7 +69,6 @@ const Dashboard = () => {
                         <div key={index} className="info-card">
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
-                            {/* User Side Navigation Button */}
                             <button 
                                 className="view-btn"
                                 onClick={() => navigate(service.path)}

@@ -2,7 +2,7 @@
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(135deg, #4e73df 0%, #7130cb 100%);
+    background: linear-gradient(135deg, #3fc3ba 15%, #30cb4a 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
 }
@@ -128,7 +128,7 @@
 
 .view-btn {
     background-color: #fff;
-    color: #4e73df;
+    color: #129ebe;
     border: none;
     padding: 10px 25px;
     border-radius: 50px;
@@ -138,7 +138,7 @@
 }
 
 .view-btn:hover {
-    background-color: #4e73df;
+    background-color: #0eb792;
     color: white;
 }
 

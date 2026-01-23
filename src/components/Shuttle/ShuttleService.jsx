@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
-import './ShuttleService.css'; // අලුත් CSS ෆයිල් එක
+import '../../styles/Dashboard.css';
+import '../../styles/ShuttleService.css'; 
 
 const ShuttleService = () => {
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ const ShuttleService = () => {
             <main className="main-content">
                 <header className="top-nav shuttle-header">
                     <div>
-                        <h1>🚐 Shuttle Service</h1>
+                        <h1>Bus Shuttle Service</h1>
                         <p>Search routes and view bus details</p>
                     </div>
                 </header>
@@ -90,7 +90,7 @@ const ShuttleService = () => {
                                     <span className="bus-number">{shuttle.busNumber}</span>
                                 </div>
 
-                                <p className="shuttle-route">📍 {shuttle.route}</p>
+                                <p className="shuttle-route">Route: {shuttle.route}</p>
                                 
                                 <div className="time-grid">
                                     <div className="time-slot">
@@ -109,7 +109,7 @@ const ShuttleService = () => {
                                     className="call-driver-btn"
                                     onClick={() => window.open(`tel:${shuttle.phoneNumber}`)}
                                 >
-                                    📞 Call Driver ({shuttle.phoneNumber})
+                                    Call Driver ({shuttle.phoneNumber})
                                 </button>
                             </div>
                         </div>

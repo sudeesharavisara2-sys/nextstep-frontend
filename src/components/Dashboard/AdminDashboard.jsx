@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
+import '../../styles/Dashboard.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -64,7 +64,6 @@ const AdminDashboard = () => {
                             <p>{service.desc}</p>
                             
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                {/* හැම කාඩ් එකකම පේන සාමාන්‍ය බටන් එක */}
                                 <button 
                                     className="view-btn" 
                                     style={{ background: 'linear-gradient(to right, #f64f59, #c471ed)', color: 'white' }}
@@ -73,13 +72,12 @@ const AdminDashboard = () => {
                                     Manage Service
                                 </button>
 
-                                {/* Shuttle Service කාඩ් එකේදී විතරක් පේන විශේෂ බටන් එක */}
                                 {service.name === "Shuttle Service" && (
                                     <button 
                                         className="view-btn" 
                                         style={{ background: '#006837', color: 'white', border: 'none' }}
                                         onClick={(e) => {
-                                            e.stopPropagation(); // Card click එක නොවී බටන් එක විතරක් වැඩ කරන්න
+                                            e.stopPropagation(); 
                                             navigate('/add-shuttle');
                                         }}
                                     >

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
-import './ShuttleService.css'; 
+import '../../styles/Dashboard.css';
+import '../../styles/ShuttleService.css'; 
 
 const AddShuttle = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const AddShuttle = () => {
         eveningDepartureTime: '',
         phoneNumber: '',
         additionalDetails: '',
-        photos: ['', '', ''] // Photo links 3ක් සඳහා
+        photos: ['', '', ''] 
     });
 
     const handleChange = (e) => {
@@ -29,7 +29,7 @@ const AddShuttle = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("New Shuttle Data:", formData);
-        alert("Shuttle Added Successfully! (Connecting to Backend...)");
+        alert("Shuttle Added Successfully!");
         navigate('/admin-dashboard');
     };
 

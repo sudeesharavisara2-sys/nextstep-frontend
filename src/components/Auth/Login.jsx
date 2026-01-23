@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import './App.css';
+// නිවැරදි කරන ලද CSS Path එක පහත දැක්වේ
+import '../../styles/App.css'; 
 
 const Login = () => {
     const navigate = useNavigate();

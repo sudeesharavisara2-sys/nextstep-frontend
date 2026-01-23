@@ -1,20 +1,29 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Signup from './Signup';
-import VerifyOTP from './VerifyOTP';
-import Login from './Login';
-import ForgotPassword from './ForgotPassword';
-import Dashboard from './Dashboard';
-import AdminDashboard from './AdminDashboard'; 
-import ShuttleService from './ShuttleService';
-import AddShuttle from './AddShuttle'; // අලුතින් එකතු කළා
-import './App.css';
+
+// Auth Components
+import Signup from './components/Auth/Signup';
+import VerifyOTP from './components/Auth/VerifyOTP';
+import Login from './components/Auth/Login';
+import ForgotPassword from './components/Auth/ForgotPassword';
+
+// Dashboard Components
+import Dashboard from './components/Dashboard/Dashboard';
+import AdminDashboard from './components/Dashboard/AdminDashboard'; 
+
+// Shuttle Components
+import ShuttleService from './components/Shuttle/ShuttleService';
+import AddShuttle from './components/Shuttle/AddShuttle';
+
+// Styles
+import './styles/App.css'; 
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
+          {/* Default Route */}
           <Route path="/" element={<Navigate to="/login" />} />
           
           {/* Auth Routes */}
@@ -23,14 +32,15 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
-          {/* Dashboards */}
+          {/* User Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
-          {/* Service Routes */}
           <Route path="/shuttle-service" element={<ShuttleService />} />
-          <Route path="/add-shuttle" element={<AddShuttle />} /> {/* අලුත් බස් ඇඩ් කරන පාර */}
+
+          {/* Admin Routes */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/add-shuttle" element={<AddShuttle />} />
           
+          {/* Redirect invalid URLs to Login */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
