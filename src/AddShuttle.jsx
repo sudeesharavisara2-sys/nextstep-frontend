@@ -7,13 +7,27 @@ const AddShuttle = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const res = await fetch('/api/shuttle/add', { method: 'POST', body: formData });
 
-        if (res.ok) {
-            alert("Shuttle Added Successfully!");
-            navigate('/admin-dashboard'); // Go back to the table
-        } else {
-            alert("Error saving shuttle.");
+        try {
+            const res = await fetch('http://localhost:8099/api/v1/shuttle/add', { 
+                method: 'POST', 
+                headers: {
+                    // Added token from localStorage
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: formData 
+            });
+
+            if (res.ok) {
+                alert("Shuttle Added Successfully!");
+                navigate('/admin-dashboard'); 
+            } else {
+                const errorData = await res.text();
+                alert("Error: " + errorData);
+            }
+        } catch (error) {
+            console.error("Connection error:", error);
+            alert("Could not connect to server.");
         }
     };
 
@@ -35,10 +49,27 @@ const AddShuttle = () => {
                             <label className="form-label">Route</label>
                             <input type="text" className="form-control" name="route" required />
                         </div>
+                        {/* New Fields added to match your JSON structure */}
                         <div className="col-md-6">
-                            <button type="button" className="btn btn-secondary w-100" onClick={() => navigate('/admin-dashboard')}>Cancel</button>
+                            <label className="form-label">Morning Start Time</label>
+                            <input type="text" className="form-control" name="morningStartTime" placeholder="e.g. 06:30 AM" />
                         </div>
                         <div className="col-md-6">
+                            <label className="form-label">Evening Departure Time</label>
+                            <input type="text" className="form-control" name="eveningDepartureTime" placeholder="e.g. 05:15 PM" />
+                        </div>
+                        <div className="col-md-12">
+                            <label className="form-label">Phone Number</label>
+                            <input type="text" className="form-control" name="phoneNumber" required />
+                        </div>
+                        <div className="col-12">
+                            <label className="form-label">Upload Images</label>
+                            <input type="file" className="form-control" name="files" multiple />
+                        </div>
+                        <div className="col-md-6 mt-4">
+                            <button type="button" className="btn btn-secondary w-100" onClick={() => navigate('/admin-dashboard')}>Cancel</button>
+                        </div>
+                        <div className="col-md-6 mt-4">
                             <button type="submit" className="btn btn-success w-100">Save Shuttle</button>
                         </div>
                     </div>

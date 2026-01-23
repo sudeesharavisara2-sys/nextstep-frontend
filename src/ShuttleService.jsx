@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css'; // Assuming common layout styles
-import './ShuttleService.css'; // Your new specific styles
+import './Dashboard.css';
+import './ShuttleService.css';
 
 const ShuttleService = () => {
     const navigate = useNavigate();
@@ -14,7 +14,12 @@ const ShuttleService = () => {
 
     const loadShuttles = async () => {
         try {
-            const res = await fetch('/api/shuttle/all');
+            // Added 8099 port and v1 prefix to match your backend
+            const res = await fetch('http://localhost:8099/api/v1/shuttle/all', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             // Sort A-Z by route
             setShuttles(data.sort((a, b) => a.route.localeCompare(b.route)));
@@ -23,15 +28,13 @@ const ShuttleService = () => {
         }
     };
 
-    // Filter logic for the search bar
     const filteredShuttles = shuttles.filter(s => 
-        s.route.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        s.busName.toLowerCase().includes(searchTerm.toLowerCase())
+        (s.route && s.route.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (s.busName && s.busName.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     return (
         <div className="dashboard-layout">
-            {/* Sidebar - Matching your PM's structure */}
             <aside className="sidebar">
                 <div className="logo"><h2>NEXTSTEP</h2></div>
                 <ul className="menu-list">
@@ -39,14 +42,14 @@ const ShuttleService = () => {
                     <li className="menu-item active">Shuttle Service</li>
                 </ul>
                 <div className="sidebar-note">
-                    <strong>Note:</strong> Shuttle times may vary due to traffic conditions. Please contact the driver for urgent inquiries.
+                    <strong>Note:</strong> Shuttle times may vary due to traffic conditions.
                 </div>
             </aside>
 
             <main className="main-content">
                 <header className="shuttle-header">
                     <h1>Shuttle Service</h1>
-                    <p style={{ opacity: 0.7 }}>Find and track your university shuttle routes.</p>
+                    <p style={{ opacity: 0.7 }}>Find and track university shuttle routes.</p>
                 </header>
 
                 <div className="search-container">
@@ -62,7 +65,6 @@ const ShuttleService = () => {
                 <div className="dashboard-cards">
                     {filteredShuttles.map((shuttle) => (
                         <div key={shuttle.id} className="info-card" style={{ padding: 0, overflow: 'hidden' }}>
-                            {/* Photo Gallery - Shows up to 3 images */}
                             <div className="shuttle-photo-gallery">
                                 {shuttle.images && shuttle.images.length > 0 ? (
                                     shuttle.images.slice(0, 3).map((img, idx) => (
@@ -99,26 +101,16 @@ const ShuttleService = () => {
                                     </div>
                                 </div>
 
-                                <p className="shuttle-details">
-                                    {shuttle.additionalDetails || "No additional info available."}
-                                </p>
-
                                 <button 
                                     className="call-driver-btn"
                                     onClick={() => window.location.href = `tel:${shuttle.phoneNumber}`}
                                 >
-                                    <i className="bi bi-telephone-outbound"></i> Call Driver
+                                    Call Driver
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
-                
-                {filteredShuttles.length === 0 && (
-                    <div className="text-center mt-5" style={{opacity: 0.5}}>
-                        <p>No shuttles found matching your search.</p>
-                    </div>
-                )}
             </main>
         </div>
     );

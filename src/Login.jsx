@@ -21,23 +21,32 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:8099/api/v1/auth/login', loginData);
             
-            // Destructure data received from the backend
+            // Destructure data
             const { accessToken, token, role, firstName } = response.data;
+            
+            // 1. Token එක තහවුරු කරගැනීම
             const finalToken = accessToken || token;
 
             if (finalToken) {
-                // Store user credentials and token in localStorage
-                localStorage.setItem('token', finalToken);
-                localStorage.setItem('userRole', role); // Expected values: 'ADMIN' or 'USER'
+                // 2. LocalStorage එකේ දත්ත තැන්පත් කිරීම
+                // AdminDashboard එකේ පාවිච්චි කරන්නේ 'accessToken' හෝ 'token' ද යන්න තහවුරු කරගන්න
+                localStorage.setItem('accessToken', finalToken); 
+                localStorage.setItem('token', finalToken); // Safe side එකට දෙකම save කරන්න
+                localStorage.setItem('userRole', role); 
                 localStorage.setItem('userName', firstName || 'User');
                 
                 setMessage("✅ Login Successful! Redirecting...");
 
-                // Determine navigation path based on user role
+                // 3. Role-based Navigation logic එක පරීක්ෂා කිරීම
+                // Backend එකෙන් එන්නේ "ADMIN" ද නැත්නම් "ROLE_ADMIN" ද යන්න මෙහිදී වැදගත් වේ.
                 setTimeout(() => {
-                    if (role === 'ADMIN') {
+                    const userRole = role ? role.toUpperCase() : "";
+                    
+                    if (userRole === 'ADMIN' || userRole === 'ROLE_ADMIN') {
+                        console.log("Navigating to Admin Dashboard...");
                         navigate('/admin-dashboard');
                     } else {
+                        console.log("Navigating to User Dashboard...");
                         navigate('/dashboard');
                     }
                 }, 1000);

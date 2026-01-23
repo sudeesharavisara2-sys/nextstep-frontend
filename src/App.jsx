@@ -7,7 +7,7 @@ import ForgotPassword from './ForgotPassword';
 import Dashboard from './Dashboard';
 import AdminDashboard from './AdminDashboard'; 
 import ShuttleService from './ShuttleService';
-import AddShuttle from './AddShuttle'; // අලුතින් එකතු කළා
+import AddShuttle from './AddShuttle';
 import './App.css';
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          {/* Default Route */}
           <Route path="/" element={<Navigate to="/login" />} />
           
           {/* Auth Routes */}
@@ -23,14 +24,15 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
-          {/* Dashboards */}
+          {/* User Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
-          {/* Service Routes */}
           <Route path="/shuttle-service" element={<ShuttleService />} />
-          <Route path="/add-shuttle" element={<AddShuttle />} /> {/* අලුත් බස් ඇඩ් කරන පාර */}
+
+          {/* Admin Routes */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/add-shuttle" element={<AddShuttle />} />
           
+          {/* වැරදි URL එකක් ගැසූ විට ලොගින් පිටුවට යැවීම */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>

@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from 'bootstrap'; // Ensure bootstrap is installed via npm
 import './Dashboard.css';
-import './App.css'; // Importing your shuttle styles
+import './App.css'; 
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const userName = localStorage.getItem('userName') || 'Admin';
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken'); 
 
-    // --- Shuttle Specific State ---
+    // --- Shuttle State ---
     const [shuttles, setShuttles] = useState([]);
-    const [formData, setFormData] = useState({ 
-        id: '', busName: '', busNumber: '', route: '', 
-        morningStartTime: '', eveningDepartureTime: '', 
-        phoneNumber: '', additionalDetails: '' 
-    });
-    const [shuttleModal, setShuttleModal] = useState(null);
 
     useEffect(() => {
         if (!token) {
             navigate('/login');
-        }
-        // Initialize Bootstrap Modal
-        const modalElement = document.getElementById('shuttleModal');
-        if (modalElement) {
-            setShuttleModal(new Modal(modalElement));
         }
         loadShuttles();
     }, [token, navigate]);
@@ -33,36 +21,31 @@ const AdminDashboard = () => {
     // --- Shuttle Logic Functions ---
     const loadShuttles = async () => {
         try {
-            const res = await fetch('/api/shuttle/all');
+            const res = await fetch('http://localhost:8099/api/v1/shuttle/all', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
             const data = await res.json();
             setShuttles(data);
-        } catch (err) { console.error("Failed to load shuttles", err); }
-    };
-
-    const handleOpenModal = (shuttle = null) => {
-        if (shuttle) {
-            setFormData(shuttle);
-        } else {
-            setFormData({ id: '', busName: '', busNumber: '', route: '', morningStartTime: '', eveningDepartureTime: '', phoneNumber: '', additionalDetails: '' });
-        }
-        shuttleModal.show();
-    };
-
-    const handleShuttleSubmit = async (e) => {
-        e.preventDefault();
-        const data = new FormData(e.target);
-        const res = await fetch('/api/shuttle/add', { method: 'POST', body: data });
-        if (res.ok) {
-            shuttleModal.hide();
-            loadShuttles();
-            alert("Successful!");
+        } catch (err) { 
+            console.error("Failed to load shuttles", err); 
         }
     };
 
     const deleteShuttle = async (id) => {
-        if (window.confirm('Are you sure you want to delete?')) {
-            await fetch(`/api/shuttle/delete/${id}`, { method: 'DELETE' });
-            loadShuttles();
+        if (window.confirm('Are you sure you want to delete this shuttle?')) {
+            try {
+                const res = await fetch(`http://localhost:8099/api/v1/shuttle/delete/${id}`, { 
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    loadShuttles();
+                } else {
+                    alert("Delete failed.");
+                }
+            } catch (err) {
+                console.error("Error deleting:", err);
+            }
         }
     };
 
@@ -86,7 +69,7 @@ const AdminDashboard = () => {
             <aside className="sidebar">
                 <div className="logo"><h2>NEXTSTEP ADMIN</h2></div>
                 <ul className="menu-list">
-                    <li className="menu-item" onClick={() => navigate('/admin-dashboard')}>Admin Home</li>
+                    <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>Admin Home</li>
                     {allServices.map((service, index) => (
                         <li key={index} className="menu-item" onClick={() => navigate(service.path)}>
                             {service.name}
@@ -113,15 +96,6 @@ const AdminDashboard = () => {
                                 <button className="view-btn" onClick={() => navigate(service.path)}>
                                     Manage Service
                                 </button>
-                                {service.name === "Shuttle Service" && (
-                                    <button 
-                                        className="view-btn" 
-                                        style={{ background: '#006837', color: 'white', border: 'none' }}
-                                        onClick={() => handleOpenModal()}
-                                    >
-                                        + Add New Shuttle
-                                    </button>
-                                )}
                             </div>
                         </div>
                     ))}
@@ -129,88 +103,58 @@ const AdminDashboard = () => {
 
                 {/* --- SHUTTLE TABLE SECTION --- */}
                 <div className="mt-5">
-                    <h2 className="mb-4">Shuttle Management Table</h2>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Shuttle Management Table</h2>
+                        <button 
+                            className="btn btn-success" 
+                            onClick={() => navigate('/add-shuttle')}
+                        >
+                            + Add New Shuttle
+                        </button>
+                    </div>
+                    
                     <div className="card shadow border-0">
-                        <table className="table table-hover mb-0">
-                            <thead className="table-dark" style={{background: '#00482b'}}>
-                                <tr>
-                                    <th>Bus Details</th>
-                                    <th>Route</th>
-                                    <th>Morning</th>
-                                    <th>Evening</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {shuttles.map(s => (
-                                    <tr key={s.id}>
-                                        <td><strong>{s.busName}</strong><br/><small>{s.busNumber}</small></td>
-                                        <td>{s.route}</td>
-                                        <td>{s.morningStartTime}</td>
-                                        <td>{s.eveningDepartureTime}</td>
-                                        <td>
-                                            <button className="btn btn-warning btn-sm me-2" onClick={() => handleOpenModal(s)}>Edit</button>
-                                            <button className="btn btn-danger btn-sm" onClick={() => deleteShuttle(s.id)}>Delete</button>
-                                        </td>
+                        <div className="table-responsive">
+                            <table className="table table-hover mb-0">
+                                <thead className="table-dark" style={{background: '#00482b'}}>
+                                    <tr>
+                                        <th>Bus Details</th>
+                                        <th>Route</th>
+                                        <th>Morning</th>
+                                        <th>Evening</th>
+                                        <th>Additional Details</th> {/* අලුතින් එක් කළ තීරුව */}
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {shuttles.length > 0 ? (
+                                        shuttles.map(s => (
+                                            <tr key={s.id}>
+                                                <td><strong>{s.busName}</strong><br/><small>{s.busNumber}</small></td>
+                                                <td>{s.route}</td>
+                                                <td>{s.morningStartTime}</td>
+                                                <td>{s.eveningDepartureTime}</td>
+                                                {/* විස්තර වැඩිපුර තිබේ නම් UI එක කැඩෙන්නේ නැතිවීමට style එකතු කර ඇත */}
+                                                <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                    {s.additionalDetails || <span className="text-muted">No details</span>}
+                                                </td>
+                                                <td>
+                                                    <button className="btn btn-warning btn-sm me-2" onClick={() => navigate(`/update-shuttle/${s.id}`)}>Edit</button>
+                                                    <button className="btn btn-danger btn-sm" onClick={() => deleteShuttle(s.id)}>Delete</button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="6" className="text-center py-4">No shuttles found.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </main>
-
-            {/* --- SHUTTLE MODAL (Converted from your HTML) --- */}
-            <div className="modal fade" id="shuttleModal" tabIndex="-1">
-                <div className="modal-dialog modal-lg">
-                    <form className="modal-content" onSubmit={handleShuttleSubmit}>
-                        <div className="modal-header text-white" style={{background: '#00482b'}}>
-                            <h5 className="modal-title">{formData.id ? 'Edit Shuttle' : 'Add New Shuttle'}</h5>
-                            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div className="modal-body p-4">
-                            <input type="hidden" name="id" defaultValue={formData.id} />
-                            <div className="row g-3">
-                                <div className="col-md-6">
-                                    <label className="form-label">Bus Name</label>
-                                    <input type="text" className="form-control" name="busName" defaultValue={formData.busName} required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Bus Number</label>
-                                    <input type="text" className="form-control" name="busNumber" defaultValue={formData.busNumber} required />
-                                </div>
-                                <div className="col-md-12">
-                                    <label className="form-label">Route</label>
-                                    <input type="text" className="form-control" name="route" defaultValue={formData.route} required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Morning Start Time</label>
-                                    <input type="time" className="form-control" name="morningStartTime" defaultValue={formData.morningStartTime} required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Evening Departure Time</label>
-                                    <input type="time" className="form-control" name="eveningDepartureTime" defaultValue={formData.eveningDepartureTime} required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Phone Number</label>
-                                    <input type="text" className="form-control" name="phoneNumber" defaultValue={formData.phoneNumber} maxLength="10" required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Photos (Up to 3)</label>
-                                    <input type="file" className="form-control" name="files" multiple accept="image/*" />
-                                </div>
-                                <div className="col-md-12">
-                                    <label className="form-label">Additional Details</label>
-                                    <textarea className="form-control" name="additionalDetails" defaultValue={formData.additionalDetails} rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="submit" className="btn btn-success px-5">Save Shuttle</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     );
 };
