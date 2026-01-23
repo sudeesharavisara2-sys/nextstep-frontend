@@ -7,6 +7,10 @@ const ShuttleService = () => {
     const navigate = useNavigate();
     const [shuttles, setShuttles] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    
+    // Modal එක පාලනය කිරීමට State
+    const [selectedShuttle, setSelectedShuttle] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         loadShuttles();
@@ -14,18 +18,21 @@ const ShuttleService = () => {
 
     const loadShuttles = async () => {
         try {
-            // Added 8099 port and v1 prefix to match your backend
             const res = await fetch('http://localhost:8099/api/v1/shuttle/all', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             });
             const data = await res.json();
-            // Sort A-Z by route
             setShuttles(data.sort((a, b) => a.route.localeCompare(b.route)));
         } catch (error) {
             console.error("Error loading shuttles:", error);
         }
+    };
+
+    const handleCardClick = (shuttle) => {
+        setSelectedShuttle(shuttle);
+        setIsModalOpen(true);
     };
 
     const filteredShuttles = shuttles.filter(s => 
@@ -64,19 +71,20 @@ const ShuttleService = () => {
 
                 <div className="dashboard-cards">
                     {filteredShuttles.map((shuttle) => (
-                        <div key={shuttle.id} className="info-card" style={{ padding: 0, overflow: 'hidden' }}>
+                        <div 
+                            key={shuttle.id} 
+                            className="info-card shuttle-clickable-card" 
+                            onClick={() => handleCardClick(shuttle)}
+                        >
                             <div className="shuttle-photo-gallery">
                                 {shuttle.images && shuttle.images.length > 0 ? (
-                                    shuttle.images.slice(0, 3).map((img, idx) => (
-                                        <img 
-                                            key={idx}
-                                            src={`data:image/jpeg;base64,${img.imageData}`} 
-                                            className="shuttle-img" 
-                                            alt="bus" 
-                                        />
-                                    ))
+                                    <img 
+                                        src={`data:image/jpeg;base64,${shuttle.images[0].imageData}`} 
+                                        className="shuttle-img" 
+                                        alt="bus" 
+                                    />
                                 ) : (
-                                    <img src="https://via.placeholder.com/120" className="shuttle-img" style={{width: '100%'}} alt="placeholder" />
+                                    <img src="https://via.placeholder.com/120" className="shuttle-img" alt="placeholder" />
                                 )}
                             </div>
 
@@ -85,33 +93,75 @@ const ShuttleService = () => {
                                     <h3 className="bus-name">{shuttle.busName}</h3>
                                     <span className="bus-number">{shuttle.busNumber}</span>
                                 </div>
-                                
                                 <div className="shuttle-route">
                                     <i className="bi bi-geo-alt"></i> {shuttle.route}
                                 </div>
-
                                 <div className="time-grid">
                                     <div className="time-slot">
-                                        <label>MORNING START</label>
+                                        <label>MORNING</label>
                                         <span>{shuttle.morningStartTime}</span>
                                     </div>
                                     <div className="time-slot">
-                                        <label>EVENING DEPT.</label>
+                                        <label>EVENING</label>
                                         <span>{shuttle.eveningDepartureTime}</span>
                                     </div>
                                 </div>
-
-                                <button 
-                                    className="call-driver-btn"
-                                    onClick={() => window.location.href = `tel:${shuttle.phoneNumber}`}
-                                >
-                                    Call Driver
-                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
             </main>
+
+            {/* --- USER VIEW MODAL --- */}
+            {isModalOpen && selectedShuttle && (
+                <div className="shuttle-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                    <div className="shuttle-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="close-modal-btn" onClick={() => setIsModalOpen(false)}>&times;</button>
+                        
+                        <div className="modal-scrollable-area">
+                            <h2 className="modal-bus-title">{selectedShuttle.busName}</h2>
+                            <p className="modal-bus-sub">{selectedShuttle.busNumber} | {selectedShuttle.route}</p>
+
+                            <div className="modal-image-strip">
+                                {selectedShuttle.images && selectedShuttle.images.map((img, idx) => (
+                                    <img 
+                                        key={idx} 
+                                        src={`data:image/jpeg;base64,${img.imageData}`} 
+                                        alt="shuttle" 
+                                        className="modal-large-img"
+                                    />
+                                ))}
+                            </div>
+
+                            <div className="modal-details-grid">
+                                <div className="detail-item">
+                                    <strong>Morning Start Time</strong>
+                                    <p>{selectedShuttle.morningStartTime}</p>
+                                </div>
+                                <div className="detail-item">
+                                    <strong>Evening Departure</strong>
+                                    <p>{selectedShuttle.eveningDepartureTime}</p>
+                                </div>
+                                <div className="detail-item full-width">
+                                    <strong>Contact Driver</strong>
+                                    <button 
+                                        className="modal-call-btn"
+                                        onClick={() => window.location.href = `tel:${selectedShuttle.phoneNumber}`}
+                                    >
+                                        📞 Call {selectedShuttle.phoneNumber}
+                                    </button>
+                                </div>
+                                {selectedShuttle.additionalDetails && (
+                                    <div className="detail-item full-width">
+                                        <strong>Additional Information</strong>
+                                        <p className="details-text">{selectedShuttle.additionalDetails}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
