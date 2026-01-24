@@ -102,7 +102,7 @@ const AddShuttle = () => {
     return (
         <div className="shuttle-admin-page">
             <aside className="shuttle-sidebar">
-                <h2><span style={{color:'#198754'}}>H2</span> NEXTSTEP ADMIN</h2>
+                <h2><span style={{color:'#198754'}}></span> NEXTSTEP ADMIN</h2>
                 <ul>
                     <li onClick={() => navigate('/admin-dashboard')}>Admin Home</li>
                     <li className="active">Shuttle Management</li>
