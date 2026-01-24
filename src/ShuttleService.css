@@ -34,7 +34,7 @@
 }
 
 .shuttle-img {
-    width: 33.33%;
+    width: 100%; 
     height: 100%;
     object-fit: cover;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
@@ -62,6 +62,7 @@
 .bus-number {
     font-size: 12px;
     background: rgba(255, 255, 255, 0.2);
+    color: white; 
     padding: 4px 10px;
     border-radius: 4px;
     font-weight: 600;
@@ -88,6 +89,7 @@
 .time-slot label {
     font-size: 10px;
     display: block;
+    color: #fff; 
     opacity: 0.7;
     margin-bottom: 2px;
     letter-spacing: 0.5px;
@@ -96,68 +98,17 @@
 .time-slot span {
     font-size: 13px;
     font-weight: 600;
+    color: #fff;
 }
 
-.shuttle-details {
-    font-size: 13px;
-    margin: 10px 0;
-    opacity: 0.9;
-    line-height: 1.4;
-}
-
-.call-driver-btn {
-    width: 100%;
-    margin-top: 15px;
-    background: linear-gradient(to right, #00b09b, #96c93d);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.call-driver-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 5px 15px rgba(0, 176, 155, 0.4);
-}
-
-.sidebar-note {
-    margin-top: 20px;
-    padding: 15px;
-    font-size: 12px;
-    color: #fffa;
-    line-height: 1.6;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-
-
-
-
-
-
-
-/* Card Hover Effect */
-.shuttle-clickable-card {
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.shuttle-clickable-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-/* Modal Styling */
+/* --- Modal Styling --- */
 .shuttle-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,7 +117,7 @@
 }
 
 .shuttle-modal-content {
-    background: white;
+    background: #ffffff; 
     width: 600px;
     max-width: 90%;
     border-radius: 15px;
@@ -174,50 +125,26 @@
     max-height: 85vh;
     display: flex;
     flex-direction: column;
-}
-
-.close-modal-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: #f1f1f1;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .modal-scrollable-area {
     padding: 30px;
     overflow-y: auto;
+    overflow-x: hidden; /* පසෙකට පැනීම වැළැක්වීමට */
 }
 
 .modal-bus-title {
-    color: #00482b;
+    color: #00482b; 
     margin: 0;
     font-size: 24px;
+    font-weight: bold;
 }
 
 .modal-bus-sub {
-    color: #666;
+    color: #444; 
     margin-bottom: 20px;
-}
-
-.modal-image-strip {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-}
-
-.modal-large-img {
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
+    font-weight: 500;
 }
 
 .modal-details-grid {
@@ -225,23 +152,39 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     text-align: left;
+    margin-top: 10px;
 }
 
 .detail-item strong {
     display: block;
     font-size: 13px;
-    color: #888;
+    color: #555; 
     text-transform: uppercase;
 }
 
 .detail-item p {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
     margin-top: 5px;
+    color: #111 !important; 
 }
 
-.full-width {
-    grid-column: span 2;
+/* --- කරුණාකර මෙම කොටස විශේෂයෙන් බලන්න --- */
+.details-text {
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    color: #222 !important; 
+    font-weight: normal;
+    line-height: 1.6;
+    margin-top: 5px;
+
+    /* Auto Alignment සහ Word Wrapping සඳහා */
+    width: 100%;
+    box-sizing: border-box; /* Padding පළලට බලපෑම වැළැක්වීමට */
+    white-space: pre-wrap;  /* පේළි නිවැරදිව කඩා පෙළගැසීමට */
+    word-break: break-word; /* දිගු වචන Modal එක ඇතුළත තබා ගැනීමට */
+    text-align: left;       /* වමේ සිට පෙළගැසීමට */
 }
 
 .modal-call-btn {
@@ -249,66 +192,53 @@
     background: #198754;
     color: white;
     border: none;
-    padding: 12px;
+    padding: 14px;
     border-radius: 8px;
     font-weight: bold;
+    font-size: 16px;
     margin-top: 10px;
     cursor: pointer;
-}
-
-.details-text {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    font-weight: normal !important;
-    line-height: 1.5;
-}
-
-
-
-
-
-
-/* පින්තූර පෙළට පෙන්වීමට */
-.modal-image-grid {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
-
-.modal-thumb-img {
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 2px solid #ddd;
-}
-
-.modal-thumb-img:hover { border-color: #28a745; }
-
-/* ලොකු කර පෙන්වන Overlay */
-.image-full-preview {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    gap: 10px;
 }
 
-.image-full-preview img {
-    max-width: 90%;
-    max-height: 90%;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+.modal-call-btn:hover {
+    background: #146c43;
 }
 
-.close-preview {
+/* --- Image Strip --- */
+.modal-image-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+}
+
+.modal-large-img {
+    height: 180px;
+    min-width: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.close-modal-btn {
     position: absolute;
-    top: 20px; right: 30px;
-    color: white; font-size: 50px; cursor: pointer;
+    top: 15px;
+    right: 15px;
+    background: #eee;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
