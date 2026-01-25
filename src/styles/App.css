@@ -1,0 +1,282 @@
+/* App.css - NSBM Theme */
+:root {
+  --nsbm-green: #006837; /* NSBM Dark Green */
+  --nsbm-light-green: #009245; 
+  --bg-color: #f0f4f2;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Clean and modern font */
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Apply a decorative background gradient */
+  background: linear-gradient(135deg, #006837 50%, #009245 50%);
+}
+
+.auth-card {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 25px;
+  color: var(--nsbm-green);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--nsbm-green);
+  box-shadow: 0 0 8px rgba(0, 104, 55, 0.2);
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Green theme button for NSBM branding */
+.btn-login, .btn-signup {
+  background-color: var(--nsbm-green);
+  color: white;
+}
+
+.btn:hover {
+  background-color: var(--nsbm-light-green);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.switch-text {
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.switch-text a {
+  color: var(--nsbm-green);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* Label Styles */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+/* Primary Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #006837 50%, #009245 50%); /* Green brand gradient */
+  color: #fff;
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  letter-spacing: 0.5px;
+}
+
+/* Hover Effect for Primary Button */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #009245 50%, #006837 50%); /* Reversed gradient */
+}
+
+/* Disabled State Styles */
+.btn-primary:disabled {
+  background: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.forgot-password-link {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.forgot-password-link a {
+    color: #007bff;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.forgot-password-link a:hover {
+    text-decoration: underline;
+}
+
+.status-msg.success {
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.status-msg.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.select-input {
+  cursor: pointer;
+  background-color: white;
+  appearance: none; /* Remove default arrow to apply custom styles */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+}
+
+/* Container Styles (Redefined for Consistency) */
+.auth-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* Form Layout Styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Spacing between input fields */
+}
+
+.form-group {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* Gender & Role Selection Styles */
+.role-group {
+  margin: 10px 0;
+}
+
+/* Enhanced Dropdown Styling */
+.select-input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Align Gender and Label in a Single Row */
+.gender-row {
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  align-items: center; /* Vertical centering */
+  gap: 15px; /* Spacing between label and options */
+  margin: 10px 0;
+}
+
+.form-label-inline {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin: 0; /* Clear unnecessary spacing */
+  min-width: 60px; /* Fixed width for the label */
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Align Role Dropdown in a Row */
+.role-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: #006837;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    text-decoration: underline;
+}
