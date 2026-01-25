@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from '../../api'; // axios වෙනුවට API import කරන ලදී
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/App.css';
+
 const VerifyOtp = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,10 +26,8 @@ const VerifyOtp = () => {
                 otp: otp
             };
 
-            const response = await axios.post(
-                'http://localhost:8099/api/v1/auth/verify', // Ensure the backend URL is correct
-                verifyData
-            );
+            // API.post භාවිතා කර endpoint එක පමණක් ලබා දෙන ලදී
+            const response = await API.post('/auth/verify', verifyData);
 
             setMessage('✅ Verification Successful! Redirecting to login...');
             setTimeout(() => navigate('/'), 2000);

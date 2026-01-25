@@ -109,6 +109,11 @@
     vertical-align: middle;
 }
 
+/* Row Hover Effect */
+.shuttle-table tr:hover {
+    background-color: #f9f9f9;
+}
+
 /* --- Buttons --- */
 .btn-green {
     background: #198754;
@@ -126,22 +131,28 @@
 .btn-yellow {
     background: #ffc107;
     border: none;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 4px;
-    margin-right: 5px;
+    margin-right: 8px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.2s;
 }
+
+.btn-yellow:hover { background: #e0a800; }
 
 .btn-red {
     background: #dc3545;
     color: white;
     border: none;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 4px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.2s;
 }
+
+.btn-red:hover { background: #c82333; }
 
 /* --- Modal Overlay --- */
 .modal-overlay {
@@ -155,7 +166,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
 }
 
 /* --- Modal Content Box --- */
@@ -198,14 +209,21 @@
     line-height: 1;
 }
 
-/* --- Modal Form Styling --- */
+/* --- Modal Body & Form --- */
 .modal-body {
     padding: 30px;
     max-height: 70vh;
     overflow-y: auto;
 }
 
-
+/* Scrollbar styling for Modal Body */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 
 .form-grid {
     display: grid;
@@ -264,5 +282,3 @@
     cursor: pointer;
     font-size: 15px;
 }
-
-.btn-save-shuttle:hover { background: #157347; }

@@ -210,3 +210,117 @@
     background: rgba(255, 255, 255, 0.2);
     color: white;
 }
+
+
+/* Sidebar එකේ alignment එක හරිගස්සන්න */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    position: fixed;
+    height: 93vh;
+    top: 3vh;
+    left: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Padding නිසා width එක වෙනස් වීම වළක්වයි */
+}
+
+/* Logout Button එක සම්පූර්ණ පළලට සහ ලොකුවට සකස් කිරීම */
+.logout-btn {
+    width: 100%; /* Sidebar එකේ පළලටම button එක විශාල කරයි */
+    background-color: #f64f59;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px; /* අකුරු වල ප්‍රමාණය මඳක් වැඩි කළා */
+    transition: 0.3s;
+    margin-top: auto; /* Sidebar එකේ පහළටම තල්ලු කරයි */
+    display: block; /* block element එකක් ලෙස සලකයි */
+}
+
+.logout-btn:hover {
+    background-color: #ff33e4;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+    transform: scale(1.02); /* Hover කරන විට පොඩ්ඩක් ලොකු වේ */
+}
+
+
+
+
+/* --- Responsive Media Queries (Mobile & Tablet) --- */
+
+/* මධ්‍යම ප්‍රමාණයේ තිර (Tablets) */
+@media (max-width: 1024px) {
+    .sidebar { 
+        width: 240px; 
+        left: 10px; 
+    }
+    .main-content { 
+        margin-left: 270px; 
+    }
+}
+
+/* ජංගම දුරකථන (Mobile - 768px ට අඩු) */
+@media (max-width: 768px) {
+    .dashboard-layout { 
+        flex-direction: column; 
+    }
+    
+    .sidebar {
+        position: relative; /* Fixed වෙනුවට සාමාන්‍ය තැනට එයි */
+        width: 100%;
+        height: auto;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        padding: 15px 20px;
+        flex-direction: row; /* නම සහ Logout බොත්තම දෙපැත්තට ගැනීමට */
+        justify-content: space-between; 
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    /* නම (Logo) ප්‍රමාණය කුඩා කිරීම */
+    .logo h2 { 
+        margin-bottom: 0; 
+        font-size: 1.1rem; 
+        letter-spacing: 1px;
+    }
+    
+    /* ඔබ ඉල්ලූ පරිදි Menu List එක සහ අනෙක් දේවල් සැඟවීම */
+    .menu-list, 
+    .sidebar-footer p, 
+    .role-badge { 
+        display: none !important; 
+    }
+
+    /* මොබයිල් එකේදී Logout Button එක කුඩා කර පැත්තකට ගැනීම */
+    .logout-btn {
+        width: auto; /* Full width වෙනුවට අවශ්‍ය ප්‍රමාණය පමණක් ගනී */
+        margin-top: 0; 
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .main-content {
+        margin-left: 0; /* Sidebar එක අයිනේ නැති නිසා margin ඉවත් කරයි */
+        padding: 20px;
+    }
+
+    .top-nav { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 10px; 
+        margin-top: 20px;
+    }
+}

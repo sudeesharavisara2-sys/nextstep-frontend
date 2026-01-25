@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API from '../../api'; // api.js භාවිතා කිරීමට import කරගන්න
 import '../../styles/App.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(''); // New state for the OTP code
+  const [otp, setOtp] = useState(''); 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -20,8 +20,9 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:8099/api/v1/auth/send-otp', { email });
-      setMessage(`✅ ${response.data.message}`);
+      // API.post භාවිතා කර කෙටි URL එකක් ලබා දීම
+      const response = await API.post('/auth/send-otp', { email });
+      setMessage(`✅ ${response.data.message || 'OTP Sent Successfully!'}`);
       setIsOtpSent(true); 
     } catch (error) {
       setMessage(error.response?.data?.message || '❌ Failed to send OTP.');
@@ -41,15 +42,15 @@ const ForgotPassword = () => {
     }
 
     try {
-      // Construct payload according to backend requirements
       const payload = { 
         email: email, 
-        otp: otp, // Including the OTP in the payload
+        otp: otp, 
         password: password, 
         confirmPassword: confirmPassword 
       };
 
-      const response = await axios.post('http://localhost:8099/api/v1/auth/reset-password', payload);
+      // API.post භාවිතා කිරීම
+      const response = await API.post('/auth/reset-password', payload);
       
       setMessage('✅ Password reset successful! Redirecting to login...');
       setTimeout(() => navigate('/'), 2500);

@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css';
+import '../../styles/Dashboard.css'; // Path එක නිවැරදි කරන ලදී
+import '../../styles/App.css'; 
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    
+    // localStorage එකෙන් දත්ත ලබා ගැනීම (Login එකේදී භාවිතා කළ key එකම විය යුතුය)
     const userName = localStorage.getItem('userName') || 'Admin';
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); // 'accessToken' වෙනුවට 'token' ලෙස වෙනස් කරන ලදී
 
     useEffect(() => {
+        // Token එක නැතිනම් නැවත Login වෙත යැවීම
         if (!token) {
             navigate('/login');
         }
@@ -19,13 +23,13 @@ const AdminDashboard = () => {
     };
 
     const allServices = [
-        { name: "Core System", path: "/core-system", desc: "Manage system architecture and main controls." },
-        { name: "Club Events", path: "/club-events", desc: "Approve or create new university club events." },
-        { name: "Stalls", path: "/stalls", desc: "Assign and manage campus market stall locations." },
-        { name: "Lost & Found", path: "/lost-found", desc: "Review reported items and manage claims." },
-        { name: "Model Papers", path: "/model-papers", desc: "Upload and update academic model papers." },
-        { name: "Study Room Booking", path: "/study-rooms", desc: "Control library room availability and bookings." },
-        { name: "Shuttle Service", path: "/shuttle-service", desc: "Update bus schedules and track shuttle status." }
+        { name: "Core System", path: "/core-system", desc: "Manage system architecture." },
+        { name: "Club Events", path: "/club-events", desc: "Approve or create club events." },
+        { name: "Stalls", path: "/stalls", desc: "Manage campus market stalls." },
+        { name: "Lost & Found", path: "/lost-found", desc: "Review reported items." },
+        { name: "Model Papers", path: "/model-papers", desc: "Update academic model papers." },
+        { name: "Study Room Booking", path: "/study-rooms", desc: "Control room availability." },
+        { name: "Shuttle Service", path: "/add-shuttle", desc: "Update bus schedules and manage shuttles." }
     ];
 
     return (
@@ -33,58 +37,33 @@ const AdminDashboard = () => {
             <aside className="sidebar">
                 <div className="logo"><h2>NEXTSTEP ADMIN</h2></div>
                 <ul className="menu-list">
-                    <li className="menu-item" style={{backgroundColor: 'rgba(255,255,255,0.2)'}} onClick={() => navigate('/admin-dashboard')}>
+                    <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>
                         Admin Home
                     </li>
-                    {allServices.map((service, index) => (
-                        <li key={index} className="menu-item" onClick={() => navigate(service.path)}>
-                            {service.name}
-                        </li>
-                    ))}
-                    <li className="menu-item" style={{color: '#fffa'}}>User Analytics</li>
+                    {/* ඔබට අවශ්‍ය නම් මෙතැනට තවත් Admin Menu Items එක් කළ හැක */}
                 </ul>
-                <button onClick={handleLogout} className="logout-btn">Logout</button>
+                <div className="sidebar-footer">
+                    <button onClick={handleLogout} className="logout-btn">Logout</button>
+                </div>
             </aside>
 
             <main className="main-content">
                 <header className="top-nav">
-                    <div>
+                    <div className="nav-text">
                         <h1>Administrator Control Panel</h1>
-                        <p style={{opacity: 0.8}}>Full system access granted.</p>
-                    </div>
-                    <div className="role-badge admin-bg">
-                        Logged in as ADMIN ({userName})
+                        <p>Logged in as: <strong>{userName}</strong></p>
                     </div>
                 </header>
 
                 <div className="dashboard-cards">
                     {allServices.map((service, index) => (
                         <div key={index} className="info-card">
+                            <div className="card-icon">⚙️</div> {/* Icon එකක් එක් කිරීම පෙනුම වැඩි කරයි */}
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
-                            
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                <button 
-                                    className="view-btn" 
-                                    style={{ background: 'linear-gradient(to right, #f64f59, #c471ed)', color: 'white' }}
-                                    onClick={() => navigate(service.path)}
-                                >
-                                    Manage Service
-                                </button>
-
-                                {service.name === "Shuttle Service" && (
-                                    <button 
-                                        className="view-btn" 
-                                        style={{ background: '#006837', color: 'white', border: 'none' }}
-                                        onClick={(e) => {
-                                            e.stopPropagation(); 
-                                            navigate('/add-shuttle');
-                                        }}
-                                    >
-                                        + Add New Shuttle
-                                    </button>
-                                )}
-                            </div>
+                            <button className="view-btn" onClick={() => navigate(service.path)}>
+                                Manage Service
+                            </button>
                         </div>
                     ))}
                 </div>

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import API from '../../api'; // axios වෙනුවට API import කරන්න
 import '../../styles/App.css';
 
 const ResetPassword = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  
+  // ForgotPassword හෝ VerifyOTP එකෙන් එවූ email සහ otp ලබා ගැනීම
   const emailFromState = location.state?.email || "";
+  const otpFromState = location.state?.otp || ""; 
 
   const [formData, setFormData] = useState({
     email: emailFromState,
+    otp: otpFromState, // OTP එක backend එකට අවශ්‍ය නම් මෙයට එකතු කරන්න
     password: '',
     confirmPassword: ''
   });
@@ -27,8 +31,8 @@ const ResetPassword = () => {
     }
 
     try {
-      // Postman JSON: { "email": "...", "password": "...", "confirmPassword": "..." }
-      const response = await axios.post('http://localhost:8099/api/v1/auth/reset-password', formData);
+      // API instance එක භාවිතා කිරීම
+      const response = await API.post('/auth/reset-password', formData);
       
       setMessage('✅ Password reset successful! Redirecting to login...');
       setTimeout(() => navigate('/'), 2000);
@@ -48,9 +52,10 @@ const ResetPassword = () => {
         
         <form onSubmit={handleReset} className="auth-form">
           <div className="form-group">
+            <label className="form-label">New Password</label>
             <input 
               type="password" 
-              placeholder="New Password" 
+              placeholder="••••••••" 
               className="form-input"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
@@ -58,9 +63,10 @@ const ResetPassword = () => {
             />
           </div>
           <div className="form-group">
+            <label className="form-label">Confirm New Password</label>
             <input 
               type="password" 
-              placeholder="Confirm New Password" 
+              placeholder="••••••••" 
               className="form-input"
               value={formData.confirmPassword}
               onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
@@ -71,7 +77,11 @@ const ResetPassword = () => {
             {loading ? 'Updating...' : 'Reset Password'}
           </button>
         </form>
-        {message && <p className={`status-msg ${message.includes('✅') ? 'success' : 'error'}`}>{message}</p>}
+        {message && (
+          <p className={`status-msg ${message.includes('✅') ? 'success' : 'error'}`}>
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

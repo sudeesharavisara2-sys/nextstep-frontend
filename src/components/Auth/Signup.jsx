@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from '../../api'; // axios වෙනුවට අපේ api.js එක import කරගන්න
 import { useNavigate, Link } from 'react-router-dom';
 import '../../styles/App.css';
 
@@ -29,10 +29,8 @@ const Signup = () => {
     setMessage('');
 
     try {
-      const response = await axios.post(
-        'http://localhost:8099/api/v1/auth/register',
-        formData
-      );
+      // API.post භාවිතා කර කෙටි URL එකක් ලබා දීම
+      const response = await API.post('/auth/register', formData);
 
       console.log('✅ Registration Success:', response.data);
       setMessage('✅ Success! Redirecting to OTP verification...');
