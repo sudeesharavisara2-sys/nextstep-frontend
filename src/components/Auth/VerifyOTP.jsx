@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../../api'; // axios වෙනුවට API import කරන ලදී
+import API from '../../api'; // Imported API instance instead of axios
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/App.css';
 
@@ -26,7 +26,7 @@ const VerifyOtp = () => {
                 otp: otp
             };
 
-            // API.post භාවිතා කර endpoint එක පමණක් ලබා දෙන ලදී
+            // Used API.post and provided only the endpoint string
             const response = await API.post('/auth/verify', verifyData);
 
             setMessage('✅ Verification Successful! Redirecting to login...');

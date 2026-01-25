@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // Path එක නිවැරදි කරන ලදී
+import '../../styles/Dashboard.css'; 
 import '../../styles/App.css'; 
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     
-    // localStorage එකෙන් දත්ත ලබා ගැනීම (Login එකේදී භාවිතා කළ key එකම විය යුතුය)
+    // Retrieve data from localStorage (must match keys used during Login)
     const userName = localStorage.getItem('userName') || 'Admin';
-    const token = localStorage.getItem('token'); // 'accessToken' වෙනුවට 'token' ලෙස වෙනස් කරන ලදී
+    const token = localStorage.getItem('token'); // Changed from 'accessToken' to 'token' for consistency
 
     useEffect(() => {
-        // Token එක නැතිනම් නැවත Login වෙත යැවීම
+        // Redirect to Login if the authentication token is missing
         if (!token) {
             navigate('/login');
         }
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
                     <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>
                         Admin Home
                     </li>
-                    {/* ඔබට අවශ්‍ය නම් මෙතැනට තවත් Admin Menu Items එක් කළ හැක */}
+                    {/* Additional Admin Menu Items can be added here as needed */}
                 </ul>
                 <div className="sidebar-footer">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
                 <div className="dashboard-cards">
                     {allServices.map((service, index) => (
                         <div key={index} className="info-card">
-                            <div className="card-icon">⚙️</div> {/* Icon එකක් එක් කිරීම පෙනුම වැඩි කරයි */}
+                            <div className="card-icon">⚙️</div> {/* Adding an icon improves the UI appearance */}
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
                             <button className="view-btn" onClick={() => navigate(service.path)}>

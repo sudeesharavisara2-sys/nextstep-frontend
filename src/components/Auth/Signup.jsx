@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../../api'; // axios වෙනුවට අපේ api.js එක import කරගන්න
+import API from '../../api'; 
 import { useNavigate, Link } from 'react-router-dom';
 import '../../styles/App.css';
 
@@ -12,7 +12,7 @@ const Signup = () => {
     password: '',
     phoneNumber: '',
     gender: 'MALE',
-    role: 'USER', // Set USER as the default role
+    role: 'USER', 
   });
 
   const [message, setMessage] = useState('');
@@ -29,13 +29,14 @@ const Signup = () => {
     setMessage('');
 
     try {
-      // API.post භාවිතා කර කෙටි URL එකක් ලබා දීම
+      // Use API.post to provide a shortened URL path
       const response = await API.post('/auth/register', formData);
 
       console.log('✅ Registration Success:', response.data);
       setMessage('✅ Success! Redirecting to OTP verification...');
 
       setTimeout(() => {
+        // Pass the email state to the verification page
         navigate('/verify-otp', { state: { email: formData.email } });
       }, 1500);
     } catch (error) {

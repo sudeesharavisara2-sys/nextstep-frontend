@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import API from '../../api'; // axios වෙනුවට API import කරන්න
+import API from '../../api'; // Import API instead of axios
 import '../../styles/App.css';
 
 const ResetPassword = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // ForgotPassword හෝ VerifyOTP එකෙන් එවූ email සහ otp ලබා ගැනීම
+  // Retrieve email and otp sent from ForgotPassword or VerifyOTP state
   const emailFromState = location.state?.email || "";
   const otpFromState = location.state?.otp || ""; 
 
   const [formData, setFormData] = useState({
     email: emailFromState,
-    otp: otpFromState, // OTP එක backend එකට අවශ්‍ය නම් මෙයට එකතු කරන්න
+    otp: otpFromState, // Include OTP if required by the backend
     password: '',
     confirmPassword: ''
   });
@@ -31,7 +31,7 @@ const ResetPassword = () => {
     }
 
     try {
-      // API instance එක භාවිතා කිරීම
+      // Use the API instance for the request
       const response = await API.post('/auth/reset-password', formData);
       
       setMessage('✅ Password reset successful! Redirecting to login...');

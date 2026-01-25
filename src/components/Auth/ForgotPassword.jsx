@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // api.js භාවිතා කිරීමට import කරගන්න
+import API from '../../api'; // Import to use api.js
 import '../../styles/App.css';
 
 const ForgotPassword = () => {
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      // API.post භාවිතා කර කෙටි URL එකක් ලබා දීම
+      // Use API.post to provide a short URL
       const response = await API.post('/auth/send-otp', { email });
       setMessage(`✅ ${response.data.message || 'OTP Sent Successfully!'}`);
       setIsOtpSent(true); 
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
         confirmPassword: confirmPassword 
       };
 
-      // API.post භාවිතා කිරීම
+      // Use API.post method
       const response = await API.post('/auth/reset-password', payload);
       
       setMessage('✅ Password reset successful! Redirecting to login...');

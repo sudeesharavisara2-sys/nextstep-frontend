@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../../api'; // api.js නිවැරදිව import කරගන්න
+import API from '../../api'; // Import the API instance correctly
 import '../../styles/App.css'; 
 
 const Login = () => {
@@ -19,22 +19,22 @@ const Login = () => {
         setMessage('');
 
         try {
-            // API instance එක භාවිතා කර backend එකට සම්බන්ධ වීම
+            // Connect to the backend using the API instance
             const response = await API.post('/auth/login', loginData);
             
-            // Backend එකෙන් ලැබෙන දත්ත ලබා ගැනීම
+            // Extract data received from the backend
             const { accessToken, token, role, firstName } = response.data;
             const finalToken = accessToken || token;
 
             if (finalToken) {
-                // Token සහ අනෙකුත් විස්තර localStorage හි ගබඩා කිරීම
+                // Store token and other details in localStorage
                 localStorage.setItem('token', finalToken);
-                localStorage.setItem('userRole', role); // 'ADMIN' හෝ 'USER'
+                localStorage.setItem('userRole', role); // 'ADMIN' or 'USER'
                 localStorage.setItem('userName', firstName || 'User');
                 
                 setMessage("✅ Login Successful! Redirecting...");
 
-                // Role එක අනුව අදාළ Dashboard එකට යොමු කිරීම
+                // Redirect to the appropriate dashboard based on user role
                 setTimeout(() => {
                     if (role === 'ADMIN') {
                         navigate('/admin-dashboard');
