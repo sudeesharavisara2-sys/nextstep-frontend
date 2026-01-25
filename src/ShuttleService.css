@@ -1,13 +1,16 @@
 /* --- Shuttle Service Specific Styles --- */
 
+/* Main header spacing */
 .shuttle-header {
     margin-bottom: 30px;
 }
 
+/* Container for the search bar */
 .search-container {
     margin-bottom: 30px;
 }
 
+/* Glassmorphism style for the search input field */
 .shuttle-search-input {
     width: 100%;
     max-width: 500px;
@@ -18,227 +21,618 @@
     border-radius: 10px;
     outline: none;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
+/* Focus state for search input with glow effect */
 .shuttle-search-input:focus {
     border-color: #88e3b5;
     background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(136, 227, 181, 0.2);
 }
 
-/* --- Card Gallery --- */
+/* --- Card Gallery (Height increased to make images clearer) --- */
 .shuttle-photo-gallery {
     display: flex;
-    height: 120px;
+    height: 200px; /* Increased from 120px to 200px */
     overflow: hidden;
-    background: #000;
+    background: #1a1a1a;
+    border-radius: 15px 15px 0 0; /* Rounds the top corners of the card */
 }
 
+/* Image styling within the gallery */
 .shuttle-img {
     width: 100%; 
     height: 100%;
-    object-fit: cover;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    object-fit: cover; /* Ensures image covers area without distortion */
+    transition: transform 0.5s ease;
+}
+
+/* Optional hover effect to zoom into the bus image */
+.shuttle-card:hover .shuttle-img {
+    transform: scale(1.05);
 }
 
 /* --- Card Content --- */
 .shuttle-card-body {
     padding: 20px;
     text-align: left;
+    background: rgba(255, 255, 255, 0.05); /* Slight background tint for the body */
 }
 
+/* Layout for the card title area */
 .shuttle-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
+/* Bus name typography */
 .bus-name {
     margin: 0;
     color: #fff;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
+/* Badge style for the bus plate number */
 .bus-number {
     font-size: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white; 
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: 600;
+    background: #88e3b5; /* Green color for visibility */
+    color: #000; 
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: 700;
 }
 
+/* Top header section of the card */
+.shuttle-card-top-header {
+    padding: 15px 20px 5px 20px;
+    background: rgba(255, 255, 255, 0.03); /* Subtle background */
+}
+
+/* Alignment and styling for bus name above the image */
+.bus-name {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: auto;
+}
+
+/* Styling for the image container when header is present */
+.shuttle-photo-gallery {
+    display: flex;
+    height: 200px; 
+    overflow: hidden;
+    background: #1a1a1a;
+    border-radius: 0; /* Removed rounding since header is now on top */
+}
+
+/* Route information styling (e.g., Kottawa - Uni) */
 .shuttle-route {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #88e3b5;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff; 
+    margin: 5px 0 15px 0;
+    text-transform: uppercase;
 }
 
 /* --- Time Grid --- */
+/* Two-column grid for Morning/Evening times */
 .time-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 5px;
 }
 
+/* Small label above time slots */
 .time-slot label {
     font-size: 10px;
     display: block;
-    color: #fff; 
-    opacity: 0.7;
-    margin-bottom: 2px;
-    letter-spacing: 0.5px;
+    color: #88e3b5; /* Green labels */
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
+/* Time text styling */
 .time-slot span {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
     color: #fff;
 }
 
 /* --- Modal Styling --- */
+/* Dark blurred background for the popup */
 .shuttle-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
 }
 
+/* Main popup container */
 .shuttle-modal-content {
     background: #ffffff; 
-    width: 600px;
+    width: 650px;
     max-width: 90%;
-    border-radius: 15px;
+    border-radius: 20px;
     position: relative;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    animation: modalFadeIn 0.3s ease;
 }
 
+/* Animation for modal entry */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollable content area inside the modal */
 .modal-scrollable-area {
     padding: 30px;
     overflow-y: auto;
-    overflow-x: hidden; /* පසෙකට පැනීම වැළැක්වීමට */
 }
 
+/* Large title in modal */
 .modal-bus-title {
     color: #00482b; 
     margin: 0;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 800;
 }
 
+/* Subtitle for bus number and route */
 .modal-bus-sub {
-    color: #444; 
-    margin-bottom: 20px;
+    color: #666; 
+    margin-bottom: 25px;
     font-weight: 500;
+    font-size: 16px;
 }
 
+/* Grid layout for detailed info in modal */
 .modal-details-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 25px;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
 }
 
+/* Section titles within the details grid */
 .detail-item strong {
     display: block;
-    font-size: 13px;
-    color: #555; 
+    font-size: 12px;
+    color: #888; 
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+/* Detailed text content styling */
 .detail-item p {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 700;
     margin-top: 5px;
     color: #111 !important; 
 }
 
-/* --- කරුණාකර මෙම කොටස විශේෂයෙන් බලන්න --- */
+/* Styling for the additional details text box */
 .details-text {
-    background: #f4f4f4;
-    padding: 15px;
-    border-radius: 8px;
-    color: #222 !important; 
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 12px;
+    color: #333 !important; 
     font-weight: normal;
     line-height: 1.6;
-    margin-top: 5px;
-
-    /* Auto Alignment සහ Word Wrapping සඳහා */
+    margin-top: 8px;
     width: 100%;
-    box-sizing: border-box; /* Padding පළලට බලපෑම වැළැක්වීමට */
-    white-space: pre-wrap;  /* පේළි නිවැරදිව කඩා පෙළගැසීමට */
-    word-break: break-word; /* දිගු වචන Modal එක ඇතුළත තබා ගැනීමට */
-    text-align: left;       /* වමේ සිට පෙළගැසීමට */
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-left: 4px solid #198754;
 }
 
+/* Main call button in the modal */
 .modal-call-btn {
     width: 100%;
     background: #198754;
     color: white;
     border: none;
-    padding: 14px;
-    border-radius: 8px;
+    padding: 16px;
+    border-radius: 12px;
     font-weight: bold;
-    font-size: 16px;
-    margin-top: 10px;
+    font-size: 17px;
+    margin-top: 20px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    transition: all 0.3s ease;
 }
 
+/* Hover effect for the call button */
 .modal-call-btn:hover {
     background: #146c43;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
 }
 
-/* --- Image Strip --- */
+/* Horizontal scrollable image list */
 .modal-image-strip {
     display: flex;
-    gap: 12px;
+    gap: 15px;
     overflow-x: auto;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     padding-bottom: 10px;
-    scrollbar-width: thin;
+    scrollbar-width: none; /* Hides scrollbar below images for clean look */
 }
 
+/* Sizing for large preview image in modal */
 .modal-large-img {
-    height: 180px;
-    min-width: 250px;
-    border-radius: 10px;
+    height: 220px;
+    min-width: 320px;
+    border-radius: 12px;
     object-fit: cover;
-    border: 1px solid #ddd;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* Modal close button styling (X) */
 .close-modal-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #eee;
+    top: 20px;
+    right: 20px;
+    background: #fff;
     border: none;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    background: #f8f9fa;
+    color: #ff4d4d;
+}
+
+/* --- Image Slider Navigation Buttons --- */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: 0.3s;
+}
+.slider-btn:hover { background: rgba(0,0,0,0.8); }
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Image index text (e.g., 1/3) */
+.image-counter {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* --- Lightbox Style (Full-screen image view) --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    cursor: zoom-out;
+}
+
+/* Styling for the full-screen image */
+.lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+/* Close button for lightbox */
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* --- Modal Image Section Layout --- */
+.modal-image-container {
+    width: 100%;
+    height: 350px; /* View height for the popup image */
+    background: #f0f0f0; 
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Scaling the large image inside modal */
+.modal-large-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Keeps aspect ratio while fitting box */
+    cursor: zoom-in;
+    display: block;
+}
+
+/* --- Lightbox Full Screen Background --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* Extra dark for focus */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+/* Container for full-screen image and buttons */
+.lightbox-container {
+    position: relative;
+    width: 90vw;
+    height: 85vh; /* Takes 85% of screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Full-screen image fit */
+.lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* --- Lightbox Navigation Buttons --- */
+.lightbox-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    font-size: 30px;
+    transition: 0.3s;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3100;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+
+/* Counter label for full-screen view */
+.lightbox-counter {
+    position: absolute;
+    bottom: -40px;
+    color: white;
+    background: rgba(0,0,0,0.6);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    z-index: 3200;
+    line-height: 1;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    .modal-image-container { height: 250px; }
+    .lightbox-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    .lb-prev { left: 5px; }
+    .lb-next { right: 5px; }
+}
+
+/* --- Slide & Fade Animation --- */
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateX(30px); /* Slides in from the right */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Applies slide animation to modal images */
+.modal-large-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    display: block;
+    animation: slideFade 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Applies slide animation to lightbox images */
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 80vh;
+    animation: slideFade 0.5s ease-out;
+}
+
+/* --- Card Details Section --- */
+.shuttle-card-details {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Flex layout for detail rows inside card */
+.card-detail-row {
+    display: flex;
+    justify-content: space-between; /* Aligns label to left and value to right */
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+}
+
+/* Light gray color for labels */
+.detail-label {
+    color: #b0b0b0; 
+}
+
+/* White color for actual values */
+.detail-value {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Spacing for phone number row */
+.phone-row {
+    margin-top: 8px;
+    justify-content: flex-start;
+}
+
+/* Styling for the phone link on the card */
+.card-phone-link {
+    color: #4ade80;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.card-phone-link:hover {
+    text-decoration: underline;
+}
+
+/* Container for split time display in card body */
+.shuttle-card-info-container {
+    margin-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 10px;
+}
+
+/* Layout for Morning/Evening split view */
+.card-times-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+/* Individual time block */
+.time-sub-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label for Morning/Evening */
+.time-sub-block .label {
+    font-size: 0.75rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+/* Value of the time */
+.time-sub-block .value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Vertical line dividing the two time slots */
+.time-divider {
+    width: 1px;
+    height: 25px;
+    background: #ddd;
+    margin: 0 10px;
+}
+
+/* Spacing for the call button on the card */
+.card-phone-wrapper {
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* Main action button on the card */
+.card-call-action {
+    display: inline-block;
+    background-color: #025014;
+    color: white !important;
+    text-decoration: none;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.card-call-action:hover {
+    background-color: #218838;
 }
