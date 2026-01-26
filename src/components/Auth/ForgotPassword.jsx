@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import API from '../../api'; // Import to use api.js
+>>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 import '../../styles/App.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(''); // New state for the OTP code
+  const [otp, setOtp] = useState(''); 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -20,8 +23,9 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:8099/api/v1/auth/send-otp', { email });
-      setMessage(`✅ ${response.data.message}`);
+      // Use API.post to provide a short URL
+      const response = await API.post('/auth/send-otp', { email });
+      setMessage(`✅ ${response.data.message || 'OTP Sent Successfully!'}`);
       setIsOtpSent(true); 
     } catch (error) {
       setMessage(error.response?.data?.message || '❌ Failed to send OTP.');
@@ -41,15 +45,15 @@ const ForgotPassword = () => {
     }
 
     try {
-      // Construct payload according to backend requirements
       const payload = { 
         email: email, 
-        otp: otp, // Including the OTP in the payload
+        otp: otp, 
         password: password, 
         confirmPassword: confirmPassword 
       };
 
-      const response = await axios.post('http://localhost:8099/api/v1/auth/reset-password', payload);
+      // Use API.post method
+      const response = await API.post('/auth/reset-password', payload);
       
       setMessage('✅ Password reset successful! Redirecting to login...');
       setTimeout(() => navigate('/'), 2500);

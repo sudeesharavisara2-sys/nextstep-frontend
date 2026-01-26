@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import '../../styles/Dashboard.css';
+=======
+import '../../styles/Dashboard.css'; // File path එක නිවැරදි කරන ලදී
+import '../../styles/App.css';       // File path එක නිවැරදි කරන ලදී
+>>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -10,14 +15,15 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+        // Token එක නැතිනම් මුල් පිටුවට (Login) යොමු කරයි
         if (!token) {
-            navigate('/login');
+            navigate('/');
         }
     }, [token, navigate]);
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate('/login');
+        navigate('/'); // Logout වූ පසු login පිටුවට යොමු කරයි
     };
 
     const allServices = [

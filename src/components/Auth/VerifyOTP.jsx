@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from '../../api'; // Imported API instance instead of axios
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/App.css';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 const VerifyOtp = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,10 +29,8 @@ const VerifyOtp = () => {
                 otp: otp
             };
 
-            const response = await axios.post(
-                'http://localhost:8099/api/v1/auth/verify', // Ensure the backend URL is correct
-                verifyData
-            );
+            // Used API.post and provided only the endpoint string
+            const response = await API.post('/auth/verify', verifyData);
 
             setMessage('✅ Verification Successful! Redirecting to login...');
             setTimeout(() => navigate('/'), 2000);
