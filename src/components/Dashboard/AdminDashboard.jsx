@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Dashboard.css'; 
-import '../../styles/App.css'; 
+import '../../styles/App.css';
+import logo from "../../assets/logo1.png"; 
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -35,7 +36,9 @@ const AdminDashboard = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP ADMIN</h2></div>
+                <div className="logo">
+                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+                                </div>
                 <ul className="menu-list">
                     <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>
                         Admin Home

@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // File path එක නිවැරදි කරන ලදී
-import '../../styles/App.css';       // File path එක නිවැරදි කරන ලදී
+import '../../styles/Dashboard.css';
+import '../../styles/App.css';
+import logo from "../../assets/logo1.png";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     
-    // localStorage එකෙන් දත්ත ලබා ගනිමු
+    // Get data from localStorage
     const userRole = localStorage.getItem('userRole') || 'USER'; 
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Token එක නැතිනම් මුල් පිටුවට (Login) යොමු කරයි
+        // Redirect to login if no token
         if (!token) {
             navigate('/');
         }
@@ -20,10 +21,10 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate('/'); // Logout වූ පසු login පිටුවට යොමු කරයි
+        navigate('/');
     };
 
-    // User ට පේන සේවාවන් සහ ඒවායේ Paths
+    // All services
     const allServices = [
         { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
@@ -34,7 +35,7 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    // වර්තමාන user ට අදාළ services පමණක් පෙරා ගැනීම
+    // Filter services for current user
     const filteredServices = allServices.filter(service => 
         service.roles.includes(userRole)
     );
@@ -42,8 +43,10 @@ const Dashboard = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP</h2></div>
-                <ul className="menu-list">
+               <div className="logo">
+                   <img src={logo} alt="NextStep Logo" className="logo-img" />
+                </div>
+                 <ul className="menu-list">
                     <li className="menu-item" style={{backgroundColor: 'rgba(255,255,255,0.2)'}} onClick={() => navigate('/dashboard')}>
                         Home
                     </li>
@@ -84,6 +87,11 @@ const Dashboard = () => {
                     ))}
                 </div>
             </main>
+
+            {/* Floating Footer Text */}
+            <div className="powered-by">
+                Powered by NSBM
+            </div>
         </div>
     );
 };
