@@ -24,7 +24,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          {/* Default Route: වෙබ් අඩවියට පිවිසි විගස Login පිටුවට යොමු කරයි */}
+          {/* Default Route:  */}
           <Route path="/" element={<Navigate to="/login" />} />
           
           {/* Auth Routes */}
@@ -33,15 +33,15 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
-          {/* User Routes (ශිෂ්‍යයන් සඳහා) */}
+          {/* User Routes  */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shuttle-service" element={<ShuttleService />} />
 
-          {/* Admin Routes (පාලකයන් සඳහා) */}
+          {/* Admin Routes () */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/add-shuttle" element={<AddShuttle />} />
           
-          {/* Catch-all Route: වැරදි URL එකක් ගැසූ විට Login පිටුවට යැවීම */}
+          {/* Catch-all Route: */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
