@@ -1,0 +1,25 @@
+.study-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.study-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.study-form input,
+.study-form select {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
+
+.booking-item {
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+}
