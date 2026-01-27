@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import '../../styles/Dashboard.css';
-=======
 import '../../styles/Dashboard.css'; // File path එක නිවැරදි කරන ලදී
 import '../../styles/App.css';       // File path එක නිවැරදි කරන ලදී
->>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    
-    const userRole = localStorage.getItem('userRole') || 'USER'; 
+
+    // localStorage එකෙන් දත්ත ලබා ගනිමු
+    const userRole = localStorage.getItem('userRole') || 'USER';
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
 
@@ -26,6 +23,7 @@ const Dashboard = () => {
         navigate('/'); // Logout වූ පසු login පිටුවට යොමු කරයි
     };
 
+    // User ට පේන සේවාවන් සහ ඒවායේ Paths
     const allServices = [
         { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
@@ -36,7 +34,8 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    const filteredServices = allServices.filter(service => 
+    // වර්තමාන user ට අදාළ services පමණක් පෙරා ගැනීම
+    const filteredServices = allServices.filter(service =>
         service.roles.includes(userRole)
     );
 
@@ -75,7 +74,7 @@ const Dashboard = () => {
                         <div key={index} className="info-card">
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
-                            <button 
+                            <button
                                 className="view-btn"
                                 onClick={() => navigate(service.path)}
                             >

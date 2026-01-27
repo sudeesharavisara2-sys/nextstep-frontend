@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../../api'; 
+import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../styles/App.css';
 
@@ -12,7 +12,7 @@ const Signup = () => {
     password: '',
     phoneNumber: '',
     gender: 'MALE',
-    role: 'USER', 
+    role: 'USER', // Set USER as the default role
   });
 
   const [message, setMessage] = useState('');
@@ -29,14 +29,15 @@ const Signup = () => {
     setMessage('');
 
     try {
-      // Use API.post to provide a shortened URL path
-      const response = await API.post('/auth/register', formData);
+      const response = await axios.post(
+        'http://localhost:8099/api/v1/auth/register',
+        formData
+      );
 
       console.log('✅ Registration Success:', response.data);
       setMessage('✅ Success! Redirecting to OTP verification...');
 
       setTimeout(() => {
-        // Pass the email state to the verification page
         navigate('/verify-otp', { state: { email: formData.email } });
       }, 1500);
     } catch (error) {
@@ -52,7 +53,7 @@ const Signup = () => {
       <div className="auth-card">
         <h2 className="auth-title">Create Account</h2>
         <form onSubmit={handleSignup} className="auth-form">
-          
+
           <div className="form-group">
             <input name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required className="form-input" />
           </div>
@@ -90,7 +91,7 @@ const Signup = () => {
               <option value="ADMIN">Admin</option>
             </select>
           </div>
-          
+
           <div className="form-group">
             <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="form-input" />
           </div>

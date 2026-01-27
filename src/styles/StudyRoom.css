@@ -15,11 +15,57 @@
   padding: 12px;
   border-radius: 10px;
   border: none;
+  outline: none;
+}
+
+.study-form button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
 .booking-item {
   padding: 12px;
   margin-top: 10px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-item .status {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.booking-item .actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.booking-item .actions button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-item .actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.availability-box {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+}
+
+.availability-box strong {
+  font-weight: 600;
 }

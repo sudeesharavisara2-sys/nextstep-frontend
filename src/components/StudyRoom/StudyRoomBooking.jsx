@@ -5,41 +5,51 @@ import "../../styles/Dashboard.css";
 
 const StudyRoomBooking = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token =
+    localStorage.getItem("token") || localStorage.getItem("accessToken");
 
   const [formData, setFormData] = useState({
     room: "",
     date: "",
-    time: "",
+    time: "", // HH:mm
+    durationMinutes: 60,
   });
 
   const [bookings, setBookings] = useState([]);
   const [message, setMessage] = useState("");
 
-  // 🔐 Protect page
   useEffect(() => {
-    if (!token) navigate("/login");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
     fetchMyBookings();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
-  // 🔄 Load bookings
   const fetchMyBookings = async () => {
     try {
       const res = await API.get("/study-room/my-bookings", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setBookings(res.data);
+      setBookings(res.data || []);
     } catch (err) {
       console.error(err);
+      if (err?.response?.status === 401) navigate("/login");
     }
   };
 
-  // 📥 Form change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "durationMinutes") {
+      setFormData((prev) => ({ ...prev, [name]: Number(value) }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 📤 Book room
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -50,10 +60,33 @@ const StudyRoomBooking = () => {
       });
 
       setMessage("✅ Room booked successfully");
-      setFormData({ room: "", date: "", time: "" });
+      setFormData({ room: "", date: "", time: "", durationMinutes: 60 });
       fetchMyBookings();
     } catch (err) {
-      setMessage("❌ Booking failed");
+      console.error(err);
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data?.Error ||
+        "❌ Booking failed";
+      setMessage(msg);
+    }
+  };
+
+  const handleCancel = async (id) => {
+    setMessage("");
+    try {
+      await API.patch(`/study-room/bookings/${id}/cancel`, null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMessage("✅ Booking cancelled");
+      fetchMyBookings();
+    } catch (err) {
+      console.error(err);
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data?.Error ||
+        "❌ Cancel failed";
+      setMessage(msg);
     }
   };
 
@@ -63,7 +96,11 @@ const StudyRoomBooking = () => {
         <div className="logo">
           <h2>NEXTSTEP</h2>
         </div>
-        <button className="menu-item back-btn" onClick={() => navigate("/dashboard")}>
+
+        <button
+          className="menu-item back-btn"
+          onClick={() => navigate("/dashboard")}
+        >
           ⬅ Back
         </button>
       </aside>
@@ -73,14 +110,13 @@ const StudyRoomBooking = () => {
           <h1>📚 Study Room Booking</h1>
         </header>
 
-        {/* BOOK FORM */}
-        <div className="info-card" style={{ maxWidth: "500px" }}>
+        <div className="info-card" style={{ maxWidth: "520px" }}>
           <h3>Book a Study Room</h3>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <input
               name="room"
-              placeholder="Room (ex: A1 / Library-2)"
+              placeholder="Room (ex: A1)"
               value={formData.room}
               onChange={handleChange}
               className="form-input"
@@ -97,21 +133,36 @@ const StudyRoomBooking = () => {
             />
 
             <input
+              type="time"
               name="time"
-              placeholder="Time (ex: 10:00 - 12:00)"
               value={formData.time}
               onChange={handleChange}
               className="form-input"
               required
             />
 
-            <button className="btn-primary">Book Room</button>
+            <select
+              name="durationMinutes"
+              value={formData.durationMinutes}
+              onChange={handleChange}
+              className="form-input"
+            >
+              <option value={30}>30 minutes</option>
+              <option value={60}>60 minutes</option>
+              <option value={90}>90 minutes</option>
+              <option value={120}>120 minutes</option>
+              <option value={180}>180 minutes</option>
+              <option value={240}>240 minutes</option>
+            </select>
+
+            <button className="btn-primary" type="submit">
+              Book Room
+            </button>
           </form>
 
           {message && <p style={{ marginTop: "10px" }}>{message}</p>}
         </div>
 
-        {/* BOOKINGS LIST */}
         <div style={{ marginTop: "40px" }}>
           <h2>My Bookings</h2>
 
@@ -122,7 +173,20 @@ const StudyRoomBooking = () => {
               <div key={b.id} className="info-card">
                 <h3>{b.room}</h3>
                 <p>Date: {b.date}</p>
-                <p>Time: {b.time}</p>
+                <p>
+                  Time: {b.startTime} - {b.endTime} ({b.durationMinutes} mins)
+                </p>
+                <p>Status: {b.status}</p>
+
+                {b.status === "ACTIVE" && (
+                  <button
+                    className="btn-primary"
+                    style={{ marginTop: "10px" }}
+                    onClick={() => handleCancel(b.id)}
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
             ))}
           </div>

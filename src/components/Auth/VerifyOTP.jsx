@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import API from '../../api'; // Imported API instance instead of axios
+import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/App.css';
-<<<<<<< HEAD
-=======
-
->>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 const VerifyOtp = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    
+
     // Retrieve the email passed from the Signup page state
     const emailFromSignup = location.state?.email || "";
 
@@ -29,8 +25,10 @@ const VerifyOtp = () => {
                 otp: otp
             };
 
-            // Used API.post and provided only the endpoint string
-            const response = await API.post('/auth/verify', verifyData);
+            const response = await axios.post(
+                'http://localhost:8099/api/v1/auth/verify', // Ensure the backend URL is correct
+                verifyData
+            );
 
             setMessage('✅ Verification Successful! Redirecting to login...');
             setTimeout(() => navigate('/'), 2000);
@@ -47,7 +45,7 @@ const VerifyOtp = () => {
             <div className="auth-card">
                 <h2 className="auth-title">Verify OTP</h2>
                 <p className="subtitle">We've sent a code to {emailFromSignup}</p>
-                
+
                 <form onSubmit={handleVerify} className="auth-form">
                     <div className="form-group">
                         <label className="form-label">Enter OTP Code:</label>
@@ -73,7 +71,7 @@ const VerifyOtp = () => {
                         Resend OTP
                     </button>
                 </div>
-                
+
                 {message && (
                     <p className={`status-msg ${message.includes('Successful') ? 'success' : 'error'}`}>
                         {message}

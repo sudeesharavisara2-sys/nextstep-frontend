@@ -6,7 +6,7 @@ import '../../styles/ShuttleService.css'; // Path එක නිවැරදි �
 
 const ShuttleService = () => {
     const navigate = useNavigate();
-    
+
     // --- State Management ---
     const [shuttles, setShuttles] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -43,10 +43,10 @@ const ShuttleService = () => {
         let interval;
         if (isModalOpen && !isLightboxOpen && selectedShuttle?.images?.length > 1) {
             interval = setInterval(() => {
-                setCurrentImageIndex((prev) => 
+                setCurrentImageIndex((prev) =>
                     prev === selectedShuttle.images.length - 1 ? 0 : prev + 1
                 );
-            }, 3500); 
+            }, 3500);
         }
         return () => clearInterval(interval);
     }, [isModalOpen, isLightboxOpen, selectedShuttle]);
@@ -72,7 +72,7 @@ const ShuttleService = () => {
     const nextImage = (e) => {
         if (e) e.stopPropagation();
         if (selectedShuttle?.images?.length > 0) {
-            setCurrentImageIndex((prev) => 
+            setCurrentImageIndex((prev) =>
                 prev === selectedShuttle.images.length - 1 ? 0 : prev + 1
             );
         }
@@ -81,13 +81,13 @@ const ShuttleService = () => {
     const prevImage = (e) => {
         if (e) e.stopPropagation();
         if (selectedShuttle?.images?.length > 0) {
-            setCurrentImageIndex((prev) => 
+            setCurrentImageIndex((prev) =>
                 prev === 0 ? selectedShuttle.images.length - 1 : prev - 1
             );
         }
     };
 
-    const filteredShuttles = shuttles.filter(s => 
+    const filteredShuttles = shuttles.filter(s =>
         (s.route?.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (s.busName?.toLowerCase().includes(searchTerm.toLowerCase()))
     );
@@ -109,10 +109,10 @@ const ShuttleService = () => {
                 </header>
 
                 <div className="search-container">
-                    <input 
-                        type="text" 
-                        className="shuttle-search-input" 
-                        placeholder="Search by junction or bus name..." 
+                    <input
+                        type="text"
+                        className="shuttle-search-input"
+                        placeholder="Search by junction or bus name..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -132,7 +132,7 @@ const ShuttleService = () => {
                                     <img src="https://via.placeholder.com/120" className="shuttle-img" alt="placeholder" />
                                 )}
                             </div>
-                            
+
                             <div className="shuttle-card-body">
                                 <div className="shuttle-route">{shuttle.route}</div>
                                 <div className="shuttle-card-info-container">
@@ -148,8 +148,8 @@ const ShuttleService = () => {
                                         </div>
                                     </div>
                                     <div className="card-phone-wrapper">
-                                        <a 
-                                            href={`tel:${shuttle.phoneNumber}`} 
+                                        <a
+                                            href={`tel:${shuttle.phoneNumber}`}
                                             className="card-call-action"
                                             onClick={(e) => e.stopPropagation()}
                                         >
@@ -174,10 +174,10 @@ const ShuttleService = () => {
                             <div className="modal-image-container">
                                 {selectedShuttle.images?.[currentImageIndex] ? (
                                     <>
-                                        <img 
-                                            key={currentImageIndex} 
-                                            src={`data:image/jpeg;base64,${selectedShuttle.images[currentImageIndex].imageData}`} 
-                                            alt="shuttle" 
+                                        <img
+                                            key={currentImageIndex}
+                                            src={`data:image/jpeg;base64,${selectedShuttle.images[currentImageIndex].imageData}`}
+                                            alt="shuttle"
                                             className="modal-large-img"
                                             onClick={() => setIsLightboxOpen(true)}
                                         />
@@ -224,10 +224,10 @@ const ShuttleService = () => {
                 <div className="lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
                     <span className="close-lightbox" onClick={() => setIsLightboxOpen(false)}>&times;</span>
                     <div className="lightbox-container" onClick={(e) => e.stopPropagation()}>
-                        <img 
-                            key={currentImageIndex} 
-                            src={`data:image/jpeg;base64,${selectedShuttle.images[currentImageIndex].imageData}`} 
-                            className="lightbox-img" 
+                        <img
+                            key={currentImageIndex}
+                            src={`data:image/jpeg;base64,${selectedShuttle.images[currentImageIndex].imageData}`}
+                            className="lightbox-img"
                             alt="Full Screen"
                         />
                         {selectedShuttle.images.length > 1 && (

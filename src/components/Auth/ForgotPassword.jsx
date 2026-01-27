@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import API from '../../api'; // Import to use api.js
->>>>>>> 88791749c61f2ad401908b7214a63db9fb5d6b91
 import '../../styles/App.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(''); 
+  const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -26,7 +23,7 @@ const ForgotPassword = () => {
       // Use API.post to provide a short URL
       const response = await API.post('/auth/send-otp', { email });
       setMessage(`✅ ${response.data.message || 'OTP Sent Successfully!'}`);
-      setIsOtpSent(true); 
+      setIsOtpSent(true);
     } catch (error) {
       setMessage(error.response?.data?.message || '❌ Failed to send OTP.');
     } finally {
@@ -45,16 +42,16 @@ const ForgotPassword = () => {
     }
 
     try {
-      const payload = { 
-        email: email, 
-        otp: otp, 
-        password: password, 
-        confirmPassword: confirmPassword 
+      const payload = {
+        email: email,
+        otp: otp,
+        password: password,
+        confirmPassword: confirmPassword
       };
 
       // Use API.post method
       const response = await API.post('/auth/reset-password', payload);
-      
+
       setMessage('✅ Password reset successful! Redirecting to login...');
       setTimeout(() => navigate('/'), 2500);
     } catch (error) {
@@ -69,19 +66,19 @@ const ForgotPassword = () => {
     <div className="auth-container">
       <div className="auth-card">
         <h2 className="auth-title">Forgot Password</h2>
-        
+
         {!isOtpSent ? (
           /* Step 1: Email Entry */
           <form onSubmit={handleSendOtp} className="auth-form">
             <p className="subtitle">Enter your email to receive an OTP</p>
             <div className="form-group">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
+              <input
+                type="email"
+                placeholder="Email Address"
                 className="form-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required 
+                required
               />
             </div>
             <button type="submit" className="btn-primary" disabled={loading}>
@@ -92,16 +89,16 @@ const ForgotPassword = () => {
           /* Step 2: Enter OTP and New Password */
           <form onSubmit={handleResetPassword} className="auth-form">
             <p className="subtitle" style={{color: '#006837'}}>OTP Sent to {email}</p>
-            
+
             <div className="form-group">
               <label className="form-label">OTP Code</label>
-              <input 
-                type="text" 
-                placeholder="Enter 6-digit OTP" 
+              <input
+                type="text"
+                placeholder="Enter 6-digit OTP"
                 className="form-input"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                required 
+                required
                 maxLength="6"
                 style={{ textAlign: 'center', letterSpacing: '3px', fontWeight: 'bold' }}
               />
@@ -109,32 +106,32 @@ const ForgotPassword = () => {
 
             <div className="form-group">
               <label className="form-label">New Password</label>
-              <input 
-                type="password" 
-                placeholder="••••••••" 
+              <input
+                type="password"
+                placeholder="••••••••"
                 className="form-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
+                required
               />
             </div>
 
             <div className="form-group">
               <label className="form-label">Confirm Password</label>
-              <input 
-                type="password" 
-                placeholder="••••••••" 
+              <input
+                type="password"
+                placeholder="••••••••"
                 className="form-input"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                required 
+                required
               />
             </div>
 
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Updating...' : 'Reset Password'}
             </button>
-            
+
             <p className="switch-text" onClick={() => setIsOtpSent(false)} style={{cursor:'pointer', marginTop:'15px'}}>
               Go back to change email
             </p>
