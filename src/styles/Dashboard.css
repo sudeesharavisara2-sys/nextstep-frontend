@@ -6,6 +6,58 @@
     color: white;
     font-family: 'Poppins', sans-serif;
 }
+.logo {
+    text-align: center;   /* Center the logo in the sidebar */
+    padding: 0;           /* Remove extra space */
+   
+    background: transparent !important; /* Force transparency */
+    border: none !important;
+    box-shadow: none !important; /* Optional spacing below logo */
+       /* Remove any box shadow */
+}
+
+.logo-img {
+    mix-blend-mode: screen;
+    background-color: transparent !important;
+    border-style: none;
+    outline: none;
+    max-width: 200px;                  /* Adjust size as needed */
+    height: 100px;                      /* Keep aspect ratio */
+    display: block;
+    margin: 0 auto;                     /* Center horizontally */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    background: none;     /* No background */
+    box-shadow: none; /* Smooth hover effect */
+    backface-visibility: hidden;
+}
+.sidebar img {
+    border: 0;
+    outline: none;
+    background: none !important;
+}
+/* Hover effect only on image */
+.logo-img:hover {
+    transform: scale(1.1);             /* Slight zoom */
+    box-shadow: 0 0 20px rgba(0, 200, 100, 0.7); /* Green glow */
+}
+/* Floating text in bottom-right corner */
+.powered-by {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #ffffff;
+    opacity: 1;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+
+/* Optional: hover effect */
+.powered-by:hover {
+    opacity: 1;
+    color: #0e02bd;
+}
 
 /* --- Sidebar (Floating Glassmorphism Effect) --- */
 .sidebar {

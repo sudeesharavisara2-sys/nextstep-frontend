@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../../api'; // api.js import කරන ලදී
 import '../../styles/AddShuttle.css'; // Path එක නිවැරදි කරන ලදී
+import logo from "../../assets/logo1.png";
 
 const AddShuttle = () => {
     const navigate = useNavigate();

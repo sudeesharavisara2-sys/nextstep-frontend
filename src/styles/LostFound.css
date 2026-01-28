@@ -1,0 +1,295 @@
+/* src/styles/Lostfound.css */
+
+/* --- Page & Container --- */
+body, html, #root {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #00b894, #0984e3); /* Green to blue */
+    font-family: 'Poppins', sans-serif;
+}
+
+.lostfound-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px 20px;
+    background: #0b1d3a; /* Dark blue container */
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    color: #fff;
+}
+
+/* --- Header --- */
+.lostfound-container h1,
+.lostfound-form h3,
+.comments-section h4 {
+    color: #fff;
+}
+
+/* --- Form Styling --- */
+.lostfound-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.lostfound-form input,
+.lostfound-form textarea,
+.lostfound-form select {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.1); /* glass effect */
+    color: #fff;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.lostfound-form input:focus,
+.lostfound-form textarea:focus,
+.lostfound-form select:focus {
+    border-color: #88e3b5;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(136, 227, 181, 0.2);
+}
+
+/* Buttons in form */
+.lostfound-form button {
+    width: 140px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lostfound-form button:hover {
+    background-color: #e63939;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,77,77,0.3);
+}
+
+/* --- LostFound List --- */
+.lostfound-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Individual item card */
+.lostfound-item-card {
+    background: #0d2a5c; /* Dark blue card */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.lostfound-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* Title and status */
+.lostfound-item-card h3 {
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Paragraph styling */
+.lostfound-item-card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* Actions (Delete button) */
+.lostfound-actions {
+    margin-top: 10px;
+}
+
+.lostfound-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lostfound-actions button:hover {
+    background-color: #e63939;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,77,77,0.3);
+}
+
+/* Comments section */
+.comments-section {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.comments-section ul {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.comments-section li {
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+/* Comment input */
+.comments-section input[type="text"] {
+    width: 70%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    outline: none;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.comments-section input[type="text"]:focus {
+    border-color: #88e3b5;
+    box-shadow: 0 0 15px rgba(136, 227, 181, 0.2);
+}
+
+/* Comment button */
+.comments-section button {
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: none;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.comments-section button:hover {
+    background-color: #e63939;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,77,77,0.3);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .lostfound-form input,
+    .lostfound-form textarea,
+    .lostfound-form select {
+        font-size: 0.9rem;
+    }
+
+    .comments-section input[type="text"] {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .comments-section button {
+        width: 100%;
+    }
+}
+.logo {
+    text-align: center;   /* Center the logo in the sidebar */
+    padding: 0;           /* Remove extra space */
+    margin: 0 auto 20px; 
+    background: transparent !important; /* Force transparency */
+    border: none !important;
+    box-shadow: none !important; /* Optional spacing below logo */
+       /* Remove any box shadow */
+}
+
+.logo-img {
+    mix-blend-mode: screen;
+    background-color: transparent !important;
+    border-style: none;
+    outline: none;
+    max-width: 200px;                  /* Adjust size as needed */
+    height: auto;                      /* Keep aspect ratio */
+    display: block;
+    margin: 0 auto;                     /* Center horizontally */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    background: none;     /* No background */
+    box-shadow: none; /* Smooth hover effect */
+    backface-visibility: hidden;
+}
+.sidebar img {
+    border: 0;
+    outline: none;
+    background: none !important;
+}
+/* Hover effect only on image */
+.logo-img:hover {
+    transform: scale(1.1);             /* Slight zoom */
+    box-shadow: 0 0 20px rgba(0, 200, 100, 0.7); /* Green glow */
+}
+/* Floating text in bottom-right corner */
+.powered-by {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #ffffff;
+    opacity: 1;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+
+/* Optional: hover effect */
+.powered-by:hover {
+    opacity: 1;
+    color: #0e02bd;
+}
+
+/* --- Extra Shuttle-style features for LostFound --- */
+/* Card detail rows */
+.lostfound-card-details {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+}
+
+.detail-label { color: #b0b0b0; }
+.detail-value { color: #ffffff; font-weight: 500; }
+
+.card-call-wrapper {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.card-call-action {
+    display: inline-block;
+    background-color: #ff4d4d;
+    color: white !important;
+    text-decoration: none;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.card-call-action:hover {
+    background-color: #e63939;
+} 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import API from '../../api'; // api.js import කරන ලදී
 import '../../styles/Dashboard.css'; // Path එක නිවැරදි කරන ලදී
 import '../../styles/ShuttleService.css'; // Path එක නිවැරදි කරන ලදී
+import logo from "../../assets/logo1.png";
 
 const ShuttleService = () => {
     const navigate = useNavigate();
@@ -95,7 +96,9 @@ const ShuttleService = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP</h2></div>
+                <div className="logo">
+                   <img src={logo} alt="NextStep Logo" className="logo-img" />
+                </div>
                 <ul className="menu-list">
                     <li className="menu-item" onClick={() => navigate('/dashboard')}>Home</li>
                     <li className="menu-item active">Shuttle Service</li>
@@ -242,6 +245,10 @@ const ShuttleService = () => {
                     </div>
                 </div>
             )}
+             {/* Floating Footer Text */}
+            <div className="powered-by">
+                Powered by NSBM
+            </div>
         </div>
     );
 };
