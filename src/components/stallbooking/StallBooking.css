@@ -1,0 +1,526 @@
+/* ===============================
+   STALL HOME LAYOUT – FINAL
+   =============================== */
+
+.stall-home-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #061a3a 0%, #0b4b5a 100%);
+}
+
+/* ===== LEFT SIDEBAR ===== */
+/* NOTE: Sidebar already rendered in JSX */
+.stall-home-layout .sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #1b2f6b, #10224d);
+  padding: 25px 20px;
+  box-sizing: border-box;
+}
+
+/* ===== RIGHT CONTENT AREA ===== */
+.stall-home-page {
+  flex: 1;
+  background: linear-gradient(135deg, #061a3a, #0b4b5a);
+  padding: 60px;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* ===== TITLE ===== */
+.stall-home-page h1 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.stall-home-page .subtitle {
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.stall-home-page .action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.stall-home-page .action-buttons button {
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.stall-home-page .action-buttons button:first-child {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(34,197,94,0.4);
+}
+
+.stall-home-page .action-buttons button:last-child {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+/* ===== INFO CARDS ===== */
+.stall-home-page .info-cards {
+  display: flex;
+  height:220px;
+  padding:20px;
+  height:auto;
+  gap: 30px;
+}
+
+/* ===== SINGLE CARD ===== */
+.stall-home-page .info-cards .card {
+  width: 280px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .stall-home-layout {
+    flex-direction: column;
+  }
+
+  .stall-home-layout .sidebar {
+    width: 100%;
+  }
+
+  .stall-home-page {
+    padding: 30px;
+  }
+
+  .stall-home-page .info-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* ===============================
+   NEXTSTEP SIDEBAR – FINAL UI
+   =============================== */
+
+.nextstep-sidebar {
+  width: 280px;
+  min-height: calc(100vh - 40px);
+  margin: 20px;
+  padding: 30px 22px;
+  background: linear-gradient(180deg, #223b78, #1a2f63);
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== LOGO ===== */
+.nextstep-logo {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+  margin-bottom: 32px;
+}
+
+/* ===== MENU ===== */
+.nextstep-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nextstep-menu button {
+  background: rgba(8, 18, 38, 0.12);
+  color: #ffffff;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nextstep-menu button:hover {
+  background: rgba(22, 28, 66, 0.22);
+}
+
+/* ===== ACTIVE (Home look in screenshot) ===== */
+.nextstep-menu button:first-child {
+  background: rgba(16, 13, 75, 0.28);
+}
+
+/* ===== LOGOUT ===== */
+.nextstep-logout {
+  margin-top: auto;
+  background: #ff4d4f;
+  color: #ffffff;
+  border: none;
+  border-radius: 18px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba(255, 77, 79, 0.45);
+}
+
+.nextstep-logout:hover {
+  background: #ff6668;
+}
+
+.available-stalls-page .info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 24px;
+}
+.available-stalls-page .info-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  height: auto;
+  min-height: unset;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+ 
+/* =========================
+   AVAILABLE STALLS NAVBAR
+   ========================= */
+
+.available-stalls-page .top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  padding: 16px 28px;
+  margin-bottom: 30px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+}
+
+.available-stalls-page .nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.available-stalls-page .nav-links span {
+  margin-left: 28px;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.available-stalls-page .nav-links span:hover {
+  text-decoration: underline;
+}
+/* ==============================
+   AVAILABLE STALLS – CENTER TEXT
+   ============================== */
+
+.available-stalls-page .stall-subtitle,
+.available-stalls-page .stall-count {
+  text-align: center;
+}
+
+.available-stalls-page .info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+/* CARD */
+.available-stalls-page .info-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* TOP PURPLE HEADER */
+.available-stalls-page .card-image {
+  height: 90px;
+  background: linear-gradient(135deg, #6f7bf7, #7b5bbd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.available-stalls-page .card-image h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* BODY */
+.available-stalls-page .card-body {
+  padding: 18px;
+  text-align: center;
+}
+
+.available-stalls-page .tag {
+  display: inline-block;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.available-stalls-page .desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 14px;
+}
+
+/* DETAILS */
+.available-stalls-page .meta div {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+/* PRICE */
+.available-stalls-page .price {
+  margin: 14px 0;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+/* BUTTON */
+.available-stalls-page .primary-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ===== PAGE BACKGROUND (Dashboard style) ===== */
+.stall-booking-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #061a3a 0%, #0b4b5a 100%);
+  padding-bottom: 60px;
+}
+
+/* ===== TOP NAVBAR ===== */
+.top-navbar {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-links span {
+  margin-left: 24px;
+  cursor: pointer;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.nav-links span:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ===== BOOKING CARD ===== */
+.booking-card {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.booking-card h1 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.booking-card .subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ===== STALL INFO ===== */
+.stall-info-box {
+  background: #f4f6ff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.stall-info-box h2 {
+  margin-bottom: 8px;
+}
+
+.stall-info-box .price {
+  color: #16a34a;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* ===== FORM ===== */
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.booking-form textarea {
+  resize: none;
+  height: 90px;
+}
+
+.booking-form .row {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===== BUTTONS ===== */
+.confirm-btn {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background: #1d4ed8;
+}
+
+.back-btn {
+  margin-top: 14px;
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+}
+.dark-bg {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #021b33, #04324f);
+  padding-top: 90px; /* navbar space */
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.edit-btn {
+  background: #2563eb;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+.top-navbar {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 58, 95, 0.95),
+    rgba(6, 30, 51, 0.95)
+  );
+  border-radius: 16px;
+}
+/* ===============================
+   BOOK STALL PAGE BACKGROUND
+   =============================== */
+.stall-booking-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #061b2d, #0b3554);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* horizontal center */
+}
+
+/* navbar gap */
+.stall-booking-page .top-navbar {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* BOOKING CARD CENTER */
+.booking-card {
+  margin: 0 auto;           /* IMPORTANT */
+}
+
+/* ===== HOW TO BOOK PAGE ===== */
+
+.howto-steps {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.howto-step {
+  background: #f4f7ff;
+  padding: 18px 22px;
+  border-radius: 14px;
+  border-left: 6px solid #2b63f1;
+}
+
+.howto-step h3 {
+  margin-bottom: 6px;
+  color: #1e2a3a;
+}
+
+.howto-step p {
+  margin: 0;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Navbar active link */
+.top-navbar .nav-links .active {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+}
