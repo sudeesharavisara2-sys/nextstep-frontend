@@ -9,7 +9,10 @@ import Login from "./components/Auth/Login";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 
 // --- Lost & Found Components ---
-import { LostFound, LostFoundForm, LostFoundList } from "./components/LostFound";
+import LostFound from "./components/LostFound/LostFound";
+import LostFoundForm from "./components/LostFound/LostFoundForm";
+import LostFoundList from "./components/LostFound/LostFoundList";
+import LostFoundAdminDashboard from "./components/LostFound/lostfoundadmin";
 
 // --- Dashboard Components ---
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -40,7 +43,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shuttle-service" element={<ShuttleService />} />
 
-          {/* Lost & Found */}
+          {/* Lost & Found Routes */}
           <Route path="/lost-found" element={<LostFound />} />
           <Route path="/lost-found-form" element={<LostFoundForm />} />
           <Route path="/lost-found-list" element={<LostFoundList />} />
@@ -48,6 +51,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/add-shuttle" element={<AddShuttle />} />
+          <Route path="/admin/lostfound" element={<LostFoundAdminDashboard />} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/login" />} />
