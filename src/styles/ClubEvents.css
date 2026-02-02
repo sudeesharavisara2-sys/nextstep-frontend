@@ -1,0 +1,52 @@
+/* src/styles/ClubEvents.css */
+.ce-layout{display:flex;min-height:100vh;background:#0b1220;color:#fff;font-family:Poppins,sans-serif}
+.ce-sidebar{width:300px;padding:22px;background:rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:14px}
+.ce-brand{display:flex;gap:12px;align-items:center}
+.ce-logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#42cc1b,#01185e);display:flex;align-items:center;justify-content:center;font-weight:900}
+.ce-title{font-weight:900;letter-spacing:1px}
+.ce-sub{opacity:.7;font-size:12px}
+.ce-user{padding:12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.ce-user-name{font-weight:800}
+.ce-user-role{opacity:.8;font-size:12px}
+.ce-btn{border:none;border-radius:14px;padding:12px 14px;font-weight:800;cursor:pointer}
+.ce-btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.ce-btn-primary{background:#22c55e;color:#082012}
+.ce-btn-danger{margin-top:auto;background:#ef4444;color:#fff}
+.ce-main{flex:1;padding:26px}
+.ce-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px}
+.ce-header h1{margin:0;font-size:26px}
+.ce-header p{margin:6px 0 0;opacity:.8}
+.ce-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
+.ce-panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:16px;min-height:480px}
+.ce-panel-head{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ce-panel-head h2{margin:0}
+.ce-row{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.ce-input,.ce-select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:14px;padding:10px 12px;outline:none}
+.ce-input{min-width:220px}
+.ce-select{min-width:180px}
+.ce-empty{opacity:.8;padding:20px}
+.ce-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.ce-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px}
+.ce-card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.ce-card-title{font-weight:900}
+.ce-badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.35)}
+.ce-badge-soft{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.ce-card-desc{opacity:.85;margin:10px 0 14px;font-size:13px;line-height:1.4}
+.ce-card-actions{display:flex;justify-content:flex-end}
+.ce-events{display:flex;flex-direction:column;gap:12px}
+.ce-event{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px}
+.ce-event-title{font-weight:900;font-size:16px}
+.ce-event-meta{margin:8px 0}
+.ce-event-desc{opacity:.85;line-height:1.45}
+
+.ce-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.ce-modal{width:520px;max-width:95vw;background:#0f172a;border-radius:18px;border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.ce-modal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:rgba(255,255,255,.06)}
+.ce-modal-head h3{margin:0}
+.ce-x{background:transparent;border:none;color:#fff;font-size:26px;cursor:pointer}
+.ce-modal-body{padding:16px}
+.ce-modal-club{margin-bottom:12px}
+.ce-form{display:flex;flex-direction:column;gap:10px}
+.ce-label{font-size:12px;opacity:.85}
+.ce-msg{margin-top:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10)}
+@media(max-width:980px){.ce-grid{grid-template-columns:1fr}.ce-sidebar{display:none}.ce-main{padding:16px}}
