@@ -1,0 +1,455 @@
+/* ModelPapersUser.css - User view with glassmorphism (Uses ShuttleService.css patterns) */
+
+/* --- Breadcrumb for User View --- */
+.file-breadcrumb {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.breadcrumb-link {
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.breadcrumb-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(2px);
+}
+
+.breadcrumb-separator {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+}
+
+/* --- Search Container with Upload Button --- */
+.search-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.shuttle-search-input {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.shuttle-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.shuttle-search-input:focus {
+    border-color: #88e3b5;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(136, 227, 181, 0.2);
+}
+
+.upload-btn-top {
+    background: rgba(25, 135, 84, 0.9);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.upload-btn-top:hover {
+    background: rgba(25, 135, 84, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+}
+
+/* --- Folder Card Styling --- */
+.file-folder-card {
+    cursor: pointer;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.folder-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.folder-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- File Card Styling --- */
+.file-card {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-icon-large {
+    font-size: 70px;
+    margin: 20px 0;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.file-name {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    word-break: break-word;
+    width: 100%;
+}
+
+.file-details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.file-type-badge {
+    background: rgba(25, 135, 84, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.file-size {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+}
+
+.file-upload-info {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    margin: 8px 0;
+    text-align: center;
+}
+
+/* --- File Action Buttons --- */
+.file-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.file-download-btn,
+.file-delete-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.file-download-btn {
+    background: rgba(25, 135, 84, 0.9);
+    color: white;
+}
+
+.file-download-btn:hover {
+    background: rgba(25, 135, 84, 1);
+    transform: translateY(-2px);
+}
+
+.file-delete-btn {
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+}
+
+.file-delete-btn:hover {
+    background: rgba(220, 53, 69, 1);
+    transform: translateY(-2px);
+}
+
+/* --- Empty State --- */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.empty-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.empty-state p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* --- Shuttle Header (From ShuttleService.css) --- */
+.shuttle-header {
+    margin-bottom: 30px;
+}
+
+.shuttle-header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.shuttle-header p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+/* --- Upload Modal Styling (Uses Shuttle Modal Patterns) --- */
+.shuttle-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+}
+
+.shuttle-modal-content {
+    background: #ffffff; 
+    width: 650px;
+    max-width: 90%;
+    border-radius: 20px;
+    position: relative;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #fff;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    background: #f8f9fa;
+    color: #ff4d4d;
+    transform: rotate(90deg);
+}
+
+.modal-scrollable-area {
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.modal-bus-title {
+    color: #00482b; 
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.modal-bus-sub {
+    color: #666; 
+    margin-bottom: 25px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+/* --- Upload Modal Form Styling --- */
+.upload-form-group {
+    margin-bottom: 20px;
+}
+
+.upload-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.file-input,
+.file-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.file-input:focus,
+.file-textarea:focus {
+    outline: none;
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
+.file-selected-info {
+    margin-top: 8px;
+    color: #198754;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Modal Call Button (Upload Button) */
+.modal-call-btn {
+    width: 100%;
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.modal-call-btn:hover {
+    background: #146c43;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+    }
+    
+    .upload-btn-top {
+        width: 100%;
+    }
+    
+    .file-breadcrumb {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+    
+    .folder-icon,
+    .file-icon-large {
+        font-size: 50px;
+    }
+    
+    .file-actions {
+        flex-direction: column;
+    }
+    
+    .shuttle-modal-content {
+        width: 95%;
+    }
+    
+    .modal-scrollable-area {
+        padding: 20px;
+    }
+}
+
+/* --- Animation for cards --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.file-folder-card,
+.file-card {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* --- Card Hover Effects (From Dashboard.css) --- */
+.info-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.info-card:hover {
+    transform: translateY(-12px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.info-card h3 {
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.info-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}

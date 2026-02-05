@@ -15,6 +15,10 @@ import AdminDashboard from './components/Dashboard/AdminDashboard';
 import ShuttleService from './components/Shuttle/ShuttleService';
 import AddShuttle from './components/Shuttle/AddShuttle';
 
+// ---ModelPapers Components---
+import ModelPapersUser from './components/ModelPapers/ModelPapersUser';
+import ModelPapers from './components/ModelPapers/ModelPapers';
+
 // --- Global Styles ---
 // ඔබේ CSS ගොනුව src/styles/App.css හි ඇත්නම්:
 import './styles/App.css';
@@ -36,10 +40,12 @@ function App() {
           {/* User Routes (ශිෂ්‍යයන් සඳහා) */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shuttle-service" element={<ShuttleService />} />
+          <Route path="/model-papers" element={<ModelPapersUser />} />
 
           {/* Admin Routes (පාලකයන් සඳහා) */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/add-shuttle" element={<AddShuttle />} />
+          <Route path="/manage-model-papers" element={<ModelPapers />} />
           
           {/* Catch-all Route: වැරදි URL එකක් ගැසූ විට Login පිටුවට යැවීම */}
           <Route path="*" element={<Navigate to="/login" />} />
