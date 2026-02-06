@@ -1,0 +1,343 @@
+/* --- Base Page Layout --- */
+.mp-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- Header Section --- */
+.mp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.mp-header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: #006837;
+}
+
+.mp-header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Filter Section --- */
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.form-input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #f9f9f9;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #198754;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
+/* --- Breadcrumbs Navigation --- */
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    font-size: 14px;
+}
+
+.breadcrumbs span {
+    color: #333;
+}
+
+.breadcrumb-root {
+    cursor: pointer;
+    color: #006837 !important;
+    font-weight: bold;
+}
+
+.breadcrumb-root:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs button {
+    background: #006837;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+    margin-left: 10px;
+}
+
+.breadcrumbs button:hover {
+    background: #00482b;
+}
+
+/* --- Content Section --- */
+.content-section {
+    display: flex;
+    gap: 20px;
+}
+
+.folders-files-container {
+    flex: 1;
+}
+
+.folders-files-container h4 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* --- Folder Card --- */
+.folder-card {
+    padding: 15px;
+    border: 1px solid #edebeb;
+    border-radius: 8px;
+    cursor: pointer;
+    background: rgb(229, 199, 231);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.folder-card:hover {
+    background: #ec83e3;
+    border-color: #bb4a4a;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.folder-card span {
+    font-weight: 500;
+    color: #333;
+    font-size: 15px;
+}
+
+/* --- File Card --- */
+.file-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #86bbd3;
+    border: 1px solid #0c0096;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.file-card:hover {
+    background: #0b7fb5;
+    border-color: #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.file-card span {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+/* --- Action Buttons --- */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 8px;
+    transition: 0.2s;
+}
+
+.action-buttons button:hover {
+    transform: scale(1.2);
+}
+
+/* --- Empty Message --- */
+.empty-message {
+    color: #999;
+    text-align: center;
+    padding: 30px;
+    font-style: italic;
+}
+
+/* --- Buttons --- */
+.btn-green {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-green:hover {
+    background: #157347;
+}
+
+.btn-green:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-yellow {
+    background: #ffc107;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-yellow:hover {
+    background: #e0a800;
+}
+
+.btn-red {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.btn-red:hover {
+    background: #c82333;
+}
+
+.btn-primary {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #157347;
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* --- Modal Content Box --- */
+.modal-container {
+    background: rgb(255, 255, 255);
+    width: 500px;
+    max-width: 90%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    animation: modalSlideUp 0.3s ease-out;
+    padding: 30px;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-container h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #00482b;
+}
+
+.modal-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-container input[type="text"],
+.modal-container input[type="file"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #f9f9f9;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+.modal-container input:focus {
+    outline: none;
+    border-color: #198754;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
