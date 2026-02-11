@@ -524,3 +524,38 @@
   font-weight: 600;
   text-decoration: underline;
 }
+
+
+
+/* Sidebar එක පැත්තකින් තියන්න Layout එක හදමු */
+.stall-home-layout {
+  display: flex;
+  flex-direction: row; /* Sidebar සහ Content එක ළඟින් තබයි */
+  align-items: flex-start;
+  background: #061a3a;
+  overflow: hidden;
+}
+
+/* Sidebar එක Scroll වෙන්නේ නැති වෙන්න fixed කරන්න */
+.nextstep-sidebar {
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+  min-width: 280px; /* Sidebar එක කුඩා වීම වළක්වයි */
+}
+
+/* Content Area එකට ඉතිරි ඉඩ ලබා දීම */
+.stall-home-page {
+  flex: 1;
+  padding: 40px !important;
+  height: 100vh;
+  overflow-y: auto; /* Content එක විතරක් scroll වෙයි */
+}
+
+/* Grid එක හරියටම පේළියට 3 බැගින් එන්න */
+.available-stalls-page .info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  padding-bottom: 50px;
+}

@@ -24,45 +24,31 @@ import StallHome from "./components/stallbooking/StallHome";
 
 // --- Styles ---
 import "./styles/App.css";
-import "./components/stallbooking/stallbooking.css"; // ✅ FIXED PATH
+import "./components/stallbooking/stallbooking.css";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-
-          {/* Default */}
           <Route path="/" element={<Navigate to="/login" />} />
-
-          {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-
-          {/* User */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/shuttle-service" element={<ShuttleService />} />
-
-          {/* Admin */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/add-shuttle" element={<AddShuttle />} />
 
-          {/* 🔥 Stall Booking Routes */}
-          <Route path="/stalls" element={<StallHome />}>
-            <Route index element={<AvailableStalls />} />
-            <Route path="available" element={<AvailableStalls />} />
-            <Route path="book" element={<BookStall />} />
-            <Route path="my-bookings" element={<MyBookings />} />
-            <Route path="how-to-book" element={<HowToBook />} />
-          </Route>
+          {/* 🔥 Stall Booking Routes (Flat Structure) */}
+          <Route path="/stalls" element={<StallHome />} />
+          <Route path="/stalls/available" element={<AvailableStalls />} />
+          <Route path="/stalls/book" element={<BookStall />} />
+          <Route path="/stalls/my-bookings" element={<MyBookings />} />
+          <Route path="/stalls/how-to-book" element={<HowToBook />} />
 
-          
-
-          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/login" />} />
-
         </Routes>
       </div>
     </Router>
