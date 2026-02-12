@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; 
-import '../../styles/App.css'; 
+import '../../styles/Dashboard.css';
+import '../../styles/App.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-    
+
     // Retrieve data from localStorage (must match keys used during Login)
     const userName = localStorage.getItem('userName') || 'Admin';
     const token = localStorage.getItem('token'); // Changed from 'accessToken' to 'token' for consistency
