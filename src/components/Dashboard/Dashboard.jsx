@@ -5,9 +5,9 @@ import '../../styles/App.css';       // File path එක නිවැරදි �
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    
+
     // localStorage එකෙන් දත්ත ලබා ගනිමු
-    const userRole = localStorage.getItem('userRole') || 'USER'; 
+    const userRole = localStorage.getItem('userRole') || 'USER';
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
 
@@ -35,7 +35,7 @@ const Dashboard = () => {
     ];
 
     // වර්තමාන user ට අදාළ services පමණක් පෙරා ගැනීම
-    const filteredServices = allServices.filter(service => 
+    const filteredServices = allServices.filter(service =>
         service.roles.includes(userRole)
     );
 
@@ -74,7 +74,7 @@ const Dashboard = () => {
                         <div key={index} className="info-card">
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
-                            <button 
+                            <button
                                 className="view-btn"
                                 onClick={() => navigate(service.path)}
                             >
