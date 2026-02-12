@@ -1,50 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Auth Components
-import Signup from './components/Auth/Signup';
-import VerifyOTP from './components/Auth/VerifyOTP';
-import Login from './components/Auth/Login';
-import ForgotPassword from './components/Auth/ForgotPassword';
+// Auth
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
 
-// Dashboard Components
-import Dashboard from './components/Dashboard/Dashboard';
-import AdminDashboard from './components/Dashboard/AdminDashboard'; 
+// Dashboard
+import Dashboard from "./components/Dashboard/Dashboard";
 
-// Shuttle Components
-import ShuttleService from './components/Shuttle/ShuttleService';
-import AddShuttle from './components/Shuttle/AddShuttle';
+// Lost & Found
+import LostFoundHome from "./components/LostFound/LostFoundHome";
+import ItemList from "./components/LostFound/ItemList";
+import ReportItem from "./components/LostFound/ReportItem";
+import Navbar from "./components/Navbar";
 
-// Styles
-import './styles/App.css'; 
+
+
+//import "./styles/lostFound.css";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* Default Route */}
-          <Route path="/" element={<Navigate to="/login" />} />
-          
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/verify-otp" element={<VerifyOTP />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          
-          {/* User Routes */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/shuttle-service" element={<ShuttleService />} />
+    <BrowserRouter>
+     {/* ✅ ADD THIS LINE */}
+      
+      <Routes>
+        {/* Auth */}
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/add-shuttle" element={<AddShuttle />} />
-          
-          {/* Redirect invalid URLs to Login */}
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </div>
-    </Router>
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Lost & Found */}
+        <Route path="/lostfound" element={<LostFoundHome />} />
+        <Route path="/lostfound/items" element={<ItemList />} />
+        <Route path="/lostfound/report" element={<ReportItem />} />
+     
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
