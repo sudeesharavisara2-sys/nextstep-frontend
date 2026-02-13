@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // api.js import කරන ලදී
-import '../../styles/Dashboard.css'; // Path එක නිවැරදි කරන ලදී
-import '../../styles/ShuttleService.css'; // Path එක නිවැරදි කරන ලදී
+import API from '../../api'; // import api.js 
+import '../../styles/Dashboard.css'; 
+import '../../styles/ShuttleService.css';
 
 const ShuttleService = () => {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ const ShuttleService = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-    const token = localStorage.getItem('token'); // 'token' ලෙස ලබා ගැනීම
+    const token = localStorage.getItem('token'); 
 
     useEffect(() => {
         if (!token) navigate('/');
@@ -53,7 +53,7 @@ const ShuttleService = () => {
 
     const loadShuttles = async () => {
         try {
-            // API instance එක භාවිතා කර දත්ත ලබා ගැනීම
+            // Using API instance 
             const res = await API.get('/shuttle/all', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
