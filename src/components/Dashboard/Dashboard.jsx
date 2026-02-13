@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // File path එක නිවැරදි කරන ලදී
-import '../../styles/App.css';       // File path එක නිවැරදි කරන ලදී
+import '../../styles/Dashboard.css'; 
+import '../../styles/App.css';       
 
 const Dashboard = () => {
     const navigate = useNavigate();
     
-    // localStorage එකෙන් දත්ත ලබා ගනිමු
+    // can retrieve data from localStorage
     const userRole = localStorage.getItem('userRole') || 'USER'; 
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Token එක නැතිනම් මුල් පිටුවට (Login) යොමු කරයි
+        // If the token is missing, it redirects to the main page (Login).
         if (!token) {
             navigate('/');
         }
@@ -20,10 +20,10 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate('/'); // Logout වූ පසු login පිටුවට යොමු කරයි
+        navigate('/'); // After logout, it redirects to the login page.
     };
 
-    // User ට පේන සේවාවන් සහ ඒවායේ Paths
+    // Services visible to the user and their corresponding paths.
     const allServices = [
         { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
@@ -34,7 +34,7 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    // වර්තමාන user ට අදාළ services පමණක් පෙරා ගැනීම
+    // Fetching only the services relevant to the current user
     const filteredServices = allServices.filter(service => 
         service.roles.includes(userRole)
     );
