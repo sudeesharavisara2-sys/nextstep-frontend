@@ -16,7 +16,7 @@ import ShuttleService from './components/Shuttle/ShuttleService';
 import AddShuttle from './components/Shuttle/AddShuttle';
 
 // --- Global Styles ---
-// ඔබේ CSS ගොනුව src/styles/App.css හි ඇත්නම්:
+
 import './styles/App.css';
 
 function App() {
