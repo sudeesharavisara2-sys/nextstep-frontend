@@ -1,4 +1,4 @@
-/* ModelPapersUser.css - User view with glassmorphism (Uses ShuttleService.css patterns) */
+/* ModelPapersUser.css - User view with glassmorphism */
 
 /* --- Breadcrumb for User View --- */
 .file-breadcrumb {
@@ -41,7 +41,7 @@
     align-items: center;
 }
 
-.shuttle-search-input {
+.search-input {
     width: 100%;
     max-width: 500px;
     background: rgba(255, 255, 255, 0.1);
@@ -54,11 +54,11 @@
     transition: all 0.3s ease;
 }
 
-.shuttle-search-input::placeholder {
+.search-input::placeholder {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.shuttle-search-input:focus {
+.search-input:focus {
     border-color: #88e3b5;
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 0 15px rgba(136, 227, 181, 0.2);
@@ -220,23 +220,23 @@
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* --- Shuttle Header (From ShuttleService.css) --- */
-.shuttle-header {
+/* --- Header --- */
+.header {
     margin-bottom: 30px;
 }
 
-.shuttle-header h1 {
+.header h1 {
     font-size: 2rem;
     margin-bottom: 5px;
 }
 
-.shuttle-header p {
+.header p {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1rem;
 }
 
-/* --- Upload Modal Styling (Uses Shuttle Modal Patterns) --- */
-.shuttle-modal-overlay {
+/* --- Upload Modal Styling --- */
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -250,7 +250,7 @@
     backdrop-filter: blur(8px);
 }
 
-.shuttle-modal-content {
+.modal-content {
     background: #ffffff; 
     width: 650px;
     max-width: 90%;
@@ -298,14 +298,14 @@
     overflow-y: auto;
 }
 
-.modal-bus-title {
+.modal-title {
     color: #00482b; 
     margin: 0;
     font-size: 26px;
     font-weight: 800;
 }
 
-.modal-bus-sub {
+.modal-subtitle {
     color: #666; 
     margin-bottom: 25px;
     font-weight: 500;
@@ -350,8 +350,8 @@
     font-weight: 500;
 }
 
-/* Modal Call Button (Upload Button) */
-.modal-call-btn {
+/* Modal Upload Button */
+.modal-upload-btn {
     width: 100%;
     background: #198754;
     color: white;
@@ -369,7 +369,7 @@
     transition: all 0.3s ease;
 }
 
-.modal-call-btn:hover {
+.modal-upload-btn:hover {
     background: #146c43;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
@@ -399,7 +399,7 @@
         flex-direction: column;
     }
     
-    .shuttle-modal-content {
+    .modal-content {
         width: 95%;
     }
     
@@ -425,7 +425,7 @@
     animation: fadeInUp 0.4s ease-out;
 }
 
-/* --- Card Hover Effects (From Dashboard.css) --- */
+/* --- Card Hover Effects --- */
 .info-card {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);

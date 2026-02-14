@@ -1,14 +1,13 @@
 import React from "react";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import "./StallBooking.css";
-// ✅ Sidebar එකේ logo එක සඳහා image එක import කිරීම
 import logo from "../../assets/logo1.png";
 
 export default function StallHome() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // දැනට ඉන්නේ ප්‍රධාන Stall පිටුවේදැයි පරීක්ෂා කිරීම
+  // Checking whether the user is currently on the main Stall page.
   const isMainPage = location.pathname === "/stalls" || location.pathname === "/stalls/";
 
   return (

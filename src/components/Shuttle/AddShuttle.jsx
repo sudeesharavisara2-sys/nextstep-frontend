@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // api.js import කරන ලදී
-import '../../styles/AddShuttle.css'; // Path එක නිවැරදි කරන ලදී
+import API from '../../api'; // api.js import
+import '../../styles/AddShuttle.css'; 
 import logo from "../../assets/logo1.png";
 
 const AddShuttle = () => {
@@ -16,7 +16,7 @@ const AddShuttle = () => {
         eveningDepartureTime: '', phoneNumber: '', additionalDetails: ''
     });
 
-    const token = localStorage.getItem('token'); // Login හි save කළ නම 'token' වේ
+    const token = localStorage.getItem('token'); // The name saved during login is 'token'.
 
     useEffect(() => {
         if (!token) navigate('/');
@@ -69,7 +69,7 @@ const AddShuttle = () => {
             ? `/shuttle/update/${selectedShuttleId}`
             : '/shuttle/add';
 
-        // Multipart/form-data සඳහා FormData object එක භාවිතා කිරීම
+        // Using a FormData object for multipart/form-data
         const data = new FormData(e.target);
 
         try {
