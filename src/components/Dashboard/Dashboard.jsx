@@ -26,7 +26,6 @@ const Dashboard = () => {
 
     // All services
     const allServices = [
-        { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
         { name: "Stalls", path: "/stalls", desc: "Reserve and track stall spots.", roles: ["USER", "ADMIN"] },
         { name: "Lost & Found", path: "/lost-found", desc: "Report missing belongings.", roles: ["USER", "ADMIN"] },
