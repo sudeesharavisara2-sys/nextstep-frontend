@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import API from '../../api';
 import '../../styles/Dashboard.css';
 import '../../styles/ModelPapersUser.css';
+// ✅ Import the logo
+import logo from "../../assets/logo1.png";
 
 const ModelPapersUser = () => {
     const navigate = useNavigate();
@@ -11,7 +13,6 @@ const ModelPapersUser = () => {
     const [currentFolder, setCurrentFolder] = useState(null);
     const [breadcrumb, setBreadcrumb] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null);
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
     const [uploadFile, setUploadFile] = useState(null);
     const [uploadDescription, setUploadDescription] = useState('');
@@ -41,12 +42,9 @@ const ModelPapersUser = () => {
     // Open a folder
     const openFolder = async (folder) => {
         try {
-            // Get subfolders
             const foldersRes = await API.get(`/files/folders/${folder.id}/subfolders`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            
-            // Get files in folder
             const filesRes = await API.get(`/files/folders/${folder.id}/files`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -55,7 +53,6 @@ const ModelPapersUser = () => {
             setFiles(filesRes.data);
             setCurrentFolder(folder);
             
-            // Update breadcrumb
             const newBreadcrumb = [...breadcrumb, folder];
             setBreadcrumb(newBreadcrumb);
         } catch (err) {
@@ -83,7 +80,6 @@ const ModelPapersUser = () => {
                 responseType: 'blob'
             });
 
-            // Create download link
             const url = window.URL.createObjectURL(new Blob([res.data]));
             const link = document.createElement('a');
             link.href = url;
@@ -99,36 +95,11 @@ const ModelPapersUser = () => {
         }
     };
 
-    // Delete own file
-    const deleteFile = async (fileId) => {
-        if (window.confirm('Are you sure you want to delete this file?')) {
-            try {
-                const res = await API.delete(`/files/${fileId}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (res.status === 200) {
-                    alert('File deleted successfully!');
-                    openFolder(currentFolder);
-                }
-            } catch (err) {
-                console.error("Delete file error:", err);
-                alert(err.response?.data?.message || "Failed to delete file. You can only delete your own files.");
-            }
-        }
-    };
-
     // Upload file
     const handleFileUpload = async (e) => {
         e.preventDefault();
-        
-        if (!currentFolder) {
-            alert('Please select a folder first!');
-            return;
-        }
-
-        if (!uploadFile) {
-            alert('Please select a file!');
+        if (!currentFolder || !uploadFile) {
+            alert('Please select a folder and a file!');
             return;
         }
 
@@ -158,7 +129,6 @@ const ModelPapersUser = () => {
         }
     };
 
-    // Get file icon based on type
     const getFileIcon = (fileType) => {
         const type = fileType?.toLowerCase();
         if (type === 'pdf') return '📕';
@@ -169,7 +139,6 @@ const ModelPapersUser = () => {
         return '📄';
     };
 
-    // Filter folders and files
     const filteredFolders = folders.filter(f => 
         f.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -181,17 +150,20 @@ const ModelPapersUser = () => {
 
     return (
         <div className="dashboard-layout">
+            {/* ✅ UPDATED SIDEBAR SECTION */}
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP</h2></div>
+                <div className="logo">
+                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+                </div>
                 <ul className="menu-list">
-                    <li className="menu-item" onClick={() => navigate('/dashboard')}>Home</li>
-                    <li className="menu-item active">Model Papers</li>
+                    <li className="menu-item" onClick={() => navigate('/dashboard')}>
+                        Home
+                    </li>
+                    <li className="menu-item active">
+                        Model Papers
+                    </li>
                 </ul>
-                <button 
-                    className="logout-btn"
-                    onClick={() => {localStorage.clear(); navigate('/');}}>
-                    Logout
-                </button>
+                
             </aside>
 
             <main className="main-content">
@@ -282,13 +254,6 @@ const ModelPapersUser = () => {
                                             onClick={() => downloadFile(file.id, file.fileName)}>
                                             ⬇️ Download
                                         </button>
-                                        {/*file.canDelete && (
-                                            <button 
-                                                className="file-delete-btn"
-                                                onClick={() => deleteFile(file.id)}>
-                                                🗑️ Delete
-                                            </button>
-                                        )*/}
                                     </div>
                                 </div>
                             ))}
@@ -301,11 +266,7 @@ const ModelPapersUser = () => {
                     <div className="empty-state">
                         <div className="empty-icon">📂</div>
                         <h3>No folders or files found</h3>
-                        <p>
-                            {searchTerm 
-                                ? 'Try a different search term' 
-                                : 'This folder is empty'}
-                        </p>
+                        <p>{searchTerm ? 'Try a different search term' : 'This folder is empty'}</p>
                     </div>
                 )}
             </main>
@@ -314,15 +275,10 @@ const ModelPapersUser = () => {
             {isUploadModalOpen && (
                 <div className="shuttle-modal-overlay" onClick={() => setIsUploadModalOpen(false)}>
                     <div className="shuttle-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button 
-                            className="close-modal-btn" 
-                            onClick={() => setIsUploadModalOpen(false)}>
-                            &times;
-                        </button>
+                        <button className="close-modal-btn" onClick={() => setIsUploadModalOpen(false)}>&times;</button>
                         <div className="modal-scrollable-area">
                             <h2 className="modal-bus-title">Upload File</h2>
                             <p className="modal-bus-sub">Upload to: {currentFolder?.folderPath}</p>
-                            
                             <form onSubmit={handleFileUpload}>
                                 <div className="upload-form-group">
                                     <label>Select File *</label>
@@ -332,13 +288,7 @@ const ModelPapersUser = () => {
                                         required 
                                         className="file-input"
                                     />
-                                    {uploadFile && (
-                                        <p className="file-selected-info">
-                                            ✓ {uploadFile.name} ({(uploadFile.size / 1024).toFixed(2)} KB)
-                                        </p>
-                                    )}
                                 </div>
-                                
                                 <div className="upload-form-group">
                                     <label>Description (Optional)</label>
                                     <textarea 
@@ -349,10 +299,7 @@ const ModelPapersUser = () => {
                                         className="file-textarea"
                                     ></textarea>
                                 </div>
-                                
-                                <button type="submit" className="modal-call-btn">
-                                    📤 Upload File
-                                </button>
+                                <button type="submit" className="modal-call-btn">📤 Upload File</button>
                             </form>
                         </div>
                     </div>

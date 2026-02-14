@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api";
 import "../../styles/Dashboard.css";
+// ✅ Import the logo as used in your other file
+import logo from "../../assets/logo1.png";
 
 const StudyRoomBooking = () => {
   const navigate = useNavigate();
@@ -30,8 +32,7 @@ const StudyRoomBooking = () => {
       return;
     }
     fetchMyBookings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token, navigate]);
 
   const authHeaders = useMemo(
     () => ({
@@ -64,12 +65,10 @@ const StudyRoomBooking = () => {
   // 📥 Form change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "durationMinutes") {
       setFormData((prev) => ({ ...prev, [name]: Number(value) }));
       return;
     }
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -78,7 +77,6 @@ const StudyRoomBooking = () => {
     e.preventDefault();
     setMessage("");
 
-    // small client validation
     if (!formData.room) {
       setMessage("❗ Please select a room");
       return;
@@ -87,7 +85,6 @@ const StudyRoomBooking = () => {
     setLoading(true);
     try {
       await API.post("/study-room/book", formData, authHeaders);
-
       setMessage("✅ Room booked successfully");
       setFormData({ room: "", date: "", time: "", durationMinutes: 60 });
       fetchMyBookings();
@@ -102,7 +99,6 @@ const StudyRoomBooking = () => {
   // ❌ Cancel booking
   const handleCancel = async (id) => {
     setMessage("");
-
     const ok = window.confirm("Cancel this booking?");
     if (!ok) return;
 
@@ -119,30 +115,31 @@ const StudyRoomBooking = () => {
 
   return (
     <div className="dashboard-layout">
+      {/* ✅ UPDATED SIDEBAR SECTION */}
       <aside className="sidebar">
         <div className="logo">
-          <h2>NEXTSTEP</h2>
+          <img src={logo} alt="NextStep Logo" className="logo-img" />
         </div>
-
-        <button
-          className="menu-item back-btn"
-          onClick={() => navigate("/dashboard")}
-        >
-          ⬅ Back
-        </button>
+        <ul className="menu-list">
+          <li className="menu-item" onClick={() => navigate('/dashboard')}>
+            Home
+          </li>
+          <li className="menu-item active">
+            Study Room Booking
+          </li>
+        </ul>
       </aside>
 
       <main className="main-content">
-        <header className="top-nav">
+        <header className="shuttle-header">
           <h1>📚 Study Room Booking</h1>
+          <p>Reserve a quiet space for your academic needs.</p>
         </header>
 
         {/* BOOK FORM */}
-        <div className="info-card" style={{ maxWidth: "520px" }}>
+        <div className="info-card" style={{ maxWidth: "520px", marginBottom: "30px" }}>
           <h3>Book a Study Room</h3>
-
           <form onSubmit={handleSubmit} className="auth-form">
-            {/* ✅ ROOM SELECT */}
             <select
               name="room"
               value={formData.room}
@@ -194,35 +191,31 @@ const StudyRoomBooking = () => {
               {loading ? "Booking..." : "Book Room"}
             </button>
           </form>
-
-          {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+          {message && <p style={{ marginTop: "10px", color: message.includes('✅') ? '#4ade80' : '#ff4d4d' }}>{message}</p>}
         </div>
 
         {/* BOOKINGS LIST */}
-        <div style={{ marginTop: "40px" }}>
-          <h2>My Bookings</h2>
-
+        <div className="bookings-section">
+          <h2 style={{ marginBottom: "20px" }}>My Bookings</h2>
           <div className="dashboard-cards">
             {bookings.length === 0 && <p>No bookings yet</p>}
 
             {bookings.map((b) => (
-              <div key={b.id} className="info-card">
-                <h3>{b.room}</h3>
-                <p>Date: {b.date}</p>
-
+              <div key={b.id} className="info-card" style={{ textAlign: 'left' }}>
+                <h3 style={{ color: '#88e3b5' }}>Room: {b.room}</h3>
+                <p><strong>Date:</strong> {b.date}</p>
                 <p>
-                  Time: {b.startTime} - {b.endTime} ({b.durationMinutes} mins)
+                  <strong>Time:</strong> {b.startTime} - {b.endTime} ({b.durationMinutes} mins)
                 </p>
-
-                <p>Status: {b.status}</p>
+                <p><strong>Status:</strong> <span style={{ color: b.status === "ACTIVE" ? "#4ade80" : "#ff4d4d" }}>{b.status}</span></p>
 
                 {b.status === "ACTIVE" && (
                   <button
-                    className="btn-primary"
-                    style={{ marginTop: "10px" }}
+                    className="card-call-action"
+                    style={{ marginTop: "15px", border: 'none', cursor: 'pointer', background: '#dc3545' }}
                     onClick={() => handleCancel(b.id)}
                   >
-                    Cancel
+                    Cancel Booking
                   </button>
                 )}
               </div>
