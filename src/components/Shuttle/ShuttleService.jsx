@@ -16,7 +16,7 @@ const ShuttleService = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-    const token = localStorage.getItem('token'); // 'token' ලෙස ලබා ගැනීම
+    const token = localStorage.getItem('token'); 
 
     useEffect(() => {
         if (!token) navigate('/');
@@ -54,7 +54,7 @@ const ShuttleService = () => {
 
     const loadShuttles = async () => {
         try {
-            // API instance එක භාවිතා කර දත්ත ලබා ගැනීම
+            // Using API instance 
             const res = await API.get('/shuttle/all', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
