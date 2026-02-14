@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import NextStepSidebar from "./NextStepSidebar";
 import "./StallBooking.css";
 
 export default function AvailableStalls() {
@@ -118,75 +117,66 @@ export default function AvailableStalls() {
   ];
 
   return (
-    <div className="stall-home-layout">
-      {/* LEFT SIDEBAR */}
-      <NextStepSidebar />
+    <div className="available-stalls-page">
 
-      {/* RIGHT CONTENT */}
-      <div className="stall-home-page available-stalls-page">
-
-        {/* TOP NAVBAR */}
-        <div className="top-navbar">
-          <div className="nav-logo">NEXTSTEP</div>
-          <div className="nav-links">
-            <span onClick={() => navigate("/dashboard")}>Home</span>
-            <span onClick={() => navigate("/stalls/how-to-book")}>
-              How to Book
-            </span>
-            <span onClick={() => navigate("/stalls/my-bookings")}>
-              My Bookings
-            </span>
-          </div>
+      {/* TOP NAVBAR */}
+      <div className="top-navbar">
+        <div className="nav-logo">NEXTSTEP</div>
+        <div className="nav-links">
+          <span onClick={() => navigate("/dashboard")}>Home</span>
+          <span onClick={() => navigate("/stalls/how-to-book")}>
+            How to Book
+          </span>
+          <span onClick={() => navigate("/stalls/my-bookings")}>
+            My Bookings
+          </span>
         </div>
-
-        <h1 className="stall-title">Available Stalls</h1>
-
-        <p className="stall-subtitle" style={{ textAlign: "center" }}>
-          Browse and book from our wide range of stalls
-        </p>
-
-        <p className="stall-count" style={{ textAlign: "center", marginBottom: "40px" }}>
-          Total <b>12</b> stalls available
-        </p>
-
-        {/* STALL CARDS */}
-        <div className="info-cards">
-          {stalls.map((stall, index) => (
-            <div className="info-card" key={index}>
-
-              {/* PURPLE HEADER (ONLY ONE) */}
-              <div className="card-image">
-                <h3>{stall.title}</h3>
-              </div>
-
-              {/* WHITE CONTENT */}
-              <div className="card-body">
-
-                <span className="tag">{stall.category}</span>
-
-                <p className="desc">{stall.description}</p>
-
-                <div className="meta">
-                  <div>Capacity: {stall.capacity}</div>
-                  <div>Location: {stall.location}</div>
-                  <div>Hours: {stall.hours}</div>
-                </div>
-
-                <div className="price">{stall.price} / hour</div>
-
-                <button
-                  className="primary-btn"
-                  onClick={() => navigate("/stalls/book")}
-                >
-                  Book This Stall
-                </button>
-
-              </div>
-            </div>
-          ))}
-        </div>
-
       </div>
+
+      <h1 className="stall-title">Available Stalls</h1>
+
+      <p className="stall-subtitle" style={{ textAlign: "center" }}>
+        Browse and book from our wide range of stalls
+      </p>
+
+      <p className="stall-count" style={{ textAlign: "center", marginBottom: "40px" }}>
+        Total <b>12</b> stalls available
+      </p>
+
+      {/* STALL CARDS */}
+      <div className="info-cards">
+        {stalls.map((stall, index) => (
+          <div className="info-card" key={index}>
+
+            <div className="card-image">
+              <h3>{stall.title}</h3>
+            </div>
+
+            <div className="card-body">
+              <span className="tag">{stall.category}</span>
+
+              <p className="desc">{stall.description}</p>
+
+              <div className="meta">
+                <div>Capacity: {stall.capacity}</div>
+                <div>Location: {stall.location}</div>
+                <div>Hours: {stall.hours}</div>
+              </div>
+
+              <div className="price">{stall.price} / hour</div>
+
+              <button
+                className="primary-btn"
+                onClick={() => navigate("/stalls/book")}
+              >
+                Book This Stall
+              </button>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
