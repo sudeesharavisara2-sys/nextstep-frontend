@@ -40,15 +40,15 @@ Preview the Production Build - npm run preview
 🧹 ESLint Configuration
 
 ESLint is preconfigured for clean code. Recommended enhancements:
-Use TypeScript for type safety 
-Enable type-aware lint rules with typescript-eslint
+Use TypeScript for type safety |
+Enable type-aware lint rules with typescript-eslint |
 Maintain consistent code style
 
 📦 Deployment
 
 You can deploy this frontend on:
-Vercel – Automatic deployment from GitHub
-Netlify – GitHub integration or drag & drop
+Vercel – Automatic deployment from GitHub |
+Netlify – GitHub integration or drag & drop |
 GitHub Pages – Using vite-plugin-gh-pages
 
 📄 License
