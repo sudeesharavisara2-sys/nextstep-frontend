@@ -23,24 +23,24 @@
 
 ---
 
-Install Dependencies - npm install
-Run Development Server - npm run dev
+Install Dependencies - npm install |
+Run Development Server - npm run dev |
 The frontend app will run at:http://localhost:5173/
 
 🏗️ Build & Production
-Build the Project - npm run build
+Build the Project - npm run build |
 Preview the Production Build - npm run preview
 
 
 🔌 Plugins & Configuration
 
-@vitejs/plugin-react – Uses Babel for Fast Refresh
+@vitejs/plugin-react – Uses Babel for Fast Refresh |
 @vitejs/plugin-react-swc – Uses SWC for faster Fast Refresh
 
 🧹 ESLint Configuration
 
 ESLint is preconfigured for clean code. Recommended enhancements:
-Use TypeScript for type safety
+Use TypeScript for type safety 
 Enable type-aware lint rules with typescript-eslint
 Maintain consistent code style
 
