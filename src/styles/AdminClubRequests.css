@@ -1,0 +1,23 @@
+/* src/styles/AdminClubRequests.css */
+.acr-wrap{min-height:100vh;background:#0b1220;color:#fff;padding:24px;font-family:Poppins,sans-serif}
+.acr-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:16px}
+.acr-top h1{margin:0}
+.acr-top p{margin:6px 0 0;opacity:.8}
+.acr-actions{display:flex;gap:10px;flex-wrap:wrap}
+.acr-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.acr-input{flex:1;min-width:260px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:14px;padding:10px 12px;outline:none}
+.acr-btn{border:none;border-radius:14px;padding:10px 14px;font-weight:900;cursor:pointer}
+.acr-btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.acr-btn-primary{background:#22c55e;color:#082012}
+.acr-btn-good{background:#22c55e;color:#082012;margin-right:8px}
+.acr-btn-bad{background:#ef4444;color:#fff}
+.acr-msg{margin:10px 0;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10)}
+.acr-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;overflow:hidden}
+.acr-table{width:100%;border-collapse:collapse}
+.acr-table th{background:rgba(255,255,255,.08);text-align:left;padding:14px;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+.acr-table td{padding:14px;border-top:1px solid rgba(255,255,255,.08);vertical-align:middle}
+.acr-empty{padding:18px;opacity:.85}
+.acr-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08)}
+.acr-pending{background:rgba(250,204,21,.14);border-color:rgba(250,204,21,.35)}
+.acr-approved{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.35)}
+.acr-declined{background:rgba(239,68,68,.14);border-color:rgba(239,68,68,.35)}

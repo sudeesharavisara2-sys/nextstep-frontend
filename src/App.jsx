@@ -1,32 +1,38 @@
+// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-// --- Auth Components ---
+// --- Auth ---
 import Signup from "./components/Auth/Signup";
 import VerifyOTP from "./components/Auth/VerifyOTP";
 import Login from "./components/Auth/Login";
 import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 
-// --- Dashboard Components ---
+// --- Dashboards ---
 import Dashboard from "./components/Dashboard/Dashboard";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 
-// --- Shuttle Components ---
+// --- Club Events ---
+import ClubEvents from "./components/ClubEvents/ClubEvents";
+import AdminClubRequests from "./components/ClubEvents/AdminClubRequests";
+
+// --- Shuttle ---
 import ShuttleService from "./components/Shuttle/ShuttleService";
 import AddShuttle from "./components/Shuttle/AddShuttle";
 
-// --- Stall Booking Components ---
+// --- Stall Booking ---
 import AvailableStalls from "./components/stallbooking/AvailableStalls";
 import BookStall from "./components/stallbooking/BookStall";
 import MyBookings from "./components/stallbooking/MyBookings";
 import HowToBook from "./components/stallbooking/HowToBook";
 import StallHome from "./components/stallbooking/StallHome";
 
-// --- Study Room Components ---
+// --- Study Rooms ---
 import StudyRoomBooking from "./components/StudyRoom/StudyRoomBooking";
 import StudyRoomAdmin from "./components/StudyRoom/StudyRoomAdmin";
 
-// --- Model Papers Components ---
+// --- Model Papers ---
 import ModelPapersUser from "./components/ModelPapers/ModelPapersUser";
 import ModelPapers from "./components/ModelPapers/ModelPapers";
 
@@ -65,6 +71,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* USER ROUTES */}
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
@@ -79,16 +86,19 @@ function App() {
         <Route path="/stalls/my-bookings" element={<RequireAuth><MyBookings /></RequireAuth>} />
         <Route path="/stalls/how-to-book" element={<RequireAuth><HowToBook /></RequireAuth>} />
 
-        {/* Placeholder pages (so dashboard buttons don't crash) */}
-        <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
-        <Route path="/club-events" element={<RequireAuth><div>Club Events Page</div></RequireAuth>} />
-        <Route path="/lost-found" element={<RequireAuth><div>Lost & Found Page</div></RequireAuth>} />
+        {/* Club Events */}
+        <Route path="/club-events" element={<RequireAuth><ClubEvents /></RequireAuth>} />
+        <Route path="/admin/club-requests" element={<RequireAdmin><AdminClubRequests /></RequireAdmin>} />
 
         {/* ADMIN ROUTES */}
         <Route path="/admin-dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         <Route path="/add-shuttle" element={<RequireAdmin><AddShuttle /></RequireAdmin>} />
         <Route path="/admin-study-rooms" element={<RequireAdmin><StudyRoomAdmin /></RequireAdmin>} />
         <Route path="/manage-model-papers" element={<RequireAdmin><ModelPapers /></RequireAdmin>} />
+
+        {/* Placeholder pages */}
+        <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
+        <Route path="/lost-found" element={<RequireAuth><div>Lost & Found Page</div></RequireAuth>} />
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/login" replace />} />
