@@ -1,16 +1,55 @@
-# React + Vite
+# 🚀 NextStep
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-4.0-brightgreen?logo=vite)
+![Node.js](https://img.shields.io/badge/Node.js-18-green?logo=node.js)
+![Frontend Status](https://img.shields.io/badge/Frontend-Running-brightgreen)
+![Backend Status](https://img.shields.io/badge/Backend-Port%208099-blue)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Currently, two official plugins are available:
+**NextStep** is a modern frontend application built using **React** and **Vite**, designed for fast development with Hot Module Replacement (HMR), optimized production builds, and clean, maintainable code. It connects to a backend server running on port **8099**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ⚡ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Hot Module Replacement (HMR) for rapid development  
+- Optimized production builds with Vite  
+- Component-based, modular architecture  
+- Clean ESLint setup for maintainable code  
+- Supports **@vitejs/plugin-react** and **@vitejs/plugin-react-swc**  
+- Optional TypeScript integration for type safety  
+- Connects to backend API on port **8099**  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install Dependencies - npm install
+Run Development Server - npm run dev
+The frontend app will run at:http://localhost:5173/
+
+🏗️ Build & Production
+Build the Project - npm run build
+Preview the Production Build - npm run preview
+
+
+🔌 Plugins & Configuration
+
+@vitejs/plugin-react – Uses Babel for Fast Refresh
+@vitejs/plugin-react-swc – Uses SWC for faster Fast Refresh
+
+🧹 ESLint Configuration
+
+ESLint is preconfigured for clean code. Recommended enhancements:
+Use TypeScript for type safety
+Enable type-aware lint rules with typescript-eslint
+Maintain consistent code style
+
+📦 Deployment
+
+You can deploy this frontend on:
+Vercel – Automatic deployment from GitHub
+Netlify – GitHub integration or drag & drop
+GitHub Pages – Using vite-plugin-gh-pages
+
+📄 License
+This project is licensed under the MIT License.
