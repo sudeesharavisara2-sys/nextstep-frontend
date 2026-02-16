@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../../api'; 
+import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../styles/App.css';
 
@@ -12,11 +12,15 @@ const Signup = () => {
     password: '',
     phoneNumber: '',
     gender: 'MALE',
-    role: 'USER', 
+    role: 'USER',
   });
 
+  const [adminKey, setAdminKey] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Define your secret key here
+  const SECRET_ADMIN_CODE = "ADMIN123";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,18 +29,26 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    // Verification logic
+    if (formData.role === 'ADMIN' && adminKey !== SECRET_ADMIN_CODE) {
+      setMessage('❌ Invalid Admin Secret Key!');
+      return;
+    }
+
     setLoading(true);
     setMessage('');
 
     try {
-      // Use API.post to provide a shortened URL path
-      const response = await API.post('/auth/register', formData);
+      const response = await axios.post(
+        'http://localhost:8099/api/v1/auth/register',
+        formData
+      );
 
       console.log('✅ Registration Success:', response.data);
       setMessage('✅ Success! Redirecting to OTP verification...');
 
       setTimeout(() => {
-        // Pass the email state to the verification page
         navigate('/verify-otp', { state: { email: formData.email } });
       }, 1500);
     } catch (error) {
@@ -51,8 +63,8 @@ const Signup = () => {
     <div className="auth-container">
       <div className="auth-card">
         <h2 className="auth-title">Create Account</h2>
-        <form onSubmit={handleSignup} className="auth-form">
-          
+        <form onSubmit={handleSignup} className="auth-form" autoDiscard="off">
+
           <div className="form-group">
             <input name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required className="form-input" />
           </div>
@@ -69,7 +81,6 @@ const Signup = () => {
             <input name="phoneNumber" placeholder="Phone (+94...)" value={formData.phoneNumber} onChange={handleChange} required className="form-input" />
           </div>
 
-          {/* Gender Selection Section */}
           <div className="gender-row">
             <label className="form-label-inline">Gender:</label>
             <div className="radio-options">
@@ -82,7 +93,6 @@ const Signup = () => {
             </div>
           </div>
 
-          {/* User Role Selection Section */}
           <div className="role-row">
             <label className="form-label-inline">Role:</label>
             <select name="role" value={formData.role} onChange={handleChange} className="select-input" style={{flex: 1}}>
@@ -90,7 +100,24 @@ const Signup = () => {
               <option value="ADMIN">Admin</option>
             </select>
           </div>
-          
+
+          {/* Admin Key Field with auto-complete disabled */}
+          {formData.role === 'ADMIN' && (
+            <div className="form-group">
+              <input 
+                type="password" 
+                name="admin_secret_field"
+                placeholder="Enter Admin Secret Key" 
+                value={adminKey} 
+                onChange={(e) => setAdminKey(e.target.value)} 
+                required 
+                className="form-input admin-input"
+                autoComplete="new-password" 
+                style={{ border: '1px solid #ff4d4f', backgroundColor: '#fff1f0' }}
+              />
+            </div>
+          )}
+
           <div className="form-group">
             <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} required className="form-input" />
           </div>

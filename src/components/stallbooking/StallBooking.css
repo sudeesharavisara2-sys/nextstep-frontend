@@ -1,0 +1,515 @@
+/* =====================================
+   STALL BOOKING - ACTION BUTTONS (Welcome Page)
+===================================== */
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.action-buttons .primary-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.action-buttons .primary-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+}
+
+.action-buttons .secondary-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.action-buttons .secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* =====================================
+   STALL BOOKING - DASHBOARD CARDS (Welcome Page)
+===================================== */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.dashboard-cards .info-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-cards .info-card .card-body {
+  padding: 40px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.dashboard-cards .info-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.dashboard-cards .info-card p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* =====================================
+   STALL BOOKING - AVAILABLE STALLS PAGE
+===================================== */
+.available-stalls-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  background: linear-gradient(135deg, #061a3a, #0b4b5a);
+}
+
+/* =====================================
+   STALL BOOKING - TOP NAVBAR
+===================================== */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 0;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links span {
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s;
+  color: #fff;
+}
+
+.nav-links span:hover,
+.nav-links span.active {
+  color: #22c55e;
+}
+
+/* =====================================
+   STALL BOOKING - HEADERS
+===================================== */
+.stall-title {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.stall-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.stall-count {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* =====================================
+   STALL BOOKING - INFO CARDS GRID
+===================================== */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 0 40px 40px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  color: #fff;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.card-image {
+  height: 140px;
+  background: linear-gradient(135deg, #6f7bf7, #7b5bbd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.card-image h3 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.card-body .tag {
+  display: inline-block;
+  background: rgba(224, 242, 254, 0.2);
+  color: #7dd3fc;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  border: 1px solid rgba(125, 211, 252, 0.3);
+}
+
+.card-body .desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  margin: 12px 0 16px 0;
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+.card-body .meta {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 10px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.card-body .meta div {
+  margin: 6px 0;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 800;
+  color: #22c55e;
+  margin: 18px 0;
+}
+
+.card-body .primary-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card-body .primary-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+}
+
+/* =====================================
+   STALL BOOKING - BOOKING CARDS & BOXES
+===================================== */
+.booking-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 24px;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booking-card h1 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+}
+
+.stall-info-box {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.stall-info-box h2 {
+  margin-top: 0;
+  color: #1a2f63;
+  font-size: 24px;
+}
+
+.stall-info-box p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+/* =====================================
+   STALL BOOKING - FORM STYLING
+===================================== */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+}
+
+.booking-form input::placeholder,
+.booking-form textarea::placeholder {
+  color: #ccc;
+}
+
+.booking-form select {
+  color: #fff;
+}
+
+.booking-form select option {
+  background: #0b4b5a;
+  color: #fff;
+}
+
+.booking-form .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.booking-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* =====================================
+   STALL BOOKING - BUTTONS
+===================================== */
+.confirm-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 100%;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.back-btn {
+  background: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.8;
+  width: 100%;
+  text-align: center;
+}
+
+.back-btn:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.delete-btn {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background: #ff7875;
+  transform: translateY(-1px);
+}
+
+.edit-btn {
+  background: #1a2f63;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.edit-btn:hover {
+  background: #2a4080;
+  transform: translateY(-1px);
+}
+
+.action-row {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* =====================================
+   STALL BOOKING - HOW TO BOOK STEPS
+===================================== */
+.howto-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.howto-step {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  border-radius: 15px;
+  border-left: 5px solid #22c55e;
+  text-align: left;
+}
+
+.howto-step h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #22c55e;
+  font-size: 20px;
+}
+
+.howto-step p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* =====================================
+   STALL BOOKING - DARK BACKGROUND PAGES
+===================================== */
+.dark-bg {
+  background: linear-gradient(135deg, #061a3a, #0b4b5a);
+  min-height: 100vh;
+  padding: 0;
+}
+
+.stall-booking-page {
+  background: linear-gradient(135deg, #061a3a, #0b4b5a);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* =====================================
+   STALL BOOKING - RESPONSIVE
+===================================== */
+@media (max-width: 900px) {
+  .booking-form .row {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .top-navbar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+    padding: 0 20px 40px 20px;
+  }
+
+  .stall-title {
+    font-size: 32px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}

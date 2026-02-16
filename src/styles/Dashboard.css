@@ -2,9 +2,66 @@
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(135deg, #01185e 35%, #42cc1b 100%);
+    background: linear-gradient(135deg, #01185e 35%, #229203 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
+}
+/* =========================
+   Logo Styles for Dashboard
+   ========================= */
+
+
+.logo {
+    text-align: center;   /* Center the logo in the sidebar */
+    padding: 0;           /* Remove extra space */
+    margin: 0 auto 20px; 
+    background: transparent !important; /* Force transparency */
+    border: none !important;
+    box-shadow: none !important; /* Optional spacing below logo */
+       /* Remove any box shadow */
+}
+
+.logo-img {
+    mix-blend-mode: screen;
+    background-color: transparent !important;
+    border-style: none;
+    outline: none;
+    max-width: 200px;                  /* Adjust size as needed */
+    height: auto;                      /* Keep aspect ratio */
+    display: block;
+    margin: 0 auto;                     /* Center horizontally */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    background: none;     /* No background */
+    box-shadow: none; /* Smooth hover effect */
+    backface-visibility: hidden;
+}
+.sidebar img {
+    border: 0;
+    outline: none;
+    background: none !important;
+}
+/* Hover effect only on image */
+.logo-img:hover {
+    transform: scale(1.1);             /* Slight zoom */
+    box-shadow: 0 0 20px rgba(0, 200, 100, 0.7); /* Green glow */
+}
+/* Floating text in bottom-right corner */
+.powered-by {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #ffffff;
+    opacity: 1;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+
+/* Optional: hover effect */
+.powered-by:hover {
+    opacity: 1;
+    color: #0e02bd;
 }
 
 /* --- Sidebar (Floating Glassmorphism Effect) --- */
@@ -25,6 +82,7 @@
     z-index: 1000;
     transition: all 0.3s ease;
 }
+
 
 .logo h2 {
     text-align: center;
@@ -212,7 +270,7 @@
 }
 
 
-/* Sidebar එකේ alignment එක හරිගස්සන්න */
+/* Fix the alignment of the sidebar */
 .sidebar {
     width: 280px;
     background: rgba(255, 255, 255, 0.1);
@@ -229,12 +287,12 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 1000;
     transition: all 0.3s ease;
-    box-sizing: border-box; /* Padding නිසා width එක වෙනස් වීම වළක්වයි */
+    box-sizing: border-box; 
 }
 
-/* Logout Button එක සම්පූර්ණ පළලට සහ ලොකුවට සකස් කිරීම */
+/* Making the Logout button full-width and larger. */
 .logout-btn {
-    width: 100%; /* Sidebar එකේ පළලටම button එක විශාල කරයි */
+    width: 100%; 
     background-color: #f64f59;
     color: white;
     border: none;
@@ -242,16 +300,16 @@
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 16px; /* අකුරු වල ප්‍රමාණය මඳක් වැඩි කළා */
+    font-size: 16px; 
     transition: 0.3s;
-    margin-top: auto; /* Sidebar එකේ පහළටම තල්ලු කරයි */
-    display: block; /* block element එකක් ලෙස සලකයි */
+    margin-top: auto; 
+    display: block; 
 }
 
 .logout-btn:hover {
     background-color: #ff33e4;
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-    transform: scale(1.02); /* Hover කරන විට පොඩ්ඩක් ලොකු වේ */
+    transform: scale(1.02); 
 }
 
 
@@ -259,7 +317,7 @@
 
 /* --- Responsive Media Queries (Mobile & Tablet) --- */
 
-/* මධ්‍යම ප්‍රමාණයේ තිර (Tablets) */
+/* For medium-sized screens (Tablets) */
 @media (max-width: 1024px) {
     .sidebar { 
         width: 240px; 
@@ -270,50 +328,50 @@
     }
 }
 
-/* ජංගම දුරකථන (Mobile - 768px ට අඩු) */
+/* Mobile devices (below 768px) */
 @media (max-width: 768px) {
     .dashboard-layout { 
         flex-direction: column; 
     }
     
     .sidebar {
-        position: relative; /* Fixed වෙනුවට සාමාන්‍ය තැනට එයි */
+        position: relative; 
         width: 100%;
         height: auto;
         top: 0;
         left: 0;
         border-radius: 0;
         padding: 15px 20px;
-        flex-direction: row; /* නම සහ Logout බොත්තම දෙපැත්තට ගැනීමට */
+        flex-direction: row; 
         justify-content: space-between; 
         align-items: center;
         box-sizing: border-box;
     }
 
-    /* නම (Logo) ප්‍රමාණය කුඩා කිරීම */
+    /* Reduce the size of the name (Logo) */
     .logo h2 { 
         margin-bottom: 0; 
         font-size: 1.1rem; 
         letter-spacing: 1px;
     }
     
-    /* ඔබ ඉල්ලූ පරිදි Menu List එක සහ අනෙක් දේවල් සැඟවීම */
+    /* Hiding the menu list and other elements.*/
     .menu-list, 
     .sidebar-footer p, 
     .role-badge { 
         display: none !important; 
     }
 
-    /* මොබයිල් එකේදී Logout Button එක කුඩා කර පැත්තකට ගැනීම */
+    /* On mobile, reduce the Logout button size and move it to the side. */
     .logout-btn {
-        width: auto; /* Full width වෙනුවට අවශ්‍ය ප්‍රමාණය පමණක් ගනී */
+        width: auto; 
         margin-top: 0; 
         padding: 8px 15px;
         font-size: 13px;
     }
 
     .main-content {
-        margin-left: 0; /* Sidebar එක අයිනේ නැති නිසා margin ඉවත් කරයි */
+        margin-left: 0; 
         padding: 20px;
     }
 

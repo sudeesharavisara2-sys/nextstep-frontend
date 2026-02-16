@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Dashboard.css'; 
-import '../../styles/App.css'; 
+import '../../styles/App.css';
+import logo from "../../assets/logo1.png"; 
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-    
+
     // Retrieve data from localStorage (must match keys used during Login)
     const userName = localStorage.getItem('userName') || 'Admin';
     const token = localStorage.getItem('token'); // Changed from 'accessToken' to 'token' for consistency
@@ -23,11 +24,11 @@ const AdminDashboard = () => {
     };
 
     const allServices = [
-        { name: "Core System", path: "/core-system", desc: "Manage system architecture." },
+       
         { name: "Club Events", path: "/club-events", desc: "Approve or create club events." },
         { name: "Stalls", path: "/stalls", desc: "Manage campus market stalls." },
         { name: "Lost & Found", path: "/lost-found", desc: "Review reported items." },
-        { name: "Model Papers", path: "/model-papers", desc: "Update academic model papers." },
+        { name: "Model Papers", path: "/manage-model-papers", desc: "Update academic model papers." },
         { name: "Study Room Booking", path: "/study-rooms", desc: "Control room availability." },
         { name: "Shuttle Service", path: "/add-shuttle", desc: "Update bus schedules and manage shuttles." }
     ];
@@ -35,7 +36,9 @@ const AdminDashboard = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP ADMIN</h2></div>
+                <div className="logo">
+                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+                </div>
                 <ul className="menu-list">
                     <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>
                         Admin Home

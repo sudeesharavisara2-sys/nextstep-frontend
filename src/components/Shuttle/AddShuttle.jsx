@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // api.js import කරන ලදී
-import '../../styles/AddShuttle.css'; // Path එක නිවැරදි කරන ලදී
+import API from '../../api'; // api.js import
+import '../../styles/AddShuttle.css'; 
+import logo from "../../assets/logo1.png";
 
 const AddShuttle = () => {
     const navigate = useNavigate();
@@ -14,11 +16,11 @@ const AddShuttle = () => {
         eveningDepartureTime: '', phoneNumber: '', additionalDetails: ''
     });
 
-    const token = localStorage.getItem('token'); // Login හි save කළ නම 'token' වේ
+    const token = localStorage.getItem('token'); // The name saved during login is 'token'.
 
-    useEffect(() => { 
-        if (!token) navigate('/'); 
-        else loadShuttles(); 
+    useEffect(() => {
+        if (!token) navigate('/');
+        else loadShuttles();
     }, [token, navigate]);
 
     const loadShuttles = async () => {
@@ -63,22 +65,22 @@ const AddShuttle = () => {
             return;
         }
 
-        const endpoint = isEditMode 
+        const endpoint = isEditMode
             ? `/shuttle/update/${selectedShuttleId}`
             : '/shuttle/add';
-        
-        // Multipart/form-data සඳහා FormData object එක භාවිතා කිරීම
+
+        // Using a FormData object for multipart/form-data
         const data = new FormData(e.target);
 
         try {
             const config = {
-                headers: { 
+                headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             };
 
-            const res = isEditMode 
+            const res = isEditMode
                 ? await API.put(endpoint, data, config)
                 : await API.post(endpoint, data, config);
 
@@ -87,7 +89,7 @@ const AddShuttle = () => {
                 setIsModalOpen(false);
                 loadShuttles();
             }
-        } catch (error) { 
+        } catch (error) {
             console.error("Submit error:", error);
             alert("Operation failed. Please try again.");
         }
@@ -188,13 +190,13 @@ const AddShuttle = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Phone Number (10 Digits)</label>
-                                        <input 
-                                            type="text" 
-                                            name="phoneNumber" 
-                                            value={formData.phoneNumber} 
-                                            onChange={handleInputChange} 
-                                            placeholder="07XXXXXXXX" 
-                                            required 
+                                        <input
+                                            type="text"
+                                            name="phoneNumber"
+                                            value={formData.phoneNumber}
+                                            onChange={handleInputChange}
+                                            placeholder="07XXXXXXXX"
+                                            required
                                         />
                                     </div>
                                     <div className="form-group">
