@@ -29,6 +29,8 @@ import StudyRoomAdmin from "./components/StudyRoom/StudyRoomAdmin";
 // --- Model Papers Components ---
 import ModelPapersUser from "./components/ModelPapers/ModelPapersUser";
 import ModelPapers from "./components/ModelPapers/ModelPapers";
+import ClubEventDashboard from "./components/ClubEvents/ClubEventDashBoard";
+import AdminClubDashboard from "./components/ClubEvents/AdminClubDashboard";
 
 // --- Styles ---
 import "./styles/App.css";
@@ -81,8 +83,11 @@ function App() {
 
         {/* Placeholder pages (so dashboard buttons don't crash) */}
         <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
-        <Route path="/club-events" element={<RequireAuth><div>Club Events Page</div></RequireAuth>} />
+        
         <Route path="/lost-found" element={<RequireAuth><div>Lost & Found Page</div></RequireAuth>} />
+        <Route path="/club-events" element={<RequireAuth><ClubEventDashboard /></RequireAuth>} />
+        <Route path="/admin-club-events" element={<RequireAdmin><AdminClubDashboard /></RequireAdmin>} />
+
 
         {/* ADMIN ROUTES */}
         <Route path="/admin-dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />

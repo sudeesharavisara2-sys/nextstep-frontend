@@ -22,7 +22,7 @@ const Login = () => {
             const response = await axios.post('http://localhost:8099/api/v1/auth/login', loginData);
 
             // Destructure data received from the backend
-            const { accessToken, token, role, firstName } = response.data;
+            const { accessToken, token, role, firstName, email } = response.data;
             const finalToken = accessToken || token;
 
             if (finalToken) {
@@ -30,6 +30,7 @@ const Login = () => {
                 localStorage.setItem('token', finalToken);
                 localStorage.setItem('userRole', role); // Expected values: 'ADMIN' or 'USER'
                 localStorage.setItem('userName', firstName || 'User');
+                localStorage.setItem('email', email || loginData.email);
 
                 setMessage("✅ Login Successful! Redirecting...");
 
