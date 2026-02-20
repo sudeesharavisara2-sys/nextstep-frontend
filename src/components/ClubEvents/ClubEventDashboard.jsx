@@ -14,24 +14,19 @@ const ClubEventDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedClub, setSelectedClub] = useState(null);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [eventForm, setEventForm] = useState({
-    clubId: '',
-    title: '',
-    description: '',
-    eventDate: ''
-  });
-
+  const [eventForm, setEventForm] = useState({ clubId: '', title: '', description: '', eventDate: '' });
   const [myEvents, setMyEvents] = useState([]);
+  const [myJoinRequests, setMyJoinRequests] = useState([]);
 
   // --- Load Data ---
   useEffect(() => {
     if (!token) {
-      navigate('/'); // redirect only if no token
+      navigate('/');
     } else {
       loadClubs();
       loadMyEvents();
+      loadMyJoinRequests();
     }
   }, [token, navigate]);
 
@@ -41,7 +36,7 @@ const ClubEventDashboard = () => {
       setClubs(res.data);
     } catch (err) {
       console.error("Error fetching clubs:", err);
-      if (err.response?.status === 401) navigate('/'); // optional: handle token expiration
+      if (err.response?.status === 401) navigate('/');
     }
   };
 
@@ -51,33 +46,35 @@ const ClubEventDashboard = () => {
       setMyEvents(res.data);
     } catch (err) {
       console.error("Error fetching events:", err);
-      if (err.response?.status === 401) navigate('/');
+    }
+  };
+
+  const loadMyJoinRequests = async () => {
+    try {
+      const res = await API.get('/clubs/my-requests', { headers: { Authorization: `Bearer ${token}` } });
+      setMyJoinRequests(res.data);
+    } catch (err) {
+      console.error("Error fetching join requests:", err);
     }
   };
 
   // --- Join Club ---
-const handleJoinClub = async (club) => {
-  const email = localStorage.getItem("email"); // now it exists
-  try {
-    const res = await API.post(
-      '/clubs/join',
-      { clubId: club.id, email: email },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json"
-        }
-      }
-    );
-    alert(res.data.message);
-    setIsJoinModalOpen(false);
-  } catch (err) {
-    console.error(err.response?.data || err);
-    alert(err.response?.data?.message || "Failed to send join request");
-  }
-};
-
-
+  const handleJoinClub = async (club) => {
+    const email = localStorage.getItem("email");
+    try {
+      const res = await API.post(
+        '/clubs/join',
+        { clubId: club.id, email: email },
+        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
+      );
+      alert(res.data.message);
+      setIsJoinModalOpen(false);
+      loadMyJoinRequests();
+    } catch (err) {
+      console.error(err.response?.data || err);
+      alert(err.response?.data?.message || "Failed to send join request");
+    }
+  };
 
   // --- Event Form ---
   const handleEventInputChange = (e) => {
@@ -141,12 +138,8 @@ const handleJoinClub = async (club) => {
               <h3>{club.clubName}</h3>
               <p>{club.description}</p>
               <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
-                <button className="submit-btn" onClick={() => { setSelectedClub(club); setIsJoinModalOpen(true); }}>
-                  Join Club
-                </button>
-                <button className="submit-btn" onClick={() => { setSelectedClub(club); setEventForm({ ...eventForm, clubId: club.id }); setIsEventModalOpen(true); }}>
-                  Create Event
-                </button>
+                <button className="submit-btn" onClick={() => { setSelectedClub(club); setIsJoinModalOpen(true); }}>Join Club</button>
+                <button className="submit-btn" onClick={() => { setSelectedClub(club); setEventForm({ ...eventForm, clubId: club.id }); setIsEventModalOpen(true); }}>Create Event</button>
               </div>
             </div>
           ))}
@@ -161,6 +154,19 @@ const handleJoinClub = async (club) => {
               <h3>{event.title}</h3>
               <p>{event.description}</p>
               <p><strong>Date:</strong> {new Date(event.eventDate).toLocaleString()}</p>
+              <span className={`status-badge ${event.status?.toLowerCase()}`}>{event.status}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* My Club Requests */}
+        <h2 style={{ marginTop: '30px' }}>My Club Requests</h2>
+        <div className="dashboard-cards">
+          {myJoinRequests.length === 0 && <p>No club requests yet</p>}
+          {myJoinRequests.map((req) => (
+            <div key={req.id} className="glass-card">
+              <h3>{req.clubName}</h3>
+              <span className={`status-badge ${req.status.toLowerCase()}`}>{req.status}</span>
             </div>
           ))}
         </div>

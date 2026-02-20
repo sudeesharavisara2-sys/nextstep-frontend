@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
     const allServices = [
        
-        { name: "Club Events", path: "/club-events", desc: "Approve or create club events." },
+        { name: "Club Events", path: "/admin-club-events", desc: "Approve or create club events." },
         { name: "Stalls", path: "/stalls", desc: "Manage campus market stalls." },
         { name: "Lost & Found", path: "/lost-found", desc: "Review reported items." },
         { name: "Model Papers", path: "/manage-model-papers", desc: "Update academic model papers." },

@@ -178,3 +178,15 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #000; /* black text */
 }
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.status-badge.pending { background-color: orange; }
+.status-badge.approved { background-color: green; }
+.status-badge.declined, .status-badge.rejected { background-color: red; }

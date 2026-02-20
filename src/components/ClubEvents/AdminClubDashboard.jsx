@@ -1,195 +1,356 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../api'; // Axios instance
-import '../../styles/Dashboard.css';
-import '../../styles/ShuttleService.css'; // reuse for card/modal styling
+import API from '../../api';
+import '../../styles/AddShuttle.css';
 import logo from "../../assets/logo1.png";
 
 const AdminClubDashboard = () => {
-    const navigate = useNavigate();
-    const token = localStorage.getItem('token');
 
-    // --- State Management ---
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
     const [clubs, setClubs] = useState([]);
-    const [joinRequests, setJoinRequests] = useState([]);
+    const [clubRequests, setClubRequests] = useState([]);
     const [eventRequests, setEventRequests] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedClub, setSelectedClub] = useState(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newClubName, setNewClubName] = useState('');
-    const [newClubDesc, setNewClubDesc] = useState('');
+    const [editClubId, setEditClubId] = useState(null);
+
+    const [clubForm, setClubForm] = useState({
+        clubName: '',
+        description: ''
+    });
 
     useEffect(() => {
-        if (!token) navigate('/');
-        else {
+        if (!token) {
+            navigate('/');
+        } else {
             loadClubs();
-            loadJoinRequests();
+            loadClubRequests();
             loadEventRequests();
         }
     }, [token, navigate]);
 
-    // --- API Calls ---
+    // ================= LOAD DATA =================
+
     const loadClubs = async () => {
         try {
-            const res = await API.get('/clubs', { headers: { Authorization: `Bearer ${token}` } });
+            const res = await API.get('/clubs', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             setClubs(res.data);
         } catch (err) {
-            console.error("Error loading clubs:", err);
+            console.error("Load clubs error:", err);
         }
     };
 
-    const loadJoinRequests = async () => {
+    const loadClubRequests = async () => {
         try {
-            const res = await API.get('/clubs/join/pending', { headers: { Authorization: `Bearer ${token}` } });
-            setJoinRequests(res.data);
+            const res = await API.get('/clubs/join/pending', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setClubRequests(res.data);
         } catch (err) {
-            console.error("Error loading join requests:", err);
+            console.error("Club request load error:", err);
         }
     };
 
     const loadEventRequests = async () => {
         try {
-            const res = await API.get('/events/pending', { headers: { Authorization: `Bearer ${token}` } });
+            const res = await API.get('/events/pending', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             setEventRequests(res.data);
         } catch (err) {
-            console.error("Error loading event requests:", err);
+            console.error("Event request load error:", err);
         }
     };
 
-    const handleApproveJoin = async (id) => {
+    // ================= CLUB CRUD =================
+
+    const handleClubChange = (e) => {
+        const { name, value } = e.target;
+        setClubForm({ ...clubForm, [name]: value });
+    };
+
+    const saveClub = async (e) => {
+        e.preventDefault();
+
         try {
-            await API.put(`/clubs/join/${id}/approve`, {}, { headers: { Authorization: `Bearer ${token}` } });
-            loadJoinRequests();
+            if (editClubId) {
+                await API.put(`/clubs/${editClubId}`, clubForm, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                alert("Club updated successfully!");
+            } else {
+                await API.post('/clubs', clubForm, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                alert("Club created successfully!");
+            }
+
+            setIsModalOpen(false);
+            setEditClubId(null);
+            setClubForm({ clubName: '', description: '' });
+            loadClubs();
+
         } catch (err) {
-            console.error("Error approving join request:", err);
+            console.error("Save club error:", err);
         }
     };
 
-    const handleDeclineJoin = async (id) => {
-        try {
-            await API.put(`/clubs/join/${id}/decline`, {}, { headers: { Authorization: `Bearer ${token}` } });
-            loadJoinRequests();
-        } catch (err) {
-            console.error("Error declining join request:", err);
-        }
+    const editClub = (club) => {
+        setEditClubId(club.id);
+        setClubForm({
+            clubName: club.clubName,
+            description: club.description
+        });
+        setIsModalOpen(true);
     };
 
-    const handleApproveEvent = async (id) => {
-        try {
-            await API.put(`/events/${id}/approve`, {}, { headers: { Authorization: `Bearer ${token}` } });
-            loadEventRequests();
-        } catch (err) {
-            console.error("Error approving event:", err);
-        }
-    };
+    const deleteClub = async (id) => {
+        if (!window.confirm("Delete this club?")) return;
 
-    const handleDeclineEvent = async (id) => {
         try {
-            await API.put(`/events/${id}/decline`, {}, { headers: { Authorization: `Bearer ${token}` } });
-            loadEventRequests();
-        } catch (err) {
-            console.error("Error declining event:", err);
-        }
-    };
-
-    const handleCreateClub = async () => {
-        if (!newClubName || !newClubDesc) return;
-        try {
-            await API.post('/clubs', { clubName: newClubName, description: newClubDesc }, { headers: { Authorization: `Bearer ${token}` } });
-            setNewClubName('');
-            setNewClubDesc('');
+            await API.delete(`/clubs/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             loadClubs();
         } catch (err) {
-            console.error("Error creating club:", err);
+            console.error("Delete club error:", err);
         }
     };
 
-    const filteredClubs = clubs.filter(c => c.clubName.toLowerCase().includes(searchTerm.toLowerCase()));
+    // ================= JOIN REQUEST ACTIONS =================
+
+    const approveClubRequest = async (id) => {
+        try {
+            await API.put(`/clubs/join/${id}/approve`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            loadClubRequests();
+        } catch (err) {
+            console.error("Approve error:", err);
+        }
+    };
+
+    const declineClubRequest = async (id) => {
+        if (!window.confirm("Decline this request?")) return;
+
+        try {
+            await API.delete(`/clubs/join/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            loadClubRequests();
+        } catch (err) {
+            console.error("Decline error:", err);
+        }
+    };
+
+    // ================= EVENT ACTIONS =================
+
+    const approveEvent = async (id) => {
+        try {
+            await API.put(`/events/${id}/approve`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            loadEventRequests();
+        } catch (err) {
+            console.error("Approve event error:", err);
+        }
+    };
+
+    const declineEvent = async (id) => {
+        if (!window.confirm("Decline this event?")) return;
+
+        try {
+            await API.delete(`/events/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            loadEventRequests();
+        } catch (err) {
+            console.error("Decline event error:", err);
+        }
+    };
+
+    // ================= UI =================
 
     return (
-        <div className="dashboard-layout">
-            <aside className="sidebar">
-                <div className="logo"><img src={logo} alt="NextStep Logo" className="logo-img" /></div>
-                <ul className="menu-list">
-                    <li className="menu-item active">Admin Dashboard</li>
+        <div className="shuttle-admin-page">
+
+            <aside className="shuttle-sidebar">
+                <h2>NEXTSTEP ADMIN</h2>
+                <ul>
+                    <li className="active">Club & Event Management</li>
                 </ul>
+                <button
+                    className="btn-red"
+                    style={{ marginTop: 'auto', padding: '10px' }}
+                    onClick={() => { localStorage.clear(); navigate('/'); }}>
+                    Logout
+                </button>
             </aside>
 
-            <main className="main-content">
-                <header className="shuttle-header">
-                    <h1>Club & Event Management</h1>
-                    <p>Create clubs, approve join requests, and manage events.</p>
+            <main className="shuttle-main">
+
+                <header className="shuttle-banner">
+                    <h1>Admin Dashboard - Clubs & Events</h1>
                 </header>
 
-                <div className="search-container">
-                    <input
-                        type="text"
-                        className="shuttle-search-input"
-                        placeholder="Search clubs..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
+                <div className="shuttle-content">
 
-                <div className="dashboard-cards">
-                    {filteredClubs.map(club => (
-                        <div key={club.id} className="info-card shuttle-clickable-card" onClick={() => { setSelectedClub(club); setIsModalOpen(true); }}>
-                            <h3>{club.clubName}</h3>
-                            <p>{club.description}</p>
+                    {/* ================= ALL CLUBS ================= */}
+                    <div className="shuttle-card">
+                        <div className="shuttle-header-row">
+                            <h2>All Clubs</h2>
+                            <button className="btn-green" onClick={() => {
+                                setEditClubId(null);
+                                setClubForm({ clubName: '', description: '' });
+                                setIsModalOpen(true);
+                            }}>
+                                + Add Club
+                            </button>
                         </div>
-                    ))}
 
-                    <div className="info-card">
-                        <h3>Create New Club</h3>
-                        <input type="text" placeholder="Club Name" value={newClubName} onChange={(e) => setNewClubName(e.target.value)} />
-                        <textarea placeholder="Description" value={newClubDesc} onChange={(e) => setNewClubDesc(e.target.value)} />
-                        <button onClick={handleCreateClub}>Create Club</button>
+                        <table className="shuttle-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {clubs.map(club => (
+                                    <tr key={club.id}>
+                                        <td>{club.clubName}</td>
+                                        <td>{club.description}</td>
+                                        <td>
+                                            <button className="btn-green" onClick={() => editClub(club)}>
+                                                Edit
+                                            </button>
+                                            <button className="btn-red" onClick={() => deleteClub(club.id)}>
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
+
+                    {/* ================= JOIN REQUESTS ================= */}
+                    <div className="shuttle-card">
+                        <h2>Pending Club Join Requests</h2>
+                        <table className="shuttle-table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Club</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {clubRequests.map(req => (
+                                    <tr key={req.id}>
+                                        <td>{req.email}</td>
+                                        <td>{req.clubName}</td>
+                                        <td>
+                                            <button className="btn-green" onClick={() => approveClubRequest(req.id)}>
+                                                Approve
+                                            </button>
+                                            <button className="btn-red" onClick={() => declineClubRequest(req.id)}>
+                                                Decline
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* ================= EVENT REQUESTS ================= */}
+                    <div className="shuttle-card">
+                        <h2>Pending Event Requests</h2>
+                        <table className="shuttle-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {eventRequests.map(event => (
+                                    <tr key={event.id}>
+                                        <td>{event.title}</td>
+                                        <td>{event.description}</td>
+                                        <td>{event.eventDate}</td>
+                                        <td>
+                                            <button className="btn-green" onClick={() => approveEvent(event.id)}>
+                                                Approve
+                                            </button>
+                                            <button className="btn-red" onClick={() => declineEvent(event.id)}>
+                                                Decline
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-
-                {/* --- JOIN REQUESTS --- */}
-                <section className="requests-section">
-                    <h2>Pending Join Requests</h2>
-                    {joinRequests.map(req => (
-                        <div key={req.id} className="info-card">
-                            <p><strong>Student:</strong> {req.email}</p>
-                            <p><strong>Club:</strong> {req.clubName}</p>
-                            <div className="card-actions">
-                                <button onClick={() => handleApproveJoin(req.id)}>Approve</button>
-                                <button onClick={() => handleDeclineJoin(req.id)}>Decline</button>
-                            </div>
-                        </div>
-                    ))}
-                </section>
-
-                {/* --- EVENT REQUESTS --- */}
-                <section className="requests-section">
-                    <h2>Pending Event Requests</h2>
-                    {eventRequests.map(ev => (
-                        <div key={ev.id} className="info-card">
-                            <p><strong>Title:</strong> {ev.title}</p>
-                            <p><strong>Club:</strong> {ev.clubName}</p>
-                            <p><strong>Date:</strong> {new Date(ev.eventDate).toLocaleString()}</p>
-                            <div className="card-actions">
-                                <button onClick={() => handleApproveEvent(ev.id)}>Approve</button>
-                                <button onClick={() => handleDeclineEvent(ev.id)}>Decline</button>
-                            </div>
-                        </div>
-                    ))}
-                </section>
-
             </main>
 
-            {/* --- MODAL --- */}
-            {isModalOpen && selectedClub && (
-                <div className="shuttle-modal-overlay" onClick={() => setIsModalOpen(false)}>
-                    <div className="shuttle-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-modal-btn" onClick={() => setIsModalOpen(false)}>&times;</button>
-                        <h2>{selectedClub.clubName}</h2>
-                        <p>{selectedClub.description}</p>
+            {/* ================= MODAL ================= */}
+            {isModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-container">
+                        <div className="modal-header">
+                            <h3>{editClubId ? "Edit Club" : "Create New Club"}</h3>
+                            <button className="close-btn" onClick={() => setIsModalOpen(false)}>
+                                &times;
+                            </button>
+                        </div>
+
+                        <form onSubmit={saveClub}>
+                            <div className="modal-body">
+                                <div className="form-group">
+                                    <label>Club Name</label>
+                                    <input
+                                        type="text"
+                                        name="clubName"
+                                        value={clubForm.clubName}
+                                        onChange={handleClubChange}
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Description</label>
+                                    <textarea
+                                        name="description"
+                                        value={clubForm.description}
+                                        onChange={handleClubChange}
+                                        rows="3"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="modal-footer">
+                                <button type="submit" className="btn-save-shuttle">
+                                    {editClubId ? "Update Club" : "Save Club"}
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
