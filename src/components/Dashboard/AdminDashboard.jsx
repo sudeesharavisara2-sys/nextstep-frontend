@@ -5,13 +5,10 @@ import '../../styles/App.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-
-    // Retrieve data from localStorage (must match keys used during Login)
     const userName = localStorage.getItem('userName') || 'Admin';
-    const token = localStorage.getItem('token'); // Changed from 'accessToken' to 'token' for consistency
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Redirect to Login if the authentication token is missing
         if (!token) {
             navigate('/login');
         }
@@ -35,14 +32,17 @@ const AdminDashboard = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP ADMIN</h2></div>
+                <div className="logo">
+                    <h2>NEXTSTEP ADMIN</h2>
+                </div>
                 <ul className="menu-list">
                     <li className="menu-item active" onClick={() => navigate('/admin-dashboard')}>
                         Admin Home
                     </li>
-                    {/* Additional Admin Menu Items can be added here as needed */}
                 </ul>
-                <button onClick={handleLogout} className="logout-btn">🚪 Logout</button>
+                <button onClick={handleLogout} className="logout-btn">
+                    🚪 Logout
+                </button>
             </aside>
 
             <main className="main-content">

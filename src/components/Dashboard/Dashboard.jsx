@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // Correct path to your dashboard styles
-import '../../styles/App.css';       // Global styles (if any)
+import '../../styles/Dashboard.css'; // Dashboard styles
+import '../../styles/App.css';       // Global styles
+import logo from "../../assets/logo1.png"; // Logo image
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Dashboard = () => {
         navigate('/'); // Back to login
     };
 
-    // Services available to users (all except admin-only ones)
+    // All services
     const allServices = [
         { name: "Core System", path: "/core-system", desc: "Manage central administration.", roles: ["ADMIN"] },
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
@@ -34,18 +35,20 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    // Filter services based on user role (shows all for admin, but this is the user dashboard)
+    // Filter services based on user role
     const filteredServices = allServices.filter(service =>
         service.roles.includes(userRole)
     );
 
     return (
         <div className="dashboard-layout">
-            {/* Sidebar - glass effect */}
+            {/* Sidebar */}
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP</h2></div>
+                <div className="logo">
+                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+                </div>
                 <ul className="menu-list">
-                    <li className="menu-item" onClick={() => navigate('/dashboard')}>
+                    <li className="menu-item active" onClick={() => navigate('/dashboard')}>
                         Home
                     </li>
                     {filteredServices.map((service, index) => (
@@ -66,7 +69,7 @@ const Dashboard = () => {
                         <h1>User Dashboard</h1>
                         <p style={{ opacity: 0.8 }}>Welcome back, {userName}!</p>
                     </div>
-                    <div className="role-badge user-bg">
+                    <div className={`role-badge ${userRole === "ADMIN" ? "admin-bg" : "user-bg"}`}>
                         Logged in as {userRole}
                     </div>
                 </header>
@@ -87,6 +90,11 @@ const Dashboard = () => {
                     ))}
                 </div>
             </main>
+
+            {/* Optional Floating Footer */}
+            <div className="powered-by">
+                Powered by NSBM
+            </div>
         </div>
     );
 };

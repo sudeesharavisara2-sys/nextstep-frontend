@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api";
-import "../../styles/Dashboard.css";   // for dashboard layout, cards, buttons
-import "../../styles/StudyRoom.css";   // for status badges, modals, and shared admin styles
+import "../../styles/Dashboard.css";
+import "../../styles/StudyRoom.css";
+import logo from "../../assets/logo1.png";
 
 const StudyRoomBooking = () => {
   const navigate = useNavigate();
@@ -39,10 +40,13 @@ const StudyRoomBooking = () => {
     return slots;
   }, []);
 
-  const authHeaders = useMemo(
-    () => ({ headers: { Authorization: `Bearer ${token}` } }),
-    [token]
-  );
+  const authHeaders = useMemo(() => ({ headers: { Authorization: `Bearer ${token}` } }), [token]);
+
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   // Guard & initial load
   useEffect(() => {
@@ -51,7 +55,7 @@ const StudyRoomBooking = () => {
       return;
     }
     fetchMyBookings();
-  }, [token]);
+  }, [token, navigate]);
 
   // Fetch availability when date changes
   useEffect(() => {
@@ -119,7 +123,9 @@ const StudyRoomBooking = () => {
   };
 
   const handleCancel = async (id) => {
-    if (!window.confirm("Cancel this booking?")) return;
+    setMessage("");
+    const ok = window.confirm("Cancel this booking?");
+    if (!ok) return;
     try {
       await API.patch(`/study-room/bookings/${id}/cancel`, null, authHeaders);
       setMessage("✅ Booking cancelled");
@@ -170,7 +176,6 @@ const StudyRoomBooking = () => {
     return bookingStart - now > 2 * 60 * 60 * 1000;
   };
 
-  // Determine if a time slot is free for a given room
   const isSlotFree = (room, slotStart, slotEnd) => {
     if (!availability) return false;
     const roomBookings = availability.bookedDetails?.filter(
@@ -178,27 +183,18 @@ const StudyRoomBooking = () => {
     ) || [];
     if (roomBookings.length === 0) return true;
     const overlapping = roomBookings.some((b) => {
-      const bStart = b.startTime;
-      const bEnd = b.endTime;
-      const toMins = (t) => {
-        const [h, m] = t.split(":").map(Number);
-        return h * 60 + m;
-      };
+      const toMins = (t) => t.split(":").map(Number).reduce((h, m, i) => i === 0 ? h*60 + m : h, 0);
       const slotStartMins = toMins(slotStart);
       const slotEndMins = toMins(slotEnd);
-      const bStartMins = toMins(bStart);
-      const bEndMins = toMins(bEnd);
+      const bStartMins = toMins(b.startTime);
+      const bEndMins = toMins(b.endTime);
       return slotStartMins < bEndMins && slotEndMins > bStartMins;
     });
     return !overlapping;
   };
 
   const handleSlotClick = (room, slotStart) => {
-    setFormData((prev) => ({
-      ...prev,
-      room,
-      time: slotStart,
-    }));
+    setFormData((prev) => ({ ...prev, room, time: slotStart }));
     document.querySelector(".booking-form-section")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -212,23 +208,28 @@ const StudyRoomBooking = () => {
 
   return (
     <div className="dashboard-layout">
+      {/* Sidebar */}
       <aside className="sidebar">
-        <div className="logo"><h2>NEXTSTEP</h2></div>
-        <button className="menu-item back-btn" onClick={() => navigate("/dashboard")}>
+        <div className="logo">
+          <img src={logo} alt="NextStep Logo" className="logo-img" />
+        </div>
+        <button className="menu-item" onClick={() => navigate("/dashboard")}>
           Dashboard
+        </button>
+        <button onClick={handleLogout} className="logout-btn">
+          Logout
         </button>
       </aside>
 
       <main className="main-content">
         <header className="top-nav">
           <h1>📚 Study Room Booking</h1>
+          <p>Reserve a quiet space for your academic needs.</p>
         </header>
 
-        {/* Two‑column layout */}
         <div className="two-column">
-          {/* LEFT COLUMN: Form + My Bookings */}
+          {/* Left: Form + Bookings */}
           <div className="left-col">
-            {/* Booking Form */}
             <div className="info-card booking-form-section">
               <h3>Book a Room</h3>
               <form onSubmit={handleSubmit} className="auth-form">
@@ -236,22 +237,8 @@ const StudyRoomBooking = () => {
                   <option value="">-- Select Room --</option>
                   {ROOMS.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
+                <input type="date" name="date" value={formData.date} onChange={handleChange} className="form-input" required />
+                <input type="time" name="time" value={formData.time} onChange={handleChange} className="form-input" required />
                 <select name="durationMinutes" value={formData.durationMinutes} onChange={handleChange} className="form-input">
                   <option value={30}>30 min</option>
                   <option value={60}>60 min</option>
@@ -260,14 +247,11 @@ const StudyRoomBooking = () => {
                   <option value={180}>180 min</option>
                   <option value={240}>240 min</option>
                 </select>
-                <button className="btn-primary" type="submit" disabled={loading}>
-                  {loading ? "Booking..." : "Book Now"}
-                </button>
+                <button className="btn-primary" type="submit" disabled={loading}>{loading ? "Booking..." : "Book Now"}</button>
               </form>
               {message && <p style={{ marginTop: 12 }}>{message}</p>}
             </div>
 
-            {/* My Bookings */}
             <div style={{ marginTop: 30 }}>
               <h2>My Bookings</h2>
               <div className="dashboard-cards">
@@ -277,27 +261,11 @@ const StudyRoomBooking = () => {
                     <h3>{b.room}</h3>
                     <p>📅 {b.date}</p>
                     <p>⏰ {b.startTime} – {b.endTime} ({b.durationMinutes} min)</p>
-                    <p>
-                      Status: <span className={`sr-status ${statusClass(b.status)}`}>{b.status}</span>
-                    </p>
+                    <p>Status: <span className={`sr-status ${statusClass(b.status)}`}>{b.status}</span></p>
                     {b.status === "ACTIVE" && (
                       <div style={{ display: "flex", gap: 10, marginTop: 15 }}>
-                        {canCancel(b) && (
-                          <button
-                            className="btn-primary"
-                            style={{ background: "var(--danger)" }}
-                            onClick={() => handleCancel(b.id)}
-                          >
-                            Cancel
-                          </button>
-                        )}
-                        <button
-                          className="btn-primary"
-                          style={{ background: "var(--secondary)" }}
-                          onClick={() => handleEditClick(b)}
-                        >
-                          Edit
-                        </button>
+                        {canCancel(b) && <button className="btn-primary" style={{ background: "var(--danger)" }} onClick={() => handleCancel(b.id)}>Cancel</button>}
+                        <button className="btn-primary" style={{ background: "var(--secondary)" }} onClick={() => handleEditClick(b)}>Edit</button>
                       </div>
                     )}
                   </div>
@@ -306,7 +274,7 @@ const StudyRoomBooking = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Availability Chart (Dark) */}
+          {/* Right: Availability chart */}
           <div className="right-col">
             <div className="chart-card">
               <h2>Availability Table</h2>
@@ -332,12 +300,7 @@ const StudyRoomBooking = () => {
                             {ROOMS.map(room => {
                               const free = isSlotFree(room, slot.start, slot.end);
                               return (
-                                <td
-                                  key={room}
-                                  className={`chart-cell ${free ? "free" : "booked"}`}
-                                  onClick={() => free && handleSlotClick(room, slot.start)}
-                                  title={free ? `Click to book ${room} at ${slot.start}` : "Booked"}
-                                />
+                                <td key={room} className={`chart-cell ${free ? "free" : "booked"}`} onClick={() => free && handleSlotClick(room, slot.start)} title={free ? `Click to book ${room} at ${slot.start}` : "Booked"} />
                               );
                             })}
                           </tr>
@@ -351,6 +314,9 @@ const StudyRoomBooking = () => {
             </div>
           </div>
         </div>
+
+        {/* Optional "Powered by" footer – matches Dashboard.css */}
+        <div className="powered-by">Powered by NextStep</div>
       </main>
 
       {/* Edit Modal */}

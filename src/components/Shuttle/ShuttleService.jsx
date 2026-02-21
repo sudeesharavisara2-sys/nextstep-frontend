@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import API from '../../api'; // api.js import කරන ලදී
 import '../../styles/Dashboard.css'; // Path එක නිවැරදි කරන ලදී
 import '../../styles/ShuttleService.css'; // Path එක නිවැරදි කරන ලදී
+import logo from "../../assets/logo1.png";
 
 const ShuttleService = () => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const ShuttleService = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-    const token = localStorage.getItem('token'); // 'token' ලෙස ලබා ගැනීම
+    const token = localStorage.getItem('token'); 
 
     useEffect(() => {
         if (!token) navigate('/');
@@ -53,7 +54,7 @@ const ShuttleService = () => {
 
     const loadShuttles = async () => {
         try {
-            // API instance එක භාවිතා කර දත්ත ලබා ගැනීම
+            // Using API instance 
             const res = await API.get('/shuttle/all', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -95,7 +96,9 @@ const ShuttleService = () => {
     return (
         <div className="dashboard-layout">
             <aside className="sidebar">
-                <div className="logo"><h2>NEXTSTEP</h2></div>
+                <div className="logo">
+                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+                                </div>
                 <ul className="menu-list">
                     <li className="menu-item" onClick={() => navigate('/dashboard')}>Home</li>
                     <li className="menu-item active">Shuttle Service</li>
