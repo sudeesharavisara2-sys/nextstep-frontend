@@ -28,7 +28,7 @@ const AdminDashboard = () => {
         { name: "Stalls", path: "/stalls", desc: "Manage campus market stalls." },
         { name: "Lost & Found", path: "/lost-found", desc: "Review reported items." },
         { name: "Model Papers", path: "/model-papers", desc: "Update academic model papers." },
-        { name: "Study Room Booking", path: "/study-rooms", desc: "Control room availability." },
+        { name: "Study Room Booking", path: "/study-room/admin", desc: "Control room availability." },
         { name: "Shuttle Service", path: "/add-shuttle", desc: "Update bus schedules and manage shuttles." }
     ];
 
@@ -42,23 +42,24 @@ const AdminDashboard = () => {
                     </li>
                     {/* Additional Admin Menu Items can be added here as needed */}
                 </ul>
-                <div className="sidebar-footer">
-                    <button onClick={handleLogout} className="logout-btn">Logout</button>
-                </div>
+                <button onClick={handleLogout} className="logout-btn">🚪 Logout</button>
             </aside>
 
             <main className="main-content">
                 <header className="top-nav">
-                    <div className="nav-text">
-                        <h1>Administrator Control Panel</h1>
-                        <p>Logged in as: <strong>{userName}</strong></p>
+                    <h1>Administrator Control Panel</h1>
+                    <div className="user-profile-section">
+                        <span className="role-badge admin-bg">ADMIN</span>
+                        <span>Logged in as <strong>{userName}</strong></span>
                     </div>
                 </header>
 
                 <div className="dashboard-cards">
                     {allServices.map((service, index) => (
                         <div key={index} className="info-card">
-                            <div className="card-icon">⚙️</div> {/* Adding an icon improves the UI appearance */}
+                            <div className="card-icon" style={{ fontSize: '2rem', marginBottom: '10px' }}>
+                                ⚙️
+                            </div>
                             <h3>{service.name}</h3>
                             <p>{service.desc}</p>
                             <button className="view-btn" onClick={() => navigate(service.path)}>

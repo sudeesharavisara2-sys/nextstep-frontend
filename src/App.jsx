@@ -88,14 +88,25 @@ function App() {
           }
         />
 
+        {/* ✅ This route matches the path used in AdminDashboard */}
         <Route
-          path="/admin-study-rooms"
+          path="/study-room/admin"
           element={
             <RequireAdmin>
               <StudyRoomAdmin />
             </RequireAdmin>
           }
         />
+
+        {/* Optional: if you still want the old path, keep it – but it's not used */}
+        {/* <Route
+          path="/admin-study-rooms"
+          element={
+            <RequireAdmin>
+              <StudyRoomAdmin />
+            </RequireAdmin>
+          }
+        /> */}
 
         <Route
           path="/add-shuttle"
