@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // Dashboard styles
-import '../../styles/App.css';       // Global styles
-import logo from "../../assets/logo1.png"; // Logo image
+import '../../styles/Dashboard.css';
+import '../../styles/App.css';
+import logo from "../../assets/logo1.png";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-
-    // Get user info from localStorage
-    const userRole = localStorage.getItem('userRole') || 'USER';
+    
+    // Get data from localStorage
+    const userRole = localStorage.getItem('userRole') || 'USER'; 
     const userName = localStorage.getItem('userName') || 'User';
     const token = localStorage.getItem('token');
 
-    // Redirect to login if no token
     useEffect(() => {
+        // Redirect to login if no token
         if (!token) {
             navigate('/');
         }
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate('/'); // Back to login
+        navigate('/');
     };
 
     // All services
@@ -35,20 +35,19 @@ const Dashboard = () => {
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
     ];
 
-    // Filter services based on user role
-    const filteredServices = allServices.filter(service =>
+    // Filter services for current user
+    const filteredServices = allServices.filter(service => 
         service.roles.includes(userRole)
     );
 
     return (
         <div className="dashboard-layout">
-            {/* Sidebar */}
             <aside className="sidebar">
-                <div className="logo">
-                    <img src={logo} alt="NextStep Logo" className="logo-img" />
+               <div className="logo">
+                   <img src={logo} alt="NextStep Logo" className="logo-img" />
                 </div>
-                <ul className="menu-list">
-                    <li className="menu-item active" onClick={() => navigate('/dashboard')}>
+                 <ul className="menu-list">
+                    <li className="menu-item" style={{backgroundColor: 'rgba(255,255,255,0.2)'}} onClick={() => navigate('/dashboard')}>
                         Home
                     </li>
                     {filteredServices.map((service, index) => (
@@ -62,19 +61,17 @@ const Dashboard = () => {
                 </button>
             </aside>
 
-            {/* Main Content */}
             <main className="main-content">
                 <header className="top-nav">
                     <div>
                         <h1>User Dashboard</h1>
-                        <p style={{ opacity: 0.8 }}>Welcome back, {userName}!</p>
+                        <p style={{opacity: 0.8}}>Welcome back, {userName}!</p>
                     </div>
-                    <div className={`role-badge ${userRole === "ADMIN" ? "admin-bg" : "user-bg"}`}>
+                    <div className="role-badge user-bg">
                         Logged in as {userRole}
                     </div>
                 </header>
 
-                {/* Service Cards */}
                 <div className="dashboard-cards">
                     {filteredServices.map((service, index) => (
                         <div key={index} className="info-card">
@@ -91,7 +88,7 @@ const Dashboard = () => {
                 </div>
             </main>
 
-            {/* Optional Floating Footer */}
+            {/* Floating Footer Text */}
             <div className="powered-by">
                 Powered by NSBM
             </div>

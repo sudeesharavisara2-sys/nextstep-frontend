@@ -10,7 +10,6 @@ const StudyRoomAdmin = () => {
 
   const ROOMS = useMemo(() => ["A1", "A2", "A3", "B1", "B2", "C1", "C2", "C3"], []);
 
-  // Availability chart
   const [chartDate, setChartDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [availability, setAvailability] = useState(null);
   const [fetchingAvailability, setFetchingAvailability] = useState(false);
@@ -28,14 +27,12 @@ const StudyRoomAdmin = () => {
     return slots;
   }, []);
 
-  // Main data
   const [rawData, setRawData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [viewMode, setViewMode] = useState("flat");
   const [search, setSearch] = useState("");
 
-  // Modal states
   const [editingBooking, setEditingBooking] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [bookingForUser, setBookingForUser] = useState(null);
@@ -55,10 +52,12 @@ const StudyRoomAdmin = () => {
     setLoading(true);
     try {
       const res = await API.get("/study-room/admin/bookings/all", authConfig);
-      setRawData(res.data || []);
+      const data = res.data;
+      setRawData(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
       setMessage("❌ Failed to load bookings");
+      setRawData([]);
     } finally {
       setLoading(false);
     }
@@ -77,9 +76,10 @@ const StudyRoomAdmin = () => {
         ...authConfig,
         params: { date: chartDate },
       });
-      setAvailability(res.data);
+      setAvailability(res.data || { bookedDetails: [] });
     } catch (err) {
       console.error(err);
+      setAvailability({ bookedDetails: [] });
     } finally {
       setFetchingAvailability(false);
     }
@@ -89,14 +89,21 @@ const StudyRoomAdmin = () => {
     if (showChart && chartDate) fetchAvailability();
   }, [chartDate, showChart]);
 
-  const flattenedBookings = useMemo(() =>
-    rawData.flatMap(user => (user.bookings || []).map(b => ({
-      ...b,
-      userId: user.userId,
-      userName: user.userName,
-      userEmail: user.userEmail,
-    }))), [rawData]);
+  // Flatten bookings safely
+  const flattenedBookings = useMemo(() => {
+    if (!Array.isArray(rawData)) return [];
+    return rawData.flatMap(user => {
+      if (!user || !Array.isArray(user.bookings)) return [];
+      return user.bookings.map(b => ({
+        ...b,
+        userId: user.userId,
+        userName: user.userName,
+        userEmail: user.userEmail,
+      }));
+    });
+  }, [rawData]);
 
+  // Filtered bookings/search
   const filteredData = useMemo(() => {
     if (!search.trim()) return viewMode === "flat" ? flattenedBookings : rawData;
     const q = search.toLowerCase();
@@ -111,6 +118,7 @@ const StudyRoomAdmin = () => {
     }
   }, [viewMode, flattenedBookings, rawData, search]);
 
+  // Delete booking
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this booking?")) return;
     setDeletingId(id);
@@ -170,14 +178,11 @@ const StudyRoomAdmin = () => {
   };
 
   const isSlotFree = (room, slotStart, slotEnd) => {
-    if (!availability) return false;
-    const roomBookings = availability.bookedDetails?.filter(b => b.room === room && b.status === "ACTIVE") || [];
+    if (!availability || !Array.isArray(availability.bookedDetails)) return true;
+    const roomBookings = availability.bookedDetails.filter(b => b.room === room && b.status === "ACTIVE");
     if (!roomBookings.length) return true;
-    const overlapping = roomBookings.some(b => {
-      const toMins = t => t.split(":").map(Number).reduce((h, m, i) => i === 0 ? h*60 + m : h, 0);
-      return toMins(slotStart) < toMins(b.endTime) && toMins(slotEnd) > toMins(b.startTime);
-    });
-    return !overlapping;
+    const toMins = t => t.split(":").map(Number).reduce((h, m, i) => i === 0 ? h*60 + m : h, 0);
+    return !roomBookings.some(b => toMins(slotStart) < toMins(b.endTime) && toMins(slotEnd) > toMins(b.startTime));
   };
 
   const statusClass = (status) => {
