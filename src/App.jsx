@@ -29,14 +29,13 @@ import StudyRoomAdmin from "./components/StudyRoom/StudyRoomAdmin";
 // --- Model Papers Components ---
 import ModelPapersUser from "./components/ModelPapers/ModelPapersUser";
 import ModelPapers from "./components/ModelPapers/ModelPapers";
-
-// --- Club Events Components ---
 import ClubEventDashboard from "./components/ClubEvents/ClubEventDashBoard";
 import AdminClubDashboard from "./components/ClubEvents/AdminClubDashboard";
 
 // --- Styles ---
 import "./styles/App.css";
 import "./components/stallbooking/stallbooking.css";
+
 
 // ---------- Guards ----------
 const RequireAuth = ({ children }) => {
@@ -47,15 +46,19 @@ const RequireAuth = ({ children }) => {
 const RequireAdmin = ({ children }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("userRole");
+
   if (!token) return <Navigate to="/login" replace />;
   if (role !== "ADMIN") return <Navigate to="/dashboard" replace />;
+
   return children;
 };
+
 
 function App() {
   return (
     <Router>
       <Routes>
+
         {/* Default */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
@@ -78,21 +81,23 @@ function App() {
         <Route path="/stalls/my-bookings" element={<RequireAuth><MyBookings /></RequireAuth>} />
         <Route path="/stalls/how-to-book" element={<RequireAuth><HowToBook /></RequireAuth>} />
 
-        {/* Placeholder pages */}
+        {/* Placeholder pages (so dashboard buttons don't crash) */}
         <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
+        
         <Route path="/lost-found" element={<RequireAuth><div>Lost & Found Page</div></RequireAuth>} />
         <Route path="/club-events" element={<RequireAuth><ClubEventDashboard /></RequireAuth>} />
+        <Route path="/admin-club-events" element={<RequireAdmin><AdminClubDashboard /></RequireAdmin>} />
+
 
         {/* ADMIN ROUTES */}
         <Route path="/admin-dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
         <Route path="/add-shuttle" element={<RequireAdmin><AddShuttle /></RequireAdmin>} />
-        {/* ✅ Correct route matching the card in AdminDashboard */}
-        <Route path="/study-room/admin" element={<RequireAdmin><StudyRoomAdmin /></RequireAdmin>} />
+        <Route path="/admin-study-rooms" element={<RequireAdmin><StudyRoomAdmin /></RequireAdmin>} />
         <Route path="/manage-model-papers" element={<RequireAdmin><ModelPapers /></RequireAdmin>} />
-        <Route path="/admin-club-events" element={<RequireAdmin><AdminClubDashboard /></RequireAdmin>} />
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/login" replace />} />
+
       </Routes>
     </Router>
   );
