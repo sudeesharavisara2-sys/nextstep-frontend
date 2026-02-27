@@ -1,0 +1,401 @@
+/* =============================================
+   Lost & Found - Custom CSS (No Bootstrap)
+   ============================================= */
+
+/* --- Navbar --- */
+.lf-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a2e;
+  padding: 14px 40px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.lf-navbar-brand {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.lf-navbar-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.lf-nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.lf-nav-link:hover {
+  background-color: rgba(255,255,255,0.15);
+}
+
+.lf-nav-link-report {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #28a745;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.lf-nav-link-report:hover {
+  background-color: #218838;
+}
+
+/* --- Home Page Background --- */
+.lf-home-bg {
+  background: linear-gradient(135deg, #0f2027, #2c5364, #2ecc71);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Hero Section --- */
+.lf-hero {
+  text-align: center;
+  color: #ffffff;
+  padding: 60px 20px 30px;
+}
+
+.lf-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.lf-hero p {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+.lf-loading-badge {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+/* --- Container --- */
+.lf-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* --- Stats Row --- */
+.lf-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.lf-stat-card {
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  padding: 40px 20px;
+  text-align: center;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.lf-stat-card:hover {
+  transform: translateY(-8px);
+}
+
+.lf-stat-card .stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.lf-stat-card h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.lf-stat-card h5 {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.lf-stat-blue   { background-color: #0d6efd; }
+.lf-stat-yellow { background-color: #ffc107; }
+.lf-stat-green  { background-color: #28a745; }
+
+/* --- Action Cards Row --- */
+.lf-action-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.lf-action-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  padding: 50px 30px;
+  text-align: center;
+}
+
+.lf-action-card .action-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+
+.lf-action-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1a1a2e;
+}
+
+.lf-action-card p {
+  color: #6c757d;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+/* --- Buttons --- */
+.lf-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.lf-btn-danger { background-color: #dc3545; color: #ffffff; }
+.lf-btn-danger:hover { background-color: #bb2d3b; }
+
+.lf-btn-primary { background-color: #0d6efd; color: #ffffff; }
+.lf-btn-primary:hover { background-color: #0b5ed7; }
+
+.lf-btn-success { background-color: #28a745; color: #ffffff; }
+.lf-btn-success:hover { background-color: #218838; }
+
+.lf-btn-outline {
+  background-color: transparent;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+.lf-btn-outline:hover { background-color: #6c757d; color: #fff; }
+
+.lf-btn-contact {
+  background-color: transparent;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.lf-btn-contact:hover { background-color: #0d6efd; color: #fff; }
+
+.lf-btn-lg   { padding: 14px 36px; font-size: 1.05rem; }
+.lf-btn-full { width: 100%; display: block; text-align: center; }
+.lf-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+
+/* --- Footer --- */
+.lf-footer {
+  background: #111827;
+  color: #ffffff;
+  padding: 24px 20px;
+  text-align: center;
+  margin-top: auto;
+}
+.lf-footer p { margin: 4px 0; font-size: 0.9rem; opacity: 0.8; }
+
+/* =============================================
+   Item List Page
+   ============================================= */
+
+.lf-page-bg {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.lf-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.lf-page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1a1a2e;
+}
+
+/* --- Search Bar --- */
+.lf-search-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.lf-search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 11px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.lf-search-input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+/* --- Loading / Empty --- */
+.lf-loading { text-align: center; padding: 60px 20px; color: #6c757d; }
+
+.lf-empty { text-align: center; padding: 60px 20px; color: #6c757d; }
+.lf-empty h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+/* --- Items Grid --- */
+.lf-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.lf-item-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+.lf-item-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+.lf-item-card h5 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #1a1a2e;
+}
+.lf-item-card p { color: #6c757d; font-size: 0.9rem; margin-bottom: 14px; }
+
+.lf-item-details {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  color: #444;
+}
+.lf-item-details li { margin-bottom: 5px; }
+
+/* --- Status Badge --- */
+.lf-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.lf-badge-claimed   { background-color: #d1fae5; color: #065f46; }
+.lf-badge-unclaimed { background-color: #fef3c7; color: #92400e; }
+
+/* =============================================
+   Report Item Page
+   ============================================= */
+
+.lf-report-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.lf-report-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+.lf-form-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.lf-form-card-header {
+  background-color: #0d6efd;
+  color: #ffffff;
+  padding: 20px 28px;
+}
+.lf-form-card-header h4 { margin: 0; font-size: 1.2rem; font-weight: 700; }
+
+.lf-form-body { padding: 28px; }
+
+.lf-form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lf-form-label { font-weight: 600; font-size: 0.9rem; color: #333; margin-bottom: 6px; }
+
+.lf-form-input,
+.lf-form-textarea,
+.lf-form-select {
+  padding: 11px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+.lf-form-input:focus,
+.lf-form-textarea:focus,
+.lf-form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+.lf-form-hint { font-size: 0.8rem; color: #6c757d; margin-top: 4px; }
+.lf-form-textarea { resize: vertical; min-height: 90px; }
+
+.lf-form-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .lf-stats-row    { grid-template-columns: 1fr; }
+  .lf-action-row   { grid-template-columns: 1fr; }
+  .lf-hero h1      { font-size: 1.8rem; }
+  .lf-navbar       { padding: 12px 20px; }
+  .lf-items-grid   { grid-template-columns: 1fr; }
+  .lf-search-row   { flex-direction: column; }
+}

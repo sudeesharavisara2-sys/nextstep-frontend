@@ -29,13 +29,19 @@ import StudyRoomAdmin from "./components/StudyRoom/StudyRoomAdmin";
 // --- Model Papers Components ---
 import ModelPapersUser from "./components/ModelPapers/ModelPapersUser";
 import ModelPapers from "./components/ModelPapers/ModelPapers";
+
+// --- Club Events Components ---
 import ClubEventDashboard from "./components/ClubEvents/ClubEventDashBoard";
 import AdminClubDashboard from "./components/ClubEvents/AdminClubDashboard";
+
+// --- Lost & Found Components ---
+import LostFoundHome from "./components/LostFound/LostFoundHome";
+import ItemList from "./components/LostFound/ItemList";
+import ReportItem from "./components/LostFound/ReportItem";
 
 // --- Styles ---
 import "./styles/App.css";
 import "./components/stallbooking/stallbooking.css";
-
 
 // ---------- Guards ----------
 const RequireAuth = ({ children }) => {
@@ -53,16 +59,14 @@ const RequireAdmin = ({ children }) => {
   return children;
 };
 
-
 function App() {
   return (
     <Router>
       <Routes>
-
-        {/* Default */}
+        {/* Default Route */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Auth */}
+        {/* Auth Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
@@ -74,20 +78,24 @@ function App() {
         <Route path="/study-rooms" element={<RequireAuth><StudyRoomBooking /></RequireAuth>} />
         <Route path="/model-papers" element={<RequireAuth><ModelPapersUser /></RequireAuth>} />
 
-        {/* Stall Booking */}
+        {/* Stall Booking Routes */}
         <Route path="/stalls" element={<RequireAuth><StallHome /></RequireAuth>} />
         <Route path="/stalls/available" element={<RequireAuth><AvailableStalls /></RequireAuth>} />
         <Route path="/stalls/book" element={<RequireAuth><BookStall /></RequireAuth>} />
         <Route path="/stalls/my-bookings" element={<RequireAuth><MyBookings /></RequireAuth>} />
         <Route path="/stalls/how-to-book" element={<RequireAuth><HowToBook /></RequireAuth>} />
 
-        {/* Placeholder pages (so dashboard buttons don't crash) */}
-        <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
-        
-        <Route path="/lost-found" element={<RequireAuth><div>Lost & Found Page</div></RequireAuth>} />
+        {/* Club Events Routes */}
         <Route path="/club-events" element={<RequireAuth><ClubEventDashboard /></RequireAuth>} />
         <Route path="/admin-club-events" element={<RequireAdmin><AdminClubDashboard /></RequireAdmin>} />
 
+        {/* Lost & Found Routes (Merged from dev-yathushiha) */}
+        <Route path="/lostfound" element={<RequireAuth><LostFoundHome /></RequireAuth>} />
+        <Route path="/lostfound/items" element={<RequireAuth><ItemList /></RequireAuth>} />
+        <Route path="/lostfound/report" element={<RequireAuth><ReportItem /></RequireAuth>} />
+
+        {/* Other Core System Placeholder */}
+        <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
 
         {/* ADMIN ROUTES */}
         <Route path="/admin-dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
@@ -95,9 +103,8 @@ function App() {
         <Route path="/admin-study-rooms" element={<RequireAdmin><StudyRoomAdmin /></RequireAdmin>} />
         <Route path="/manage-model-papers" element={<RequireAdmin><ModelPapers /></RequireAdmin>} />
 
-        {/* Catch-all */}
+        {/* Catch-all Route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
-
       </Routes>
     </Router>
   );

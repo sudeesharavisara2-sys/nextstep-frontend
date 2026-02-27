@@ -28,7 +28,7 @@ const Dashboard = () => {
     const allServices = [
         { name: "Club Events", path: "/club-events", desc: "Explore university activities.", roles: ["USER", "ADMIN"] },
         { name: "Stalls", path: "/stalls", desc: "Reserve and track stall spots.", roles: ["USER", "ADMIN"] },
-        { name: "Lost & Found", path: "/lost-found", desc: "Report missing belongings.", roles: ["USER", "ADMIN"] },
+        { name: "Lost & Found", path: "/lostfound", desc: "Report missing belongings.", roles: ["USER", "ADMIN"] },
         { name: "Model Papers", path: "/model-papers", desc: "Download study materials.", roles: ["USER", "ADMIN"] },
         { name: "Study Room Booking", path: "/study-rooms", desc: "Book your library space.", roles: ["USER", "ADMIN"] },
         { name: "Shuttle Service", path: "/shuttle-service", desc: "Transport schedule.", roles: ["USER", "ADMIN"] }
