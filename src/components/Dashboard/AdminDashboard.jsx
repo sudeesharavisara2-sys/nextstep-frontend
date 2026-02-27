@@ -27,7 +27,7 @@ const AdminDashboard = () => {
        
         { name: "Club Events", path: "/admin-club-events", desc: "Approve or create club events." },
         { name: "Stalls", path: "/stalls", desc: "Manage campus market stalls." },
-        { name: "Lost & Found", path: "/lost-found", desc: "Review reported items." },
+        { name: "Lost & Found", path: "/lostfound", desc: "Review reported items." },
         { name: "Model Papers", path: "/manage-model-papers", desc: "Update academic model papers." },
         { name: "Study Room Booking", path: "/study-rooms", desc: "Control room availability." },
         { name: "Shuttle Service", path: "/add-shuttle", desc: "Update bus schedules and manage shuttles." }

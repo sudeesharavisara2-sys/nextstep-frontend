@@ -44,11 +44,13 @@ import "./styles/App.css";
 import "./components/stallbooking/stallbooking.css";
 
 // ---------- Guards ----------
+// USER හෝ ADMIN දෙදෙනාටම access
 const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" replace />;
 };
 
+// ADMIN පමණක්
 const RequireAdmin = ({ children }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("userRole");
@@ -89,12 +91,12 @@ function App() {
         <Route path="/club-events" element={<RequireAuth><ClubEventDashboard /></RequireAuth>} />
         <Route path="/admin-club-events" element={<RequireAdmin><AdminClubDashboard /></RequireAdmin>} />
 
-        {/* Lost & Found Routes (Merged from dev-yathushiha) */}
+        {/* Lost & Found Routes - USER සහ ADMIN දෙදෙනාටම */}
         <Route path="/lostfound" element={<RequireAuth><LostFoundHome /></RequireAuth>} />
         <Route path="/lostfound/items" element={<RequireAuth><ItemList /></RequireAuth>} />
         <Route path="/lostfound/report" element={<RequireAuth><ReportItem /></RequireAuth>} />
 
-        {/* Other Core System Placeholder */}
+        {/* Core System */}
         <Route path="/core-system" element={<RequireAuth><div>Core System Page</div></RequireAuth>} />
 
         {/* ADMIN ROUTES */}
